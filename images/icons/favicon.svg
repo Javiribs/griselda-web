@@ -1,0 +1,7 @@
+<!-- //TODO: substituir per un favicon real (basat en el logo del far) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <rect width="48" height="48" rx="10" fill="#102D4A" />
+  <path d="M22 8h4l2 6h-8l2-6z" fill="#F1F3F0" />
+  <path d="M19 16h10l3 22H16l3-22z" fill="#F1F3F0" />
+  <rect x="17.5" y="22" width="13" height="3" fill="#F0A94E" />
+</svg>

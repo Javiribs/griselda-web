@@ -1,0 +1,36 @@
+:root {
+  /* Colores base */
+  --blau-nit: #102D4A;
+  --boira: #F1F3F0;
+  --llum-far: #F0A94E;
+  --blau-mar: #6FADD1;
+  --verd-molsa: #7C9473;
+  --pedra: #5B5A52;
+
+  /* Fondos sutiles por sección */
+  --bg-base: #F1F3F0;
+  --bg-hero: #EEF1F1;
+  --bg-families: #F9F1E6;
+  --bg-alumnes: #EAF4FA;
+  --bg-equips: #F1F3EC;
+  --bg-card: #F7F6F3;
+
+  /* Texto */
+  --text-primary: var(--blau-nit);
+  --text-secondary: var(--pedra);
+  --text-on-dark: var(--boira);
+
+  /* Tipografía */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Karla', sans-serif;
+  --font-utility: 'Archivo', sans-serif;
+
+  /* Escala tipográfica */
+  --text-h1: 600 44px/1.15 var(--font-display);
+  --text-h2: 600 30px/1.2 var(--font-display);
+  --text-h3: 600 20px/1.3 var(--font-display);
+  --text-eyebrow: 500 12px/1 var(--font-utility);
+  --text-body: 400 16px/1.6 var(--font-body);
+  --text-body-strong: 500 16px/1.6 var(--font-body);
+  --text-small: 400 13px/1.5 var(--font-body);
+}

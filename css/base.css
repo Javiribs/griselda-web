@@ -1,0 +1,89 @@
+/* ==========================================================================
+   BASE — estilos generales de elementos HTML
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font: var(--text-body);
+  color: var(--text-primary);
+  background-color: var(--bg-base);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-primary);
+}
+
+h1 {
+  font: var(--text-h1);
+}
+
+h2 {
+  font: var(--text-h2);
+  margin-bottom: var(--space-md);
+}
+
+h3 {
+  font: var(--text-h3);
+  margin-bottom: var(--space-sm);
+}
+
+p {
+  margin-bottom: var(--space-sm);
+  color: var(--text-secondary);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+strong {
+  font: var(--text-body-strong);
+  color: var(--text-primary);
+}
+
+a {
+  transition: color var(--transition-fast);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--blau-mar);
+  outline-offset: 2px;
+}
+
+section {
+  padding-block: var(--space-xxl);
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font: var(--text-eyebrow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blau-nit);
+  margin-bottom: var(--space-xs);
+}
+
+.section-intro {
+  max-width: 60ch;
+  margin-bottom: var(--space-lg);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

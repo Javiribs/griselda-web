@@ -1,0 +1,39 @@
+/* ==========================================================================
+   TOKENS — espaiats, radis, ombres, transicions i mides de layout.
+   (NO conté color ni tipografia: això viu a variables.css / fonts.css)
+   ========================================================================== */
+
+:root {
+  /* --- Espaiats --- */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-xxl: 6rem;
+
+  /* --- Layout --- */
+  --container-width: 1140px;
+  --container-padding: 1.25rem;
+  --header-height: 92px;
+
+  /* --- Radis --- */
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 28px;
+
+  /* --- Ombres --- */
+  --shadow-sm: 0 2px 10px rgba(16, 45, 74, 0.08);
+  --shadow-md: 0 8px 30px rgba(16, 45, 74, 0.12);
+
+  /* --- Transicions --- */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.35s ease;
+
+  /* --- Estats funcionals (validació de formulari) ---
+     No formen part de la paleta de marca; el sistema de disseny del far no
+     defineix cap vermell/verd d'estat, així que es reutilitza --verd-molsa
+     per a èxit i s'afegeix un vermell terrós discret per a error. */
+  --state-success: var(--verd-molsa);
+  --state-error: #b3492f;
+}

@@ -1,0 +1,568 @@
+/* ==========================================================================
+   LAYOUT — estructura general, contenedores, grids de secciones
+   Mobile-first: aquí solo va el layout base para móvil.
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* --- Header --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-base);
+  border-bottom: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  transition: background-color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* A la home, la capçalera es superposa a la foto del hero (transparent)
+   fins que l'usuari fa scroll; llavors esdevé sòlida i fixa (.is-solid,
+   controlat des de js/nav.js). */
+.page-home .site-header {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  background-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.page-home .site-header.is-solid {
+  position: fixed;
+  background-color: var(--bg-base);
+  border-bottom-color: color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-home .site-header .site-brand__name,
+.page-home .site-header .site-brand__collegiat,
+.page-home .site-header .site-nav__link,
+.page-home .site-header .nav-toggle__bar {
+  color: var(--text-on-dark);
+  transition: color var(--transition-base);
+}
+
+.page-home .site-header.is-solid .site-brand__name,
+.page-home .site-header.is-solid .site-nav__link {
+  color: var(--text-primary);
+}
+
+.page-home .site-header.is-solid .site-brand__collegiat {
+  color: var(--text-secondary);
+}
+
+.page-home .site-header.is-solid .nav-toggle__bar {
+  background-color: var(--text-primary);
+}
+
+/* Quan el menú mòbil és obert, el calaix té fons sòlid: el text sempre
+   ha de ser fosc encara que la capçalera segueixi "transparent". */
+.page-home .site-nav.is-open .site-nav__link {
+  color: var(--text-primary);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+  /* Sense .container: el logo i el nav queden ancorats a les cantonades
+     reals de la pantalla, no del contenidor centrat de 1140px. El padding
+     escala amb el viewport perquè en pantalles amples no quedin enganxats
+     al mateix caire (una mica més d'aire que --container-padding). */
+  width: 100%;
+  padding-inline: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.site-brand__logo {
+  width: 40px;
+  height: 40px;
+}
+
+.site-brand__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.site-brand__name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.site-brand__collegiat {
+  font: var(--text-small);
+  color: var(--text-secondary);
+}
+
+/* --- Navegación --- */
+.site-nav {
+  position: fixed;
+  inset: var(--header-height) 0 0 0;
+  background-color: var(--bg-base);
+  transform: translateY(-8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), transform var(--transition-base), visibility var(--transition-base);
+  overflow-y: auto;
+}
+
+.site-nav.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.site-nav__list {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-lg) var(--container-padding);
+  gap: var(--space-md);
+}
+
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-primary);
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --- Hero / Home ---
+   Foto a pantalla completa amb la capçalera superposada; el títol i les
+   accions es mostren sobre la imatge amb un degradat (to --blau-nit) per
+   garantir contrast. --bg-hero fa de color de base sota la foto. */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background-color: var(--bg-hero);
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* El far de la foto queda al terç esquerre/superior de la imatge: en
+     mòbil (retall horitzontal molt agressiu, pantalla estreta) cal desviar
+     el punt d'ancoratge cap a l'esquerra perquè no quedi tallat. En
+     desktop el retall és mínim (o vertical), així que aquest mateix valor
+     no perjudica la composició. */
+  object-position: 18% 25%;
+}
+
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--blau-nit) 80%, transparent) 0%,
+    color-mix(in srgb, var(--blau-nit) 30%, transparent) 45%,
+    color-mix(in srgb, var(--blau-nit) 40%, transparent) 100%
+  );
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  color: var(--text-on-dark);
+  padding-block: calc(var(--header-height) + var(--space-lg)) var(--space-xl);
+  max-width: 46rem;
+}
+
+.hero__content h1,
+.hero__content p {
+  color: var(--text-on-dark);
+}
+
+/* Titular del hero: més gran que la resta d'h1 del lloc i amb mida fluida
+   (creix amb el viewport) perquè no quedi comprimit en pantalles amples. */
+.hero__content h1 {
+  font-size: clamp(2.5rem, 1.5rem + 5vw, 4.25rem);
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+/* --- Secciones con imagen + texto (Qui soc) --- */
+.split {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.split__image {
+  width: 100%;
+  max-width: 480px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.split__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.split__content {
+  width: 100%;
+}
+
+/* --- La meva mirada --- */
+/* --- La meva mirada: gran targeta amb foto de fons, degradat i text
+   flotant (patró de referència: urbanmindpoint.com) --- */
+.mirada__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  min-height: 26rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.mirada__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.mirada__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mirada__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Tint uniforme (no direccional): el text ara ocupa pràcticament tot
+     l'ample de la targeta, així que necessita contrast homogeni arreu,
+     no només a l'esquerra. */
+  background: color-mix(in srgb, var(--blau-nit) 62%, transparent);
+}
+
+.mirada__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.mirada__content h2,
+.mirada__content p {
+  color: var(--text-on-dark);
+}
+
+.mirada__content p {
+  font-size: 1.2rem;
+}
+
+.mirada__content .section-eyebrow {
+  color: var(--llum-far);
+  font-size: 0.95rem;
+}
+
+.mirada__content .btn {
+  margin-top: var(--space-xl);
+}
+
+/* --- Tallers: graella de fitxes (només tallers.html; el home fa servir
+   el carrusel d'aquí sota) --- */
+.tallers-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.tallers-footer-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+/* --- Tallers: carrusel d'una sola línia (home #tallers) --- */
+.tallers-carousel {
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+.tallers-carousel__track {
+  display: flex;
+  gap: var(--space-md);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
+  padding: 0.25rem 0.25rem var(--space-sm);
+  margin: -0.25rem -0.25rem calc(var(--space-sm) * -1);
+  scrollbar-width: none;
+}
+
+.tallers-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Totes les fitxes del carrusel han de fer la mateixa mida, independentment
+   del carrusel/pestanya on estiguin i de si el text és més llarg o curt:
+   alçada fixa + el títol i el resum es trunquen a un nombre fix de línies. */
+.tallers-carousel__track .taller-card {
+  flex: 0 0 250px;
+  scroll-snap-align: start;
+  height: 380px;
+}
+
+.tallers-carousel__track .taller-card__title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.tallers-carousel__track .taller-card__summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+.tallers-carousel__arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--bg-card);
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 15%, transparent);
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  line-height: 1;
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.tallers-carousel__arrow:hover {
+  background-color: var(--blau-mar);
+  color: var(--text-on-dark);
+}
+
+.tallers-carousel__arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tallers-carousel__arrow--prev {
+  left: -0.5rem;
+}
+
+.tallers-carousel__arrow--next {
+  right: -0.5rem;
+}
+
+/* Quan totes les fitxes hi caben sense fer scroll, s'amaguen les fletxes */
+.tallers-carousel.no-overflow .tallers-carousel__arrow {
+  display: none;
+}
+
+/* El text d'intro de #tallers ocupa el mateix ample que la resta de la
+   secció (tabs, carrusels de fitxes), no la columna estreta per defecte
+   de .section-intro (pensada per #contacte) */
+#tallers .section-intro {
+  max-width: none;
+}
+
+/* Secció pròpia per als tallers del programa Tallers Connecta (Fundació
+   Salut i Comunitat): separada de #tallers. El fons de la secció és el
+   mateix que la resta de la web (--bg-base); el requadre que conté les
+   fitxes reprodueix el to de la secció anterior (Famílies, --bg-families). */
+.tallers-connecta__box {
+  background-color: var(--bg-families);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+/* Al home, cada panell de pestanya reprodueix el mateix to de fons que la
+   seva categoria a tallers.html */
+#panel-families,
+#panel-alumnes,
+#panel-equips {
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+
+#panel-families {
+  background-color: var(--bg-families);
+}
+
+#panel-alumnes {
+  background-color: var(--bg-alumnes);
+}
+
+#panel-equips {
+  background-color: var(--bg-equips);
+}
+
+/* --- Pàgina tallers.html --- */
+.page-banner {
+  background-color: var(--bg-card);
+  padding-block: var(--space-xl);
+}
+
+.page-banner__inner {
+  max-width: 62ch;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-utility);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.back-link:hover {
+  color: var(--blau-mar);
+}
+
+.category-quicknav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  padding-block: var(--space-md);
+  position: sticky;
+  top: var(--header-height);
+  background-color: var(--bg-base);
+  border-bottom: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  z-index: 20;
+}
+
+.category-quicknav__link {
+  padding: 0.5em 1.1em;
+  border-radius: 999px;
+  background-color: var(--bg-card);
+  font-family: var(--font-utility);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.category-quicknav__link:hover {
+  background-color: var(--blau-mar);
+  color: var(--text-on-dark);
+}
+
+.taller-category {
+  padding-block: var(--space-xl);
+  scroll-margin-top: calc(var(--header-height) + 60px);
+}
+
+/* Cada categoria de tallers té el seu propi to de fons subtil */
+#categoria-families {
+  background-color: var(--bg-families);
+}
+
+#categoria-alumnes {
+  background-color: var(--bg-alumnes);
+}
+
+#categoria-equips {
+  background-color: var(--bg-equips);
+}
+
+/* --- A qui m'adreço --- */
+.audience-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+/* --- Contacte --- */
+.contact-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* --- Footer --- */
+.site-footer {
+  background-color: var(--blau-nit);
+  color: var(--text-on-dark);
+  padding-block: var(--space-lg);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+.site-footer a {
+  color: var(--text-on-dark);
+}
+
+.site-footer p {
+  color: color-mix(in srgb, var(--text-on-dark) 70%, transparent);
+}

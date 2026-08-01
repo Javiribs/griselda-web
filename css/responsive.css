@@ -1,0 +1,101 @@
+/* ==========================================================================
+   RESPONSIVE — mobile-first: aquí van las media queries para tablet/desktop
+   ========================================================================== */
+
+/* --- Tablet (>= 768px) --- */
+@media (min-width: 768px) {
+  .split--reverse .split__inner {
+    flex-direction: row-reverse;
+  }
+
+  .split__inner {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .audience-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-grid {
+    flex-direction: row;
+  }
+
+  .tallers-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mirada__card {
+    min-height: 30rem;
+  }
+
+  .mirada__content {
+    padding: var(--space-xxl) var(--space-xl);
+  }
+
+  .tallers-carousel__track .taller-card {
+    flex-basis: 280px;
+    height: 395px;
+  }
+}
+
+/* --- Desktop (>= 1024px) --- */
+@media (min-width: 1024px) {
+  .mirada__card {
+    min-height: 34rem;
+  }
+
+  .hero__content {
+    /* Prou ample perquè el titular (font-size fixat a 4.25rem des dels
+       ~880px) hi càpiga en 2 línies en lloc de 3. */
+    max-width: 72rem;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .site-nav {
+    position: static;
+    inset: auto;
+    background: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    overflow: visible;
+  }
+
+  .site-nav__list {
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    gap: var(--space-lg);
+  }
+
+  .audience-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .tallers-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .tallers-carousel__track .taller-card {
+    flex-basis: 300px;
+    height: 410px;
+  }
+
+  .tallers-carousel__arrow--prev {
+    left: -1.25rem;
+  }
+
+  .tallers-carousel__arrow--next {
+    right: -1.25rem;
+  }
+
+  .contact-grid > * {
+    flex: 1;
+  }
+}

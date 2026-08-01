@@ -1,0 +1,278 @@
+/* ==========================================================================
+   COMPONENTS — botones, tabs, tarjetas, formulario
+   ========================================================================== */
+
+/* --- Botones ---
+   Primari: fons --llum-far (la llum del far) amb text fosc a sobre. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  font-family: var(--font-utility);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center;
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-color: var(--llum-far);
+  color: var(--text-primary);
+}
+
+.btn-primary:hover {
+  background-color: color-mix(in srgb, var(--llum-far) 85%, var(--blau-nit) 15%);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--blau-nit);
+}
+
+.btn-outline:hover {
+  background-color: var(--blau-mar);
+  border-color: var(--blau-mar);
+  color: var(--text-on-dark);
+}
+
+/* Variante para botones sobre foto (hero): borde y texto en --text-on-dark */
+.btn-outline--light {
+  color: var(--text-on-dark);
+  border-color: var(--text-on-dark);
+}
+
+.btn-outline--light:hover {
+  background-color: var(--text-on-dark);
+  border-color: var(--text-on-dark);
+  color: var(--text-primary);
+}
+
+.btn-sm {
+  padding: 0.6em 1.2em;
+  font-size: 0.8rem;
+}
+
+/* --- Navegación: enlaces --- */
+.site-nav__link {
+  font-family: var(--font-utility);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.site-nav__link:hover {
+  color: var(--blau-mar);
+}
+
+/* --- Tabs (Tallers) --- */
+.tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  border-bottom: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  padding-bottom: var(--space-xs);
+}
+
+.tabs__btn {
+  padding: 0.7em 1.3em;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-utility);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.tabs__btn:hover {
+  color: var(--text-primary);
+}
+
+/* Pestanya seleccionada = "encesa" amb la llum del far */
+.tabs__btn[aria-selected="true"] {
+  background-color: var(--llum-far);
+  color: var(--text-primary);
+}
+
+.tabs__panel {
+  display: none;
+}
+
+.tabs__panel.is-active {
+  display: block;
+  animation: fade-in var(--transition-base);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tallers-group__title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+/* --- Fitxa de taller (graella #tallers al home) --- */
+.taller-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-card);
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 100%;
+}
+
+.taller-card__image {
+  aspect-ratio: 16 / 10;
+  background-color: var(--boira);
+}
+
+.taller-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.taller-card__body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: var(--space-md);
+}
+
+.taller-card__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.taller-card__summary {
+  flex-grow: 1;
+  font: var(--text-small);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.taller-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+/* --- Fitxa detallada (tallers.html) --- */
+.taller-detail {
+  scroll-margin-top: calc(var(--header-height) + 70px);
+}
+
+.taller-detail .taller-card__summary {
+  flex-grow: 0;
+}
+
+/* --- Tarjetas (A qui m'adreço) --- */
+.audience-card {
+  background-color: var(--bg-card);
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  height: 100%;
+}
+
+.audience-card__list {
+  display: grid;
+  gap: 0.4em;
+}
+
+.audience-card__list li {
+  color: var(--text-secondary);
+  padding-left: 1.1em;
+  position: relative;
+}
+
+.audience-card__list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--verd-molsa);
+}
+
+/* --- Formulario de contacte --- */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  margin-bottom: var(--space-md);
+}
+
+.form-field label {
+  font-family: var(--font-utility);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-field input,
+.form-field textarea {
+  padding: 0.8em 1em;
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+}
+
+.form-field textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.form-field input:invalid[data-touched="true"],
+.form-field textarea:invalid[data-touched="true"] {
+  border-color: var(--state-error);
+}
+
+.form-field__error {
+  font-size: 0.8rem;
+  color: var(--state-error);
+  min-height: 1em;
+}
+
+.form-status {
+  margin-top: var(--space-sm);
+  padding: 0.9em 1.2em;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-utility);
+  font-weight: 500;
+  display: none;
+}
+
+.form-status.is-success {
+  display: block;
+  background-color: color-mix(in srgb, var(--state-success) 12%, transparent);
+  color: var(--state-success);
+}
+
+.form-status.is-error {
+  display: block;
+  background-color: color-mix(in srgb, var(--state-error) 10%, transparent);
+  color: var(--state-error);
+}
