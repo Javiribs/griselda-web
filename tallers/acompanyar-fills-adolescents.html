@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Com acompanyar els fills/es adolescents? — Griselda</title>
+  <meta name="description" content="Entendre és el primer pas per poder acompanyar. Un programa de dues sessions per ajudar les famílies a comprendre millor l'adolescència, comunicar-se amb més proximitat i posar límits amb respecte." />
+
+  <!-- Fonts autoallotjades (sense Google Fonts CDN, per RGPD i rendiment) -->
+  <link rel="preload" href="../fonts/fraunces/Fraunces-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../fonts/karla/Karla-Regular.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- //TODO: reemplazar por el favicon real -->
+  <link rel="icon" href="../images/icons/favicon.svg" type="image/svg+xml" />
+
+  <link rel="stylesheet" href="../css/fonts.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/tokens.css" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+</head>
+<body class="page-taller">
+
+  <a class="visually-hidden" href="#main-content">Saltar al contingut principal</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="../index.html#home" class="site-brand">
+        <!-- //TODO: sustituir por el logo real (el far) -->
+        <img class="site-brand__logo" src="../images/icons/logo-far.svg" alt="Logotip de Griselda: un far" />
+        <span class="site-brand__text">
+          <span class="site-brand__name">Griselda</span>
+          <span class="site-brand__collegiat">Núm. col·legiada: 31.786</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Obre el menú de navegació">
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+
+      <nav class="site-nav" id="siteNav" aria-label="Navegació principal">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link" href="../index.html#qui-soc">Qui soc</a></li>
+          <li><a class="site-nav__link" href="../tallers.html">Tallers</a></li>
+          <li><a class="site-nav__link" href="../index.html#a-qui-madreco">A qui m'adreço</a></li>
+          <li><a class="site-nav__link" href="../index.html#contacte">Contacte</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ===================== BANNER ===================== -->
+    <section class="page-banner">
+      <div class="container page-banner__inner">
+        <h1>Com acompanyar els fills/es adolescents?</h1>
+        <a class="back-link" href="../tallers.html#categoria-families">&larr; Torna al catàleg de tallers</a>
+        <span class="section-eyebrow">Famílies</span>
+      </div>
+    </section>
+
+    <!-- ===================== DETALL ===================== -->
+    <section id="taller-detail">
+      <div class="container split">
+        <div class="split__inner">
+          <div class="split__image">
+            <!-- //TODO: substituir per una foto real d'aquest taller -->
+            <img src="../images/tallers/categoria-families.jpg" alt="Com acompanyar els fills/es adolescents?" />
+          </div>
+          <div class="split__content">
+            <ul class="taller-page__info">
+              <li><span aria-hidden="true">🎯</span> Famílies amb fills i filles preadolescents i adolescents, AMPAs, AFAs, centres educatius, ajuntaments i entitats.</li>
+              <li><span aria-hidden="true">⏱️</span> 2 sessions de 2 hores (adaptable a 90 minuts) — Sessió 1: Entendre · Sessió 2: Acompanyar.</li>
+              <li><span aria-hidden="true">📍</span> Presencial.</li>
+            </ul>
+            <div class="taller-page__description">
+              <p>Entendre és el primer pas per poder acompanyar. Un programa de dues sessions per ajudar les famílies a comprendre millor aquesta etapa, comunicar-se amb més proximitat, posar límits amb respecte i reforçar l'autoestima i el vincle familiar.</p>
+            </div>
+            <div class="taller-page__actions">
+              <a class="btn btn-primary" href="../index.html?taller=Com%20acompanyar%20els%20fills%2Fes%20adolescents%3F#contacte">Contractar aquest taller</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span class="site-brand__name">Griselda</span>
+      <p>Psicòloga infantil i juvenil · Núm. col·legiada: 31.786</p>
+      <!-- //TODO: afegir enllaços reals de contacte / xarxes socials -->
+      <p>&copy; <span id="currentYear"></span> Griselda. Tots els drets reservats.</p>
+    </div>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

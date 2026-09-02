@@ -72,13 +72,27 @@
 }
 
 /* --- Tabs (Tallers) --- */
+.tabs__list-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  border-bottom: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  padding-bottom: var(--space-xs);
+}
+
+.tabs__label {
+  font-family: var(--font-utility);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
 .tabs__list {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-xs);
-  margin-bottom: var(--space-lg);
-  border-bottom: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
-  padding-bottom: var(--space-xs);
 }
 
 .tabs__btn {
@@ -120,15 +134,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.tallers-group__title {
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-primary);
-  margin-top: var(--space-md);
-  margin-bottom: var(--space-xs);
 }
 
 /* --- Fitxa de taller (graella #tallers al home) --- */
@@ -190,31 +195,87 @@
   flex-grow: 0;
 }
 
+.taller-card__byline {
+  font: var(--text-small);
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-top: -0.3em;
+  margin-bottom: var(--space-xs);
+}
+
+/* --- Pàgina individual de taller (tallers/*.html) --- */
+.taller-page__program {
+  font-family: var(--font-utility);
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--verd-molsa);
+  margin-bottom: var(--space-sm);
+}
+
+.taller-page__info {
+  display: grid;
+  gap: 0.6em;
+  margin-bottom: var(--space-md);
+}
+
+.taller-page__info li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  color: var(--text-secondary);
+}
+
+.taller-page__info li span {
+  flex-shrink: 0;
+  font-size: 1.15rem;
+  line-height: 1.5;
+}
+
+.taller-page__description p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.taller-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
 /* --- Tarjetas (A qui m'adreço) --- */
 .audience-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3em;
   background-color: var(--bg-card);
   border: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
   border-radius: var(--radius-md);
-  padding: var(--space-md);
+  padding: var(--space-lg);
   height: 100%;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.audience-card__list {
-  display: grid;
-  gap: 0.4em;
+.audience-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
-.audience-card__list li {
+.audience-card__icon {
+  font-size: 2.25rem;
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.audience-card__title {
+  margin-bottom: 0;
+}
+
+.audience-card__text {
   color: var(--text-secondary);
-  padding-left: 1.1em;
-  position: relative;
-}
-
-.audience-card__list li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  color: var(--verd-molsa);
+  margin-bottom: 0;
 }
 
 /* --- Formulario de contacte --- */

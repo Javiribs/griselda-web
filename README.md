@@ -3,13 +3,20 @@
 Web en HTML/CSS/JS pur, sense frameworks ni eines de build. Contingut en
 català, extret del document original `griselda-web.docx`.
 
-El lloc té dues pàgines:
+El lloc té tres nivells de pàgines:
 
 - **`index.html`** — la home, amb un resum de tot el que s'ofereix (qui és la
-  Griselda, la seva mirada, fitxes resum dels tallers, a qui s'adreça i el
-  formulari de contacte).
-- **`tallers.html`** — el catàleg complet de tallers, amb una secció pròpia
-  (i el seu ancoratge `id`) per a cada taller individual.
+  Griselda, la seva mirada, fitxes resum dels tallers en pestanyes Famílies /
+  Adolescents / Projectes i col·laboracions, a qui s'adreça i el formulari de
+  contacte).
+- **`tallers.html`** — el catàleg complet: hero, text introductori (extret del
+  document `WEB Griselda.pdf`) i un carrusel de fitxes per a cada grup
+  (Famílies / Adolescents / Projectes i col·laboracions), cadascuna enllaçant
+  a la seva pàgina pròpia.
+- **`tallers/*.html`** — una pàgina individual per taller (12 en total), amb
+  destinataris, durada i modalitat (amb icones/emoticones) i la descripció
+  completa. Cada URL pròpia permet indexar i posicionar cada taller per
+  separat (SEO), a diferència d'un simple ancoratge dins `tallers.html`.
 
 ## Estructura del projecte
 
@@ -17,6 +24,19 @@ El lloc té dues pàgines:
 griselda-web/
 ├── index.html
 ├── tallers.html
+├── tallers/
+│   ├── caixa-eines-adolescencia-mode-on.html
+│   ├── acompanyar-fills-adolescents.html
+│   ├── converses-addiccions.html
+│   ├── adolescencia-mode-on.html
+│   ├── educar-la-mirada.html
+│   ├── neurodiversitat-aula.html
+│   ├── resolucio-conflictes.html
+│   ├── tothom-mobil-menys-jo.html
+│   ├── tothom-mobil-menys-jo-online.html
+│   ├── parlem-pantalles.html
+│   ├── somriu-son-adolescents.html
+│   └── parlem-i-actua.html
 ├── css/
 │   ├── fonts.css         # @font-face de les tipografies autoallotjades
 │   ├── reset.css        # normalització entre navegadors
@@ -34,14 +54,19 @@ griselda-web/
 │   ├── main.js            # inicialitzacions generals (any al footer, etc.)
 │   ├── nav.js              # menú hamburguesa, capçalera transparent/sòlida
 │   │                         del hero i scroll suau als ancoratges
-│   ├── tallers.js          # tabs Famílies / Alumnes / Equips i professionals
-│   │                         + carrusel de fitxes amb fletxes (només a index.html)
+│   ├── tallers.js          # tabs Famílies / Adolescents / Projectes i
+│   │                         col·laboracions + carrusel de fitxes amb
+│   │                         fletxes (a index.html i tallers.html)
 │   └── form.js             # validació del formulari de contacte (frontend)
 ├── images/
 │   ├── icons/               # logo, favicon, icones
 │   └── tallers/              # fotos (hero, retrat, categories de tallers...)
 └── README.md
 ```
+
+Cada pàgina de `tallers/*.html` és un nivell de carpeta per sota de
+`index.html`, així que totes les rutes relatives (`css/`, `js/`, `images/`,
+`fonts/`, `index.html`, `tallers.html`) hi porten el prefix `../`.
 
 ## Sistema de disseny — metàfora del far
 
@@ -62,9 +87,11 @@ ombres, transicions i mides de layout viuen a `css/tokens.css`.
 | `--pedra` | `#5B5A52` | `--text-secondary` (paràgrafs, text secundari) |
 
 Fons per secció: `--bg-base` (general), `--bg-hero` (darrere la foto del
-hero), `--bg-families` / `--bg-alumnes` / `--bg-equips` (cada categoria de
-tallers, tant a `index.html#tallers` com a `tallers.html`) i `--bg-card`
-(targetes, inputs, fitxes de taller).
+hero), `--bg-families` (els tres panells de pestanya a `index.html#tallers`)
+i `--bg-card` (targetes, inputs, fitxes de taller). A `tallers.html` les
+tres categories comparteixen `--bg-base`; es diferencien amb una ratlla de
+color pròpia sota cada `h2` (`--llum-far` / `--blau-mar` / `--verd-molsa`),
+no amb un fons propi.
 
 ### Tipografia
 
@@ -106,21 +133,23 @@ contacte.
 
 ## Com funcionen les fitxes de taller → "Contractar" / "Més informació"
 
-A `index.html`, la secció `#tallers` mostra una fitxa per cada taller (foto,
-resum breu i dos botons):
+Tant a `index.html` (secció `#tallers`) com a `tallers.html`, cada fitxa de
+taller (foto, resum breu) porta dos botons:
 
-- **Més informació** obre `tallers.html#<id-del-taller>`, que salta
-  directament a la secció d'aquell taller concret dins el catàleg complet.
+- **Més informació** obre la pàgina pròpia del taller a `tallers/<slug>.html`
+  (p. ex. `tallers/parlem-i-actua.html`), amb els destinataris, la durada, la
+  modalitat i la descripció completa.
 - **Contractar** porta a `index.html?taller=Nom%20del%20taller#contacte`.
   `js/form.js` llegeix el paràmetre `taller` de la URL en carregar la pàgina
   i precarrega el camp de missatge del formulari amb el nom del taller, per
   estalviar feina a qui contacta. Després neteja la URL amb
-  `history.replaceState` perquè quedi neta.
+  `history.replaceState` perquè quedi neta. Des de `tallers/<slug>.html`
+  aquest enllaç porta a `../index.html?taller=...#contacte`.
 
 Si s'afegeix, s'elimina o es renombra algun taller, cal actualitzar-lo a la
-vegada a tres llocs: la fitxa resum a `index.html`, la secció detallada amb
-el mateix `id` a `tallers.html`, i l'enllaç `Més informació`/`Contractar`
-corresponent.
+vegada a quatre llocs: la fitxa resum a `index.html`, la fitxa resum a
+`tallers.html`, la seva pàgina pròpia a `tallers/<slug>.html`, i tots els
+enllaços `Més informació`/`Contractar` corresponents.
 
 ## Com obrir el projecte
 
@@ -159,23 +188,35 @@ Falten totes les imatges reals. Marcades amb `//TODO` a `index.html`,
       foto per una amb el far en una altra posició, cal reajustar aquest
       valor.
 - [x] Foto de la Griselda per a la secció "Qui soc" (`images/home/perfil_gris.jpg`)
-- [ ] Fotos dels tallers: de moment totes les fitxes reutilitzen 3 imatges
-      genèriques per categoria (`categoria-families.jpg`, `categoria-alumnes.jpg`,
-      `categoria-equips.jpg`). Es pot deixar així o anar-les substituint per
-      una foto pròpia de cada taller quan n'hi hagi disponibles (21 fitxes en
-      total, repartides entre `index.html` i `tallers.html`).
+- [ ] Fotos dels tallers: de moment totes les fitxes reutilitzen 2 imatges
+      genèriques per categoria (`categoria-families.jpg`, `categoria-alumnes.jpg`
+      — aquest darrer nom es manté encara que la categoria ara es digui
+      "Adolescents"). Es pot deixar així o anar-les substituint per una foto
+      pròpia de cada taller quan n'hi hagi disponibles (12 fitxes en total,
+      repartides entre `index.html` i `tallers.html`).
 
 ### Contingut dels tallers
 
 El document original (`griselda-web.docx`) només tenia el **títol** de cada
-taller, sense cap descripció. Per poder construir les fitxes s'ha redactat
-un resum breu (per a `index.html`) i una descripció una mica més àmplia (per
-a `tallers.html`) per a cadascun dels 21 tallers/línies de servei. Estan
-marcats amb `//TODO` a dalt de la secció `#tallers` (`index.html`) i al
-principi del contingut de `tallers.html`:
+taller, sense cap descripció. Posteriorment la Griselda ha facilitat un
+document (`images/tallers/WEB Griselda.pdf`) amb el contingut ampliat de
+cada taller (destinataris, durada, modalitat i descripció) per a Famílies i
+Adolescents, i amb la llista dels tallers del programa Tallers Connecta
+(grup "Projectes i col·laboracions"). Els tres grups (Famílies / Adolescents
+/ Projectes i col·laboracions) es mostren com a pestanyes a `index.html#tallers`
+i com a seccions ancorades a `tallers.html`. Aquest document ja no inclou la
+categoria "Equips i professionals" ni 4 tallers que hi havia abans a
+"Alumnes" (dol en l'adolescència, benestar universitari, gestió emocional
+d'estrès/ansietat, salut digital en la infància) ni 2 que hi havia a
+"Famílies" (Pantalles i +pantalles!, Salut digital en la infància); s'han
+eliminat de la web en la reestructuració. Pendent:
 
+- [ ] Revisar amb la Griselda que aquesta eliminació és correcta (o si cal
+      recuperar algun d'aquests tallers en una altra categoria).
 - [ ] Revisar i, si cal, reescriure els resums/descripcions de cada taller
       amb la Griselda abans de publicar.
+- [x] Destinataris/Durada/Modalitat porten icona (🎯 ⏱️ 📍) a les pàgines
+      individuals `tallers/*.html`, tal com suggeria el document original.
 - [ ] Revisar el text de "La meva mirada" — al document original hi havia
       una nota "(revisar aquest text)" pendent de la Griselda.
 - [ ] Confirmar si cal afegir enllaços de xarxes socials / dades de contacte

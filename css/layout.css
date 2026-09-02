@@ -317,15 +317,6 @@
   margin-top: var(--space-xl);
 }
 
-/* --- Tallers: graella de fitxes (només tallers.html; el home fa servir
-   el carrusel d'aquí sota) --- */
-.tallers-cards {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-md);
-  margin-bottom: var(--space-lg);
-}
-
 .tallers-footer-note {
   display: flex;
   flex-wrap: wrap;
@@ -344,7 +335,10 @@
   display: flex;
   gap: var(--space-md);
   overflow-x: auto;
-  scroll-snap-type: x proximity;
+  /* "mandatory" (no "proximity"): en parar de moure's sempre encaixa una
+     fitxa sencera a l'inici, perquè mai quedi una fitxa a mitges tallada
+     al final del carrusel. */
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   padding: 0.25rem 0.25rem var(--space-sm);
   margin: -0.25rem -0.25rem calc(var(--space-sm) * -1);
@@ -364,12 +358,24 @@
   height: 380px;
 }
 
+/* La darrera fitxa encaixa pel seu final (no per l'inici), perquè el
+   carrusel pugui arribar exactament al final sense deixar cap fitxa a
+   mitges abans d'arribar-hi. */
+.tallers-carousel__track .taller-card:last-child {
+  scroll-snap-align: end;
+}
+
 .tallers-carousel__track .taller-card__title {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   line-clamp: 2;
   overflow: hidden;
+  /* Sempre reserva l'alçada de 2 línies (encara que el títol només en
+     faci 1), perquè el resum i els botons quedin a la mateixa alçada en
+     totes les fitxes del carrusel. */
+  line-height: 1.3;
+  min-height: 2.6em;
 }
 
 .tallers-carousel__track .taller-card__summary {
@@ -378,6 +384,8 @@
   -webkit-box-orient: vertical;
   line-clamp: 3;
   overflow: hidden;
+  line-height: 1.5;
+  min-height: 4.5em;
 }
 
 .tallers-carousel__arrow {
@@ -388,13 +396,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background-color: var(--bg-card);
   border: 1px solid color-mix(in srgb, var(--blau-nit) 15%, transparent);
   color: var(--text-primary);
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   line-height: 1;
   box-shadow: var(--shadow-sm);
   transition: background-color var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast);
@@ -430,45 +438,25 @@
   max-width: none;
 }
 
-/* Secció pròpia per als tallers del programa Tallers Connecta (Fundació
-   Salut i Comunitat): separada de #tallers. El fons de la secció és el
-   mateix que la resta de la web (--bg-base); el requadre que conté les
-   fitxes reprodueix el to de la secció anterior (Famílies, --bg-families). */
-.tallers-connecta__box {
-  background-color: var(--bg-families);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-}
-
-/* Al home, cada panell de pestanya reprodueix el mateix to de fons que la
-   seva categoria a tallers.html */
+/* Al home, els tres panells de pestanya (Famílies / Adolescents / Projectes
+   i col·laboracions) comparteixen exactament el mateix disseny de requadre,
+   amb el to de fons de Famílies. */
 #panel-families,
-#panel-alumnes,
-#panel-equips {
+#panel-adolescents,
+#panel-projectes {
+  background-color: var(--bg-families);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-}
-
-#panel-families {
-  background-color: var(--bg-families);
-}
-
-#panel-alumnes {
-  background-color: var(--bg-alumnes);
-}
-
-#panel-equips {
-  background-color: var(--bg-equips);
 }
 
 /* --- Pàgina tallers.html --- */
 .page-banner {
   background-color: var(--bg-card);
-  padding-block: var(--space-xl);
+  padding-block: var(--space-lg);
 }
 
 .page-banner__inner {
-  max-width: 62ch;
+  max-width: 70ch;
 }
 
 .back-link {
@@ -485,32 +473,118 @@
   color: var(--blau-mar);
 }
 
-.category-quicknav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  padding-block: var(--space-md);
-  position: sticky;
-  top: var(--header-height);
-  background-color: var(--bg-base);
-  border-bottom: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
-  z-index: 20;
+/* Banner de cada pàgina individual de taller (tallers/*.html): fons blau
+   fosc de marca, amb el text en blanc trencat (--text-on-dark) a sobre. */
+.page-taller .page-banner {
+  background-color: var(--blau-nit);
 }
 
-.category-quicknav__link {
-  padding: 0.5em 1.1em;
-  border-radius: 999px;
-  background-color: var(--bg-card);
-  font-family: var(--font-utility);
-  font-weight: 500;
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  transition: background-color var(--transition-fast), color var(--transition-fast);
-}
-
-.category-quicknav__link:hover {
-  background-color: var(--blau-mar);
+.page-taller .page-banner h1,
+.page-taller .page-banner .back-link,
+.page-taller .page-banner .section-eyebrow,
+.page-taller .page-banner .taller-card__byline {
   color: var(--text-on-dark);
+}
+
+/* El títol de cada taller ha de cabre en una sola línia: contenidor més
+   ample (com --container-width, no com el de 70ch pensat per a text de
+   paràgraf) i una mida de lletra una mica més continguda que el --text-h1
+   estàndard. */
+.page-taller .page-banner__inner {
+  max-width: var(--container-width);
+}
+
+.page-taller .page-banner h1 {
+  font-size: clamp(1.75rem, 1.1rem + 2.5vw, 2.75rem);
+  line-height: 1.15;
+  white-space: normal;
+}
+
+/* Separació entre el títol (o el byline, si n'hi ha) i l'enllaç de tornada
+   + l'etiqueta de categoria, que quedaven massa enganxats. */
+.page-taller .page-banner .back-link {
+  margin-top: var(--space-md);
+}
+
+/* Banner del catàleg (tallers.html): mateix tractament de color que el
+   banner de cada pàgina de taller. */
+.page-tallers .page-banner {
+  background-color: var(--blau-nit);
+}
+
+.page-tallers .page-banner h1,
+.page-tallers .page-banner p,
+.page-tallers .page-banner .back-link,
+.page-tallers .page-banner .section-eyebrow {
+  color: var(--text-on-dark);
+}
+
+.tallers-intro {
+  padding-block: var(--space-lg) var(--space-xl);
+}
+
+.tallers-intro__grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+/* Subtítol de la intro (en comptes d'un eyebrow petit en majúscules, un
+   títol amb el mateix pes visual que .tallers-intro__highlight-title) */
+.tallers-intro .section-eyebrow {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  font: var(--text-h3);
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.tallers-intro__body {
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.tallers-intro__body p {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.tallers-intro__body p:last-child {
+  margin-bottom: 0;
+}
+
+.tallers-intro__highlight {
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  background-color: var(--bg-card);
+  border-left: 4px solid var(--llum-far);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-lg);
+}
+
+.tallers-intro__highlight-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-bottom: 0.4em;
+}
+
+.tallers-intro__highlight p:not(.tallers-intro__highlight-title) {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 0;
 }
 
 .taller-category {
@@ -518,17 +592,34 @@
   scroll-margin-top: calc(var(--header-height) + 60px);
 }
 
-/* Cada categoria de tallers té el seu propi to de fons subtil */
-#categoria-families {
-  background-color: var(--bg-families);
+/* La intro de cada categoria (Famílies / Adolescents / Projectes i
+   col·laboracions) fa servir el mateix ample que "La meva manera de
+   treballar" més amunt, en comptes de la columna estreta per defecte de
+   .section-intro (pensada per a textos d'una sola línia com #contacte). */
+.taller-category .section-intro {
+  max-width: 900px;
 }
 
-#categoria-alumnes {
-  background-color: var(--bg-alumnes);
+/* Les tres categories comparteixen el mateix fons (--bg-base, com la resta
+   de la web): tres bandes senceres de color apilades verticalment quedaven
+   massa "de mostrari". En comptes d'això, cada h2 porta un petit accent de
+   color propi (una ratlla, no un fons) per diferenciar-les visualment. */
+#categoria-families h2 {
+  border-bottom: 3px solid var(--llum-far);
 }
 
-#categoria-equips {
-  background-color: var(--bg-equips);
+#categoria-adolescents h2 {
+  border-bottom: 3px solid var(--blau-mar);
+}
+
+#categoria-projectes h2 {
+  border-bottom: 3px solid var(--verd-molsa);
+}
+
+.taller-category h2 {
+  display: inline-block;
+  padding-bottom: 0.3em;
+  margin-bottom: var(--space-sm);
 }
 
 /* --- A qui m'adreço --- */
@@ -539,6 +630,15 @@
 }
 
 /* --- Contacte --- */
+.contact-card {
+  max-width: 680px;
+  margin-inline: auto;
+  background-color: var(--bg-card);
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+}
+
 .contact-grid {
   display: flex;
   flex-direction: column;
