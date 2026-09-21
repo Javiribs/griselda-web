@@ -20,10 +20,11 @@
   transition: background-color var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
-/* A la home, la capçalera es superposa a la foto del hero (transparent)
-   fins que l'usuari fa scroll; llavors esdevé sòlida i fixa (.is-solid,
-   controlat des de js/nav.js). */
-.page-home .site-header {
+/* A la home i a tallers.html (totes dues tenen un .hero a pantalla
+   completa), la capçalera es superposa a la foto (transparent) fins que
+   l'usuari fa scroll; llavors esdevé sòlida i fixa (.is-solid, controlat
+   des de js/nav.js). */
+:is(.page-home, .page-tallers) .site-header {
   position: absolute;
   inset-inline: 0;
   top: 0;
@@ -31,37 +32,37 @@
   border-bottom-color: transparent;
 }
 
-.page-home .site-header.is-solid {
+:is(.page-home, .page-tallers) .site-header.is-solid {
   position: fixed;
   background-color: var(--bg-base);
   border-bottom-color: color-mix(in srgb, var(--blau-nit) 12%, transparent);
   box-shadow: var(--shadow-sm);
 }
 
-.page-home .site-header .site-brand__name,
-.page-home .site-header .site-brand__collegiat,
-.page-home .site-header .site-nav__link,
-.page-home .site-header .nav-toggle__bar {
+:is(.page-home, .page-tallers) .site-header .site-brand__name,
+:is(.page-home, .page-tallers) .site-header .site-brand__collegiat,
+:is(.page-home, .page-tallers) .site-header .site-nav__link,
+:is(.page-home, .page-tallers) .site-header .nav-toggle__bar {
   color: var(--text-on-dark);
   transition: color var(--transition-base);
 }
 
-.page-home .site-header.is-solid .site-brand__name,
-.page-home .site-header.is-solid .site-nav__link {
+:is(.page-home, .page-tallers) .site-header.is-solid .site-brand__name,
+:is(.page-home, .page-tallers) .site-header.is-solid .site-nav__link {
   color: var(--text-primary);
 }
 
-.page-home .site-header.is-solid .site-brand__collegiat {
+:is(.page-home, .page-tallers) .site-header.is-solid .site-brand__collegiat {
   color: var(--text-secondary);
 }
 
-.page-home .site-header.is-solid .nav-toggle__bar {
+:is(.page-home, .page-tallers) .site-header.is-solid .nav-toggle__bar {
   background-color: var(--text-primary);
 }
 
 /* Quan el menú mòbil és obert, el calaix té fons sòlid: el text sempre
    ha de ser fosc encara que la capçalera segueixi "transparent". */
-.page-home .site-nav.is-open .site-nav__link {
+:is(.page-home, .page-tallers) .site-nav.is-open .site-nav__link {
   color: var(--text-primary);
 }
 
@@ -208,7 +209,10 @@
   position: relative;
   z-index: 1;
   color: var(--text-on-dark);
-  padding-block: calc(var(--header-height) + var(--space-lg)) var(--space-xl);
+  /* El bloc queda ancorat a la part inferior del hero (.hero té
+     align-items: flex-end): augmentar el padding inferior és el que el
+     "puja" visualment, allunyant-lo del peu de la imatge. */
+  padding-block: calc(var(--header-height) + var(--space-lg)) clamp(var(--space-xl), 38vh, 21rem);
   max-width: 46rem;
 }
 
@@ -223,6 +227,20 @@
   font-size: clamp(2.5rem, 1.5rem + 5vw, 4.25rem);
   line-height: 1.1;
   margin-bottom: var(--space-md);
+}
+
+/* A tallers.html el hero només té un h1 + un subtítol (no botons): es
+   centren tant el bloc com el text, i el subtítol puja de mida perquè
+   faci de contrapès visual al títol. */
+.page-tallers .hero__content {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.page-tallers .hero__content p {
+  font-size: 1.3rem;
+  max-width: 40ch;
+  margin-inline: auto;
 }
 
 .hero__actions {
@@ -254,6 +272,17 @@
   object-fit: cover;
 }
 
+/* A la fitxa individual de cada taller, la foto no té una alçada fixa:
+   sense aspect-ratio, cada imatge agafa l'alçada segons la seva pròpia
+   proporció (una foto quadrada surt molt més alta que una panoràmica),
+   així que les fitxes queden de mides molt diferents entre elles. Fixem
+   la mateixa proporció que les targetes de tallers (16 / 10) perquè totes
+   es vegin igual d'altes, independentment de la foto que hi hagi. */
+#taller-detail .split__image {
+  aspect-ratio: 16 / 10;
+  background-color: var(--bg-white);
+}
+
 .split__content {
   width: 100%;
 }
@@ -280,6 +309,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* La persona de la foto queda per sota del centre de la imatge original:
+     ancorem el retall cap amunt (menys "Y") perquè es vegi més avall dins
+     la targeta, sense tocar la mida de la targeta. */
+  object-position: center 15%;
 }
 
 .mirada__media::after {
@@ -289,7 +322,7 @@
   /* Tint uniforme (no direccional): el text ara ocupa pràcticament tot
      l'ample de la targeta, així que necessita contrast homogeni arreu,
      no només a l'esquerra. */
-  background: color-mix(in srgb, var(--blau-nit) 62%, transparent);
+  background: color-mix(in srgb, var(--blau-nit) 46%, transparent);
 }
 
 .mirada__content {
@@ -304,13 +337,17 @@
   color: var(--text-on-dark);
 }
 
+.mirada__content h2 {
+  font-size: clamp(1.9rem, 1.4rem + 2.2vw, 2.9rem);
+}
+
 .mirada__content p {
   font-size: 1.2rem;
 }
 
 .mirada__content .section-eyebrow {
   color: var(--llum-far);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
 
 .mirada__content .btn {
@@ -355,7 +392,7 @@
 .tallers-carousel__track .taller-card {
   flex: 0 0 250px;
   scroll-snap-align: start;
-  height: 380px;
+  height: 400px;
 }
 
 /* La darrera fitxa encaixa pel seu final (no per l'inici), perquè el
@@ -438,14 +475,17 @@
   max-width: none;
 }
 
-/* Al home, els tres panells de pestanya (Famílies / Adolescents / Projectes
-   i col·laboracions) comparteixen exactament el mateix disseny de requadre,
-   amb el to de fons de Famílies. */
+/* Tot l'apartat de Tallers (no només els panells) porta el to de Famílies
+   de fons, per tallar amb el fons de la resta de la pàgina. */
+#tallers {
+  background-color: var(--bg-families);
+}
+
+/* Els panells ja no porten el seu propi fons ni cantonades (ara el fons el
+   dona la secció sencera): només conserven el padding intern. */
 #panel-families,
 #panel-adolescents,
 #panel-projectes {
-  background-color: var(--bg-families);
-  border-radius: var(--radius-lg);
   padding: var(--space-lg);
 }
 
@@ -504,19 +544,6 @@
    + l'etiqueta de categoria, que quedaven massa enganxats. */
 .page-taller .page-banner .back-link {
   margin-top: var(--space-md);
-}
-
-/* Banner del catàleg (tallers.html): mateix tractament de color que el
-   banner de cada pàgina de taller. */
-.page-tallers .page-banner {
-  background-color: var(--blau-nit);
-}
-
-.page-tallers .page-banner h1,
-.page-tallers .page-banner p,
-.page-tallers .page-banner .back-link,
-.page-tallers .page-banner .section-eyebrow {
-  color: var(--text-on-dark);
 }
 
 .tallers-intro {

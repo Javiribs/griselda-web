@@ -27,16 +27,63 @@
     padding: var(--space-xxl) var(--space-xl);
   }
 
+  .mirada__content p {
+    font-size: 1.3rem;
+  }
+
   .tallers-carousel__track .taller-card {
     flex-basis: 280px;
-    height: 395px;
+    height: 415px;
+  }
+
+  .collaborators__logo {
+    width: 220px;
+    height: 140px;
+    margin-inline: var(--space-xl);
+  }
+
+  .collaborators__logo--lg {
+    width: 290px;
+    height: 185px;
   }
 }
 
 /* --- Desktop (>= 1024px) --- */
 @media (min-width: 1024px) {
+  /* Contenidor més ample: en pantalles grans deixa menys marge lateral
+     buit i el contingut aprofita més l'amplada de la finestra. */
+  :root {
+    --container-width: 1320px;
+  }
+
   .mirada__card {
     min-height: 34rem;
+  }
+
+  .split__content p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+  }
+
+  /* A partir d'aquí ja hi ha prou amplada perquè la frase hi càpiga en una
+     sola línia (en mòbil és físicament impossible sense una lletra
+     il·legible, així que allà es manté el salt de línia natural). */
+  .page-tallers .hero__content {
+    max-width: none;
+  }
+
+  .page-tallers .hero__content p {
+    font-size: 1.5rem;
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  .mirada__content {
+    padding: var(--space-xxl) var(--space-xxl);
+  }
+
+  .mirada__content p {
+    font-size: 1.4rem;
   }
 
   .hero__content {
@@ -72,7 +119,7 @@
 
   .tallers-carousel__track .taller-card {
     flex-basis: 300px;
-    height: 410px;
+    height: 430px;
   }
 
   .tallers-carousel__arrow--prev {
@@ -81,5 +128,15 @@
 
   .tallers-carousel__arrow--next {
     right: -1.25rem;
+  }
+
+  .collaborators__logo {
+    width: 250px;
+    height: 160px;
+  }
+
+  .collaborators__logo--lg {
+    width: 320px;
+    height: 205px;
   }
 }

@@ -12,6 +12,9 @@
   --bg-hero: #EEF1F1;
   --bg-families: #F9F1E6;
   --bg-card: #F7F6F3;
+  /* Blanc pur: fitxes de taller, perquè el fons de la targeta es fongui
+     amb el fons blanc dels propis logos/fotos de cada taller. */
+  --bg-white: #FFFFFF;
 
   /* Texto */
   --text-primary: var(--blau-nit);
