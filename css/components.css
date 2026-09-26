@@ -145,12 +145,23 @@
   border-radius: var(--radius-md);
   overflow: hidden;
   height: 100%;
+  /* Per defecte, un ítem flex no s'encongeix per sota de la mida que
+     demana el seu contingut (min-height: auto implícit), encara que la
+     targeta tingui una alçada fixa. Això feia que la imatge (l'únic
+     element que sí es podia encongir) absorbís la diferència de
+     contingut entre fitxes, donant imatges de mides diferents. */
+  min-height: 0;
   box-shadow: var(--shadow-sm);
 }
 
 .taller-card__image {
   aspect-ratio: 16 / 10;
   background-color: var(--bg-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  flex-shrink: 0;
 }
 
 .taller-card__image img {
@@ -159,13 +170,15 @@
   object-fit: cover;
 }
 
-/* La foto de "Com acompanyar els fills/es adolescents?" (taller2.png) és
-   quadrada, no panoràmica com les altres: amb "cover" dins un requadre
-   16/10 només s'hi veu una franja fina i central, i el resultat és una
-   foto que sembla el doble de gran que la resta. Amb "contain" es veu
-   sencera, a la mateixa escala visual que les altres. */
+/* Il·lustracions gairebé quadrades (no panoràmiques): omplint tot el
+   requadre 16/10 (encara que sigui amb "contain") es veuen massa grosses,
+   perquè el dibuix ja ocupa gairebé tot el seu propi quadrat. Es mostren
+   a la meitat de mida i centrades, com una icona flotant sobre el fons
+   blanc, en lloc d'intentar omplir la targeta. */
 .taller-card__image img.is-photo-contain,
 .split__image img.is-photo-contain {
+  width: 78%;
+  height: 78%;
   object-fit: contain;
 }
 
@@ -173,6 +186,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  min-height: 0;
   padding: var(--space-md);
 }
 
@@ -198,6 +212,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-xs);
+  /* Ancorats sempre al peu de la fitxa (el cos és flex-grow:1 dins d'una
+     targeta d'alçada fixa): així, encara que el títol o el resum d'una
+     fitxa concreta faci servir una mica menys d'espai que les altres, els
+     botons de totes les targetes d'una mateixa fila queden exactament a
+     la mateixa alçada. */
+  margin-top: auto;
 }
 
 /* --- Fitxa detallada (tallers.html) --- */

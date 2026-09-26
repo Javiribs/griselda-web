@@ -282,6 +282,9 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .split__image img {
@@ -426,11 +429,14 @@
   -webkit-box-orient: vertical;
   line-clamp: 2;
   overflow: hidden;
-  /* Sempre reserva l'alçada de 2 línies (encara que el títol només en
-     faci 1), perquè el resum i els botons quedin a la mateixa alçada en
-     totes les fitxes del carrusel. */
+  /* Ni min-height ni height es respecten de manera fiable en un element
+     -webkit-box amb line-clamp quan el text real fa servir menys línies
+     de les reservades (per això els botons quedaven a alçades diferents
+     entre fitxes). flex-basis, en canvi, sí que ho força de manera fiable
+     perquè .taller-card__body és un flex column i aquest n'és un fill
+     directe: 0 0 <alçada> li dona sempre exactament aquest espai. */
   line-height: 1.3;
-  min-height: 2.6em;
+  flex: 0 0 2.6em;
 }
 
 .tallers-carousel__track .taller-card__summary {
@@ -440,7 +446,7 @@
   line-clamp: 3;
   overflow: hidden;
   line-height: 1.5;
-  min-height: 4.5em;
+  flex: 0 0 4.5em;
 }
 
 .tallers-carousel__arrow {
@@ -599,7 +605,7 @@
 }
 
 .tallers-intro {
-  padding-block: var(--space-lg) var(--space-xl);
+  padding-block: var(--space-xxl) var(--space-xl);
 }
 
 .tallers-intro__grid {
@@ -614,7 +620,7 @@
 .tallers-intro .section-eyebrow {
   display: block;
   width: 100%;
-  max-width: 900px;
+  max-width: none;
   margin-inline: auto;
   font: var(--text-h3);
   text-transform: none;
@@ -625,7 +631,7 @@
 
 .tallers-intro__body {
   width: 100%;
-  max-width: 900px;
+  max-width: none;
   margin-inline: auto;
 }
 
@@ -642,7 +648,7 @@
 
 .tallers-intro__highlight {
   width: 100%;
-  max-width: 900px;
+  max-width: none;
   margin-inline: auto;
   background-color: var(--bg-card);
   border-left: 4px solid var(--llum-far);
