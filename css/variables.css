@@ -11,6 +11,10 @@
   --bg-base: #F1F3F0;
   --bg-hero: #EEF1F1;
   --bg-families: #F9F1E6;
+  /* Mateix to que --bg-families però més saturat: pel requadre arrodonit
+     de la secció de Tallers, que necessita destacar més que un simple
+     fons de secció. */
+  --bg-families-strong: color-mix(in srgb, var(--bg-families) 70%, var(--llum-far) 30%);
   --bg-card: #F7F6F3;
   /* Blanc pur: fitxes de taller, perquè el fons de la targeta es fongui
      amb el fons blanc dels propis logos/fotos de cada taller. */

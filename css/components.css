@@ -273,10 +273,15 @@
   box-shadow: var(--shadow-sm);
 }
 
+.audience-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
 .audience-card__icon {
-  font-size: 2.25rem;
+  font-size: 1.75rem;
   line-height: 1;
-  margin-bottom: var(--space-xs);
 }
 
 .audience-card__title {
@@ -351,6 +356,17 @@
 /* --- Entitats i institucions col·laboradores (carrusel de logos) --- */
 .collaborators .container {
   margin-bottom: var(--space-lg);
+}
+
+/* Només l'eyebrow + h2 (el carrusel de logos és un altre contenidor, a
+   fora d'aquest .container, i no es toca): un títol llarg com aquest
+   ocupant tota l'amplada de --container-width (1320px) desentonava amb la
+   resta de capçaleres de secció, més estretes per la seva pròpia mida de
+   text. El max-width va directament a l'eyebrow i l'h2 (no al .container,
+   que amb margin-inline:auto els hauria centrat enlloc de deixar-los
+   alineats a l'esquerra com la resta de títols de secció). */
+.collaborators .container h2 {
+  max-width: 700px;
 }
 
 .collaborators__viewport {

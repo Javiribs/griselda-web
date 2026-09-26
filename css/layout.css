@@ -250,6 +250,24 @@
   margin-top: var(--space-lg);
 }
 
+/* Menys espai entre "Qui soc" i "Filosofia": retallem el padding-block
+   genèric (--space-xxl) només en aquest costat de cada secció, sense
+   afectar la resta de marges de la pàgina. */
+#qui-soc {
+  padding-bottom: var(--space-lg);
+}
+
+#la-meva-mirada {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+
+/* Menys espai entre "Filosofia" i "Tallers". */
+#tallers {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+
 /* --- Secciones con imagen + texto (Qui soc) --- */
 .split {
   display: flex;
@@ -433,13 +451,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background-color: var(--bg-card);
   border: 1px solid color-mix(in srgb, var(--blau-nit) 15%, transparent);
   color: var(--text-primary);
-  font-size: 1.7rem;
+  font-size: 1.9rem;
   line-height: 1;
   box-shadow: var(--shadow-sm);
   transition: background-color var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast);
@@ -455,12 +473,15 @@
   pointer-events: none;
 }
 
+/* Desplaçades prou perquè quedin fora de les fitxes (dins el marge lateral
+   del requadre de Tallers), no pas superposades a sobre de la primera o
+   última targeta com abans. */
 .tallers-carousel__arrow--prev {
-  left: -0.5rem;
+  left: -4rem;
 }
 
 .tallers-carousel__arrow--next {
-  right: -0.5rem;
+  right: -4rem;
 }
 
 /* Quan totes les fitxes hi caben sense fer scroll, s'amaguen les fletxes */
@@ -475,18 +496,49 @@
   max-width: none;
 }
 
-/* Tot l'apartat de Tallers (no només els panells) porta el to de Famílies
-   de fons, per tallar amb el fons de la resta de la pàgina. */
-#tallers {
-  background-color: var(--bg-families);
+/* El gris habitual del text (--text-secondary) es llegeix pitjor sobre el
+   fons crema/taronja fort del requadre de Tallers: aquí s'enfosqueix cap
+   al mateix to fosc dels títols. */
+.tallers-panel .section-intro,
+.tallers-panel .tabs__label {
+  color: var(--text-primary);
 }
 
-/* Els panells ja no porten el seu propi fons ni cantonades (ara el fons el
-   dona la secció sencera): només conserven el padding intern. */
-#panel-families,
-#panel-adolescents,
-#panel-projectes {
-  padding: var(--space-lg);
+/* Tot l'apartat de Tallers queda dins d'un requadre arrodonit (com una
+   targeta gran), no pas amb un fons de secció a sang: el requadre no toca
+   les vores de la pantalla ni la secció següent, que ja torna a tenir el
+   fons normal de la pàgina just a fora.
+
+   El color de fons no és directament sobre .tallers-panel sinó en un
+   pseudo-element (::before) darrere del contingut: així es pot difuminar
+   (mask-image) només el color, només a baix, sense que el text ni les
+   targetes de dins es tornin transparents amb ell. A dalt es manté el
+   tall net (sense difuminar). */
+.tallers-panel {
+  position: relative;
+  z-index: 0;
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm) var(--space-lg) var(--space-lg);
+  --tallers-panel-fade: 160px;
+}
+
+.tallers-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--bg-families-strong);
+  border-radius: inherit;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black calc(100% - var(--tallers-panel-fade)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black calc(100% - var(--tallers-panel-fade)),
+    transparent 100%
+  );
 }
 
 /* --- Pàgina tallers.html --- */
@@ -650,7 +702,24 @@
 }
 
 /* --- A qui m'adreço --- */
+#a-qui-madreco {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-xl);
+}
+
+/* Espai entre "Destinataris" i "Xarxa de confiança". */
+#collaboradors {
+  padding-top: var(--space-xl);
+}
+
+/* Contenidor més estret que el --container-width ample (1320px) de la
+   resta del lloc: la graella de targetes, sense cap text llarg que en
+   limiti l'amplada per si sola, quedava massa oberta i desentonava amb la
+   resta de seccions. El max-width va a la graella (no al .container, que
+   amb margin-inline:auto l'hauria centrada amb un marge esquerre diferent
+   del de la resta de seccions en lloc de quedar alineada amb elles). */
 .audience-grid {
+  max-width: 1140px;
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-md);
