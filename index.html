@@ -3,15 +3,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Griselda — Psicòloga infantil i juvenil</title>
-  <meta name="description" content="Griselda, psicòloga infantil i juvenil, docent i formadora. Tallers, formacions i acompanyament per a famílies i adolescents." />
+  <!-- El bloc SEO (title, description, canonical, Open Graph i JSON-LD), la
+       capçalera i el peu els manté scripts/build-pages.js: canvia'ls allà. -->
+  <!-- SEO:START -->
+  <title>Psicòloga infantil i juvenil a Girona | Griselda</title>
+  <meta name="description" content="Griselda, psicòloga infantil i juvenil a Girona. Tallers i formacions per a famílies, adolescents, centres educatius i entitats." />
+  <link rel="canonical" href="https://griseldapsicologa.com/" />
+
+  <!-- Open Graph / xarxes socials -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ca_ES" />
+  <meta property="og:site_name" content="Griselda · Psicòloga infantil i juvenil" />
+  <meta property="og:title" content="Griselda, psicòloga infantil i juvenil a Girona" />
+  <meta property="og:description" content="Griselda, psicòloga infantil i juvenil a Girona. Tallers i formacions per a famílies, adolescents, centres educatius i entitats." />
+  <meta property="og:url" content="https://griseldapsicologa.com/" />
+  <meta property="og:image" content="https://griseldapsicologa.com/images/og/griselda-og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Far a la costa a la posta de sol, imatge de marca de la Griselda" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://griseldapsicologa.com/#website",
+      "url": "https://griseldapsicologa.com/",
+      "name": "Griselda · Psicòloga infantil i juvenil",
+      "inLanguage": "ca",
+      "publisher": {
+        "@id": "https://griseldapsicologa.com/#griselda"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://griseldapsicologa.com/#griselda",
+      "name": "Griselda",
+      "jobTitle": "Psicòloga infantil i juvenil",
+      "description": "Psicòloga infantil i juvenil, docent i formadora a Girona. Dissenya i imparteix tallers i formacions sobre benestar emocional per a famílies, adolescents, centres educatius i entitats.",
+      "url": "https://griseldapsicologa.com/sobre-mi/",
+      "image": "https://griseldapsicologa.com/images/home/perfil_gris.webp",
+      "identifier": {
+        "@type": "PropertyValue",
+        "name": "Número de col·legiada",
+        "value": "31.786"
+      },
+      "workLocation": {
+        "@type": "Place",
+        "name": "Girona",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Girona",
+          "addressRegion": "Catalunya",
+          "addressCountry": "ES"
+        }
+      },
+      "knowsAbout": [
+        "Psicologia infantil i juvenil",
+        "Adolescència",
+        "Habilitats parentals",
+        "Educació emocional",
+        "Neurodiversitat",
+        "Prevenció de les addiccions",
+        "Ús de les pantalles",
+        "Resolució de conflictes"
+      ]
+    }
+  ]
+}
+  </script>
+  <!-- SEO:END -->
 
   <!-- Fonts autoallotjades (sense Google Fonts CDN, per RGPD i rendiment) -->
   <link rel="preload" href="fonts/fraunces/Fraunces-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/karla/Karla-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <!-- Imatge del hero = element LCP: es demana com abans millor. -->
+  <link rel="preload" as="image" href="images/home/hero3.webp" type="image/webp" fetchpriority="high" />
 
-  <!-- //TODO: reemplazar por el favicon real -->
+  <!-- //TODO: substituir pel favicon definitiu (basat en el logo del far) -->
   <link rel="icon" href="images/icons/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#102D4A" />
 
   <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/reset.css" />
@@ -24,49 +97,92 @@
 </head>
 <body class="page-home">
 
-  <a class="visually-hidden" href="#main-content">Saltar al contingut principal</a>
+  <a class="visually-hidden" href="#main-content">Salta al contingut principal</a>
 
-  <!-- ===================== HEADER ===================== -->
+  <!-- HEADER:START -->
   <header class="site-header">
     <div class="site-header__inner">
       <a href="#home" class="site-brand">
-        <!-- //TODO: sustituir por el logo real (el far) -->
-        <img class="site-brand__logo" src="images/icons/logo-far.svg" alt="Logotip de Griselda: un far" />
+        <!-- //TODO: substituir pel logo definitiu (el far) -->
+        <img class="site-brand__logo" src="images/icons/logo-far.svg" alt="" width="40" height="40" />
         <span class="site-brand__text">
           <span class="site-brand__name">Griselda</span>
-          <span class="site-brand__collegiat">Núm. col·legiada: 31.786</span>
+          <span class="site-brand__collegiat">Psicòloga · Núm. col·legiada: 31.786</span>
         </span>
       </a>
 
-      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Obre el menú de navegació">
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Obre el menú de navegació">
         <span class="nav-toggle__bar"></span>
         <span class="nav-toggle__bar"></span>
-        <span class="nav-toggle__bar"></span> 
+        <span class="nav-toggle__bar"></span>
       </button>
 
       <nav class="site-nav" id="siteNav" aria-label="Navegació principal">
         <ul class="site-nav__list">
-          <li><a class="site-nav__link" href="#qui-soc">Qui soc</a></li>
+          <li><a class="site-nav__link" href="sobre-mi/">Sobre mi</a></li>
           <li><a class="site-nav__link" href="tallers.html">Tallers</a></li>
-          <li><a class="site-nav__link" href="#a-qui-madreco">A qui m'adreço</a></li>
+          <li><a class="site-nav__link" href="tallers/families/">Famílies</a></li>
+          <li><a class="site-nav__link" href="tallers/centres-educatius/">Centres educatius</a></li>
           <li><a class="site-nav__link" href="#contacte">Contacte</a></li>
         </ul>
       </nav>
     </div>
   </header>
+  <!-- HEADER:END -->
 
   <main id="main-content">
 
-    <!-- ===================== HOME ===================== -->
+    <!-- ===================== HERO ===================== -->
     <section id="home" class="hero">
       <div class="hero__media">
-        <img src="images/home/hero3.jpeg" alt="Far a la costa a la posta de sol" />
+        <img src="images/home/hero3.webp" alt="Far a la costa a la posta de sol" width="1600" height="739" fetchpriority="high" />
       </div>
       <div class="container hero__content">
-        <h1>Promovent el benestar emocional a través de la psicologia i l'educació.</h1>
+        <p class="hero__kicker">Promovent el benestar emocional a través de la psicologia i l'educació.</p>
+        <h1>Psicòloga infantil i juvenil a Girona</h1>
+        <p class="hero__lead">Tallers i formacions per a famílies, adolescents i centres educatius.</p>
         <div class="hero__actions">
-          <a class="btn btn-primary" href="#tallers">Descobreix els tallers</a>
+          <a class="btn btn-primary" href="tallers.html">Descobreix els tallers</a>
           <a class="btn btn-outline btn-outline--light" href="#contacte">Contacta</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COM ET PUC AJUDAR ===================== -->
+    <section id="com-et-puc-ajudar" class="content-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">Què ofereixo</span>
+          <h2>Com et puc ajudar?</h2>
+        </div>
+
+        <div class="card-grid">
+          <article class="audience-card">
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.1c2.6.4 4.5 2.9 4.5 5.9"/></svg>
+            </span>
+            <h3 class="audience-card__title">Tallers per a famílies</h3>
+            <p class="audience-card__text">Espais per comprendre millor la infància i l'adolescència, compartir inquietuds i descobrir noves maneres d'acompanyar els fills i filles.</p>
+            <a class="text-link audience-card__link" href="tallers/families/">Descobreix els tallers per a famílies</a>
+          </article>
+
+          <article class="audience-card">
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-5h4v5M12 10.5v.01"/></svg>
+            </span>
+            <h3 class="audience-card__title">Tallers per a centres educatius</h3>
+            <p class="audience-card__text">Propostes per treballar el benestar emocional, les relacions i la convivència amb infants i adolescents, a través d'activitats participatives adaptades a cada etapa.</p>
+            <a class="text-link audience-card__link" href="tallers/centres-educatius/">Tallers per a centres educatius</a>
+          </article>
+
+          <article class="audience-card">
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 21h18M4 10h16M12 3l8 4.5H4L12 3zM6 10v8M10 10v8M14 10v8M18 10v8"/></svg>
+            </span>
+            <h3 class="audience-card__title">Formacions per a entitats i administracions</h3>
+            <p class="audience-card__text">Accions formatives i de prevenció que connecten la psicologia amb les necessitats de famílies, professionals i comunitats.</p>
+            <a class="text-link audience-card__link" href="#contacte">Parlem del teu projecte</a>
+          </article>
         </div>
       </div>
     </section>
@@ -76,36 +192,29 @@
       <div class="container split">
         <div class="split__inner">
           <div class="split__image">
-            <img src="images/home/perfil_gris.jpg" alt="Retrat de la Griselda" />
+            <img src="images/home/perfil_gris.webp" alt="Retrat de la Griselda, psicòloga infantil i juvenil" width="900" height="1200" loading="lazy" decoding="async" />
           </div>
           <div class="split__content">
             <span class="section-eyebrow">Sobre mi</span>
             <h2>Qui soc</h2>
-            <p>Soc la Griselda, psicòloga infantil i juvenil, docent i formadora.</p>
             <p>
-              Em dedico a crear espais que promouen el benestar emocional d'infants,
-              adolescents i les seves famílies, convençuda que comprendre el que ens
-              passa és el primer pas per poder-ho transformar.
+              Soc la Griselda, psicòloga infantil i juvenil, docent i formadora. Treballo per
+              promoure el benestar emocional d'infants, adolescents i famílies, combinant la
+              psicologia amb una mirada educativa, preventiva i propera.
             </p>
             <p>
-              Actualment compagino l'acompanyament psicològic a la Universitat de Girona
-              amb la docència i l'orientació a secundària. També dissenyo i imparteixo
-              tallers i formacions sobre habilitats parentals positives, addiccions a les
-              pantalles, adolescència, sexualitat, neurodiversitat i altres temes
-              relacionats amb el desenvolupament.
+              Dissenyo i imparteixo tallers i formacions sobre adolescència, habilitats
+              parentals, ús de pantalles, addiccions, neurodiversitat, sexualitat i gestió de
+              conflictes.
             </p>
             <p>
-              <strong>Entenc l'educació com una de les eines més potents per promoure el
-              benestar emocional.</strong> Per mi, educar també és cuidar. Quan famílies,
-              adolescents i professionals comparteixen un mateix llenguatge, és molt més
-              fàcil generar canvis que perdurin en el temps.
+              Crec que comprendre què ens passa ens ajuda a relacionar-nos millor amb nosaltres
+              mateixos i amb els altres. Per això, els meus tallers parteixen del diàleg, la
+              reflexió i la participació.
             </p>
-            <p>
-              Fora de la feina, la natura és el meu refugi. Veure l'horitzó, caminar amb
-              el meu husky i regalar-me espais amb la meva gent em permet reconnectar amb
-              mi mateixa i continuar cultivant la curiositat i la sensibilitat que també
-              donen sentit a la meva manera d'acompanyar els altres.
-            </p>
+            <div class="link-row">
+              <a class="text-link" href="sobre-mi/">Coneix la meva trajectòria</a>
+            </div>
           </div>
         </div>
       </div>
@@ -116,7 +225,7 @@
       <div class="container">
         <div class="mirada__card">
           <div class="mirada__media">
-            <img src="images/home/filo1.jpeg" alt="Passarel·la de fusta guiant cap a l'horitzó" />
+            <img src="images/home/filo1.webp" alt="Passarel·la de fusta que avança cap a l'horitzó" width="1600" height="739" loading="lazy" decoding="async" />
           </div>
           <div class="mirada__content">
             <span class="section-eyebrow">Filosofia</span>
@@ -144,18 +253,17 @@
     </section>
 
     <!-- ===================== TALLERS ===================== -->
-    <!-- //TODO: els resums de cada taller són una redacció provisional (el
-         document original només tenia el títol de cada taller). Cal que la
-         Griselda els revisi i els ajusti abans de publicar. -->
+    <!-- Resum dels tallers: la informació completa és a cada fitxa
+         (tallers/*.html, generades des de scripts/content/tallers.js). -->
     <section id="tallers">
       <div class="container">
         <div class="tallers-panel">
         <span class="section-eyebrow">Formació</span>
         <h2>Tallers</h2>
         <p class="section-intro">
-          Dissenyo i imparteixo tallers i formacions adaptats a famílies i adolescents, i
-          col·laboro com a formadora en projectes de prevenció com Tallers Connecta. Cada
-          fitxa té més informació i un accés directe per contractar-la.
+          Propostes per a famílies i per a alumnat de primària i secundària, a més dels
+          projectes de prevenció en què col·laboro. Aquí en tens un resum: a cada fitxa hi
+          trobaràs els continguts, la durada i la modalitat.
         </p>
 
         <div class="tabs" id="tallersTabs">
@@ -163,7 +271,7 @@
             <span class="tabs__label">Dirigit a:</span>
             <div class="tabs__list" role="tablist" aria-label="Categories de tallers">
               <button class="tabs__btn" id="tab-families" role="tab" type="button" aria-selected="true" aria-controls="panel-families">Famílies</button>
-              <button class="tabs__btn" id="tab-adolescents" role="tab" type="button" aria-selected="false" aria-controls="panel-adolescents" tabindex="-1">Adolescents</button>
+              <button class="tabs__btn" id="tab-adolescents" role="tab" type="button" aria-selected="false" aria-controls="panel-adolescents" tabindex="-1">Infants i adolescents</button>
               <button class="tabs__btn" id="tab-projectes" role="tab" type="button" aria-selected="false" aria-controls="panel-projectes" tabindex="-1">Projectes i col·laboracions</button>
             </div>
           </div>
@@ -179,42 +287,42 @@
               <div class="tallers-carousel__track" data-carousel-track>
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img src="images/tallers/caixa-eines.png" alt="Caixa d'eines: Adolescència Mode ON" />
+                    <img src="images/tallers/caixa-eines.webp" alt="" width="900" height="600" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
                     <h4 class="taller-card__title">Caixa d'eines: Adolescència Mode ON</h4>
                     <p class="taller-card__summary">Un espai per entendre millor què viuen els fills i filles a l'adolescència i acompanyar-los amb més calma.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="index.html?taller=Caixa%20d%27eines%3A%20Adolesc%C3%A8ncia%20Mode%20ON#contacte">Contractar</a>
-                      <a class="btn btn-outline btn-sm" href="tallers/caixa-eines-adolescencia-mode-on.html">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="./?taller=Caixa%20d%27eines%3A%20Adolesc%C3%A8ncia%20Mode%20ON#contacte">Contractar</a>
+                      <a class="btn btn-outline btn-sm" href="tallers/caixa-eines-adolescencia-mode-on.html">Més informació<span class="visually-hidden">: Caixa d'eines: Adolescència Mode ON</span></a>
                     </div>
                   </div>
                 </article>
 
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img src="images/tallers/com-acompanyar.png" alt="Com acompanyar els fills/es adolescents?" />
+                    <img src="images/tallers/com-acompanyar.webp" alt="" width="900" height="600" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
-                    <h4 class="taller-card__title">Com acompanyar els fills/es adolescents?</h4>
+                    <h4 class="taller-card__title">Com acompanyar els fills i filles adolescents?</h4>
                     <p class="taller-card__summary">Programa de dues sessions (Entendre i Acompanyar) amb pautes per comunicar-se amb més proximitat i posar límits amb respecte.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="index.html?taller=Com%20acompanyar%20els%20fills%2Fes%20adolescents%3F#contacte">Contractar</a>
-                      <a class="btn btn-outline btn-sm" href="tallers/acompanyar-fills-adolescents.html">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="./?taller=Com%20acompanyar%20els%20fills%20i%20filles%20adolescents%3F#contacte">Contractar</a>
+                      <a class="btn btn-outline btn-sm" href="tallers/acompanyar-fills-adolescents.html">Més informació<span class="visually-hidden">: Com acompanyar els fills i filles adolescents?</span></a>
                     </div>
                   </div>
                 </article>
 
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img src="images/tallers/addiccions.png" alt="Converses que transformen: Addiccions" />
+                    <img src="images/tallers/addiccions.webp" alt="" width="900" height="600" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
                     <h4 class="taller-card__title">Converses que transformen: Addiccions</h4>
                     <p class="taller-card__summary">Amb Sergi Garcia i Ariadna Busqué. Estratègies per obrir converses honestes sobre addiccions amb fills i filles adolescents.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="index.html?taller=Converses%20que%20transformen%3A%20Addiccions#contacte">Contractar</a>
-                      <a class="btn btn-outline btn-sm" href="tallers/converses-addiccions.html">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="./?taller=Converses%20que%20transformen%3A%20Addiccions#contacte">Contractar</a>
+                      <a class="btn btn-outline btn-sm" href="tallers/converses-addiccions.html">Més informació<span class="visually-hidden">: Converses que transformen: Addiccions</span></a>
                     </div>
                   </div>
                 </article>
@@ -225,13 +333,14 @@
             </div>
 
             <p class="tallers-footer-note">
-              <a class="btn btn-outline" href="tallers.html">Veure tots els tallers en detall</a>
+              <a class="btn btn-outline" href="tallers/families/">Tallers per a famílies</a>
+              <a class="text-link" href="tallers.html">Tots els tallers</a>
             </p>
           </div>
 
-          <!-- ---- Panell: Adolescents ---- -->
+          <!-- ---- Panell: Infants i adolescents (alumnat) ---- -->
           <div class="tabs__panel" id="panel-adolescents" role="tabpanel" aria-labelledby="tab-adolescents" hidden>
-            <h3 class="visually-hidden">Tallers per a adolescents</h3>
+            <h3 class="visually-hidden">Tallers per a infants i adolescents</h3>
 
             <div class="tallers-carousel" data-carousel>
               <button class="tallers-carousel__arrow tallers-carousel__arrow--prev" type="button" aria-label="Tallers anteriors">
@@ -240,56 +349,56 @@
               <div class="tallers-carousel__track" data-carousel-track>
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img src="images/tallers/adolescencia-mode-on.png" alt="Adolescència: Mode ON" />
+                    <img src="images/tallers/adolescencia-mode-on.webp" alt="" width="900" height="600" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
                     <h4 class="taller-card__title">Adolescència: Mode ON</h4>
                     <p class="taller-card__summary">Un espai per explorar què passa "per dins" durant l'adolescència.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="index.html?taller=Adolesc%C3%A8ncia%3A%20Mode%20ON#contacte">Contractar</a>
-                      <a class="btn btn-outline btn-sm" href="tallers/adolescencia-mode-on.html">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="./?taller=Adolesc%C3%A8ncia%3A%20Mode%20ON#contacte">Contractar</a>
+                      <a class="btn btn-outline btn-sm" href="tallers/adolescencia-mode-on.html">Més informació<span class="visually-hidden">: Adolescència: Mode ON</span></a>
                     </div>
                   </div>
                 </article>
 
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img src="images/tallers/mirada.png" alt="Educar la mirada - amb Steph Watson" />
+                    <img src="images/tallers/mirada.webp" alt="" width="900" height="600" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
-                    <h4 class="taller-card__title">Educar la mirada - amb Steph Watson</h4>
-                    <p class="taller-card__summary">Un taller col·laboratiu per aprendre a mirar-nos i mirar els altres amb més consciència.</p>
+                    <h4 class="taller-card__title">Educar la mirada</h4>
+                    <p class="taller-card__summary">Amb Steph Watson. Un taller col·laboratiu per aprendre a mirar-nos i mirar els altres amb més consciència.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="index.html?taller=Educar%20la%20mirada%20-%20amb%20Steph%20Watson#contacte">Contractar</a>
-                      <a class="btn btn-outline btn-sm" href="tallers/educar-la-mirada.html">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="./?taller=Educar%20la%20mirada%20-%20amb%20Steph%20Watson#contacte">Contractar</a>
+                      <a class="btn btn-outline btn-sm" href="tallers/educar-la-mirada.html">Més informació<span class="visually-hidden">: Educar la mirada</span></a>
                     </div>
                   </div>
                 </article>
 
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img src="images/tallers/neurodiversitat.png" alt="La neurodiversitat dins de l'aula" />
+                    <img src="images/tallers/neurodiversitat.webp" alt="" width="900" height="600" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
                     <h4 class="taller-card__title">La neurodiversitat dins de l'aula</h4>
                     <p class="taller-card__summary">Claus per entendre i acompanyar la neurodiversitat a l'aula.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="index.html?taller=La%20neurodiversitat%20dins%20de%20l%27aula#contacte">Contractar</a>
-                      <a class="btn btn-outline btn-sm" href="tallers/neurodiversitat-aula.html">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="./?taller=La%20neurodiversitat%20dins%20de%20l%27aula#contacte">Contractar</a>
+                      <a class="btn btn-outline btn-sm" href="tallers/neurodiversitat-aula.html">Més informació<span class="visually-hidden">: La neurodiversitat dins de l'aula</span></a>
                     </div>
                   </div>
                 </article>
 
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img src="images/tallers/conflictes.png" alt="Resolució de conflictes" />
+                    <img src="images/tallers/conflictes.webp" alt="" width="900" height="600" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
                     <h4 class="taller-card__title">Resolució de conflictes</h4>
                     <p class="taller-card__summary">Eines pràctiques per gestionar i resoldre conflictes de manera constructiva.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="index.html?taller=Resoluci%C3%B3%20de%20conflictes#contacte">Contractar</a>
-                      <a class="btn btn-outline btn-sm" href="tallers/resolucio-conflictes.html">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="./?taller=Resoluci%C3%B3%20de%20conflictes#contacte">Contractar</a>
+                      <a class="btn btn-outline btn-sm" href="tallers/resolucio-conflictes.html">Més informació<span class="visually-hidden">: Resolució de conflictes</span></a>
                     </div>
                   </div>
                 </article>
@@ -300,14 +409,15 @@
             </div>
 
             <p class="tallers-footer-note">
-              <a class="btn btn-outline" href="tallers.html">Veure tots els tallers en detall</a>
+              <a class="btn btn-outline" href="tallers/centres-educatius/">Tallers per a centres educatius</a>
+              <a class="text-link" href="tallers.html">Tots els tallers</a>
             </p>
           </div>
 
           <!-- ---- Panell: Projectes i col·laboracions ---- -->
-          <!-- //TODO: aquests tallers no són propis: són el programa Tallers
-               Connecta de la Fundació Salut i Comunitat, en què la Griselda
-               hi col·labora com a formadora. -->
+          <!-- No són tallers propis: són el programa Tallers Connecta de la
+               Fundació Salut i Comunitat, en què la Griselda hi col·labora com
+               a formadora. Els enllaços porten al web oficial del programa. -->
           <div class="tabs__panel" id="panel-projectes" role="tabpanel" aria-labelledby="tab-projectes" hidden>
             <h3 class="visually-hidden">Projectes i col·laboracions</h3>
 
@@ -318,52 +428,52 @@
               <div class="tallers-carousel__track" data-carousel-track>
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img class="is-photo-contain" src="images/tallers/tothom-mobil.svg" alt="Tothom té mòbil menys jo" />
+                    <img class="is-photo-contain" src="images/tallers/tothom-mobil.svg" alt="" width="158" height="150" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
                     <h4 class="taller-card__title">Tothom té mòbil menys jo</h4>
                     <p class="taller-card__summary">Un taller sobre com gestionar la pressió social entorn del primer mòbil.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="https://connectaiactua.cat/taller/tothom-te-un-movil-menys-jo/" target="_blank" rel="noopener">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="https://connectaiactua.cat/taller/tothom-te-un-movil-menys-jo/" target="_blank" rel="noopener">Més informació<span class="visually-hidden">: Tothom té mòbil menys jo (s'obre en una pestanya nova)</span></a>
                     </div>
                   </div>
                 </article>
 
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img class="is-photo-contain" src="images/tallers/parlem-pantalles.svg" alt="Parlem de pantalles" />
+                    <img class="is-photo-contain" src="images/tallers/parlem-pantalles.svg" alt="" width="158" height="150" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
                     <h4 class="taller-card__title">Parlem de pantalles</h4>
                     <p class="taller-card__summary">Un espai de diàleg familiar sobre l'ús de les pantalles a casa.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="https://connectaiactua.cat/taller/parlem-de-pantalles/" target="_blank" rel="noopener">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="https://connectaiactua.cat/taller/parlem-de-pantalles/" target="_blank" rel="noopener">Més informació<span class="visually-hidden">: Parlem de pantalles (s'obre en una pestanya nova)</span></a>
                     </div>
                   </div>
                 </article>
 
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img class="is-photo-contain" src="images/tallers/somriu.svg" alt="Somriu! Son adolescents" />
+                    <img class="is-photo-contain" src="images/tallers/somriu.svg" alt="" width="158" height="150" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
-                    <h4 class="taller-card__title">Somriu! Son adolescents</h4>
+                    <h4 class="taller-card__title">Somriu! Són adolescents</h4>
                     <p class="taller-card__summary">Una mirada positiva i propera a l'adolescència, per a mares i pares.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="https://connectaiactua.cat/taller/somriu-son-adolescents/" target="_blank" rel="noopener">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="https://connectaiactua.cat/taller/somriu-son-adolescents/" target="_blank" rel="noopener">Més informació<span class="visually-hidden">: Somriu! Són adolescents (s'obre en una pestanya nova)</span></a>
                     </div>
                   </div>
                 </article>
 
                 <article class="taller-card">
                   <div class="taller-card__image">
-                    <img class="is-photo-contain" src="images/tallers/parlem-actua.svg" alt="Parlem i actua" />
+                    <img class="is-photo-contain" src="images/tallers/parlem-actua.svg" alt="" width="158" height="150" loading="lazy" decoding="async" />
                   </div>
                   <div class="taller-card__body">
                     <h4 class="taller-card__title">Parlem i actua</h4>
                     <p class="taller-card__summary">Eines pràctiques per passar del diàleg familiar a l'acció concreta.</p>
                     <div class="taller-card__actions">
-                      <a class="btn btn-primary btn-sm" href="https://connectaiactua.cat/taller/parlem-i-actua/" target="_blank" rel="noopener">Més informació</a>
+                      <a class="btn btn-primary btn-sm" href="https://connectaiactua.cat/taller/parlem-i-actua/" target="_blank" rel="noopener">Més informació<span class="visually-hidden">: Parlem i actua (s'obre en una pestanya nova)</span></a>
                     </div>
                   </div>
                 </article>
@@ -374,10 +484,65 @@
             </div>
 
             <p class="tallers-footer-note">
-              <a class="btn btn-outline" href="tallers.html">Veure tots els tallers en detall</a>
+              <a class="btn btn-outline" href="tallers.html#categoria-projectes">Projectes i col·laboracions</a>
             </p>
           </div>
         </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LA MEVA MANERA DE TREBALLAR ===================== -->
+    <section id="manera-de-treballar" class="content-section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-eyebrow">La meva manera de treballar</span>
+          <h2>Una mirada propera, preventiva i participativa</h2>
+          <p>
+            No hi ha dues famílies, dos grups ni dos centres iguals. Per això, entenc els
+            tallers com espais flexibles que parteixen de les preguntes i necessitats de les
+            persones participants.
+          </p>
+          <p>
+            Combino coneixements de psicologia i educació amb dinàmiques, reflexions i
+            propostes pràctiques per facilitar l'aprenentatge i obrir noves perspectives.
+          </p>
+        </div>
+
+        <!-- //TODO: les frases curtes de cada element són una proposta de redacció
+             pendent de validar amb la Griselda. -->
+        <div class="card-grid card-grid--4">
+          <article class="audience-card audience-card--static">
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 14a6 6 0 1 1 9.5 4.9c-.8.5-1.5 1.4-1.5 2.4V22M9 10a3 3 0 0 1 6 0"/></svg>
+            </span>
+            <h3 class="audience-card__title">Escoltar i comprendre</h3>
+            <p class="audience-card__text">Cada proposta parteix de les preguntes, les inquietuds i el context de les persones participants.</p>
+          </article>
+
+          <article class="audience-card audience-card--static">
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/><path d="M8 9h8M8 12h5"/></svg>
+            </span>
+            <h3 class="audience-card__title">Reflexionar conjuntament</h3>
+            <p class="audience-card__text">Les idees es posen en comú i es contrasten amb altres mirades, en un espai sense judicis.</p>
+          </article>
+
+          <article class="audience-card audience-card--static">
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/></svg>
+            </span>
+            <h3 class="audience-card__title">Participar i experimentar</h3>
+            <p class="audience-card__text">Dinàmiques i propostes pràctiques perquè l'aprenentatge es visqui, no només s'escolti.</p>
+          </article>
+
+          <article class="audience-card audience-card--static">
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg>
+            </span>
+            <h3 class="audience-card__title">Traslladar els aprenentatges al dia a dia</h3>
+            <p class="audience-card__text">El que es treballa a la sessió es connecta amb les situacions quotidianes de casa, l'aula o el grup.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -404,6 +569,7 @@
             </span>
             <h3 class="audience-card__title">Centres educatius</h3>
             <p class="audience-card__text">Tallers i formacions adaptades a les necessitats de cada centre.</p>
+            <a class="text-link audience-card__link" href="tallers/centres-educatius/">Tallers per a centres</a>
           </article>
 
           <article class="audience-card">
@@ -412,6 +578,7 @@
             </span>
             <h3 class="audience-card__title">AFAs / AMPAs</h3>
             <p class="audience-card__text">Espais de reflexió i aprenentatge per acompanyar la criança i l'adolescència.</p>
+            <a class="text-link audience-card__link" href="tallers/afa-ampa/">Xerrades per a AFAs</a>
           </article>
 
           <article class="audience-card">
@@ -497,8 +664,9 @@
           <span class="section-eyebrow">Parlem-ne</span>
           <h2>Contacte</h2>
           <p>
-            Si vols organitzar un taller, una formació o simplement vols fer-me arribar
-            una consulta, escriu-me i et respondré el més aviat possible.
+            Si vols organitzar un taller o una formació per al teu centre, AFA, entitat o
+            ajuntament, o simplement vols fer-me arribar una consulta, escriu-me i et
+            respondré el més aviat possible.
           </p>
 
           <!-- //TODO: substituir el correu, el telèfon, la zona i el temps de
@@ -544,6 +712,10 @@
         </div>
 
         <form id="contactForm" class="contact-form contact-card__form" novalidate>
+          <!-- Taller d'origen: s'omple automàticament quan s'arriba des del botó
+               "Sol·licita informació" d'una fitxa (?taller=...). -->
+          <input type="hidden" id="taller" name="taller" value="" />
+
           <div class="form-row">
             <div class="form-field">
               <label for="nom">Nom</label>
@@ -574,7 +746,8 @@
 
           <div class="form-field">
             <label for="missatge">Missatge</label>
-            <textarea id="missatge" name="missatge" required minlength="10" aria-describedby="missatge-error"></textarea>
+            <textarea id="missatge" name="missatge" required minlength="10" aria-describedby="missatge-error missatge-help"></textarea>
+            <span class="form-field__help" id="missatge-help">Si pots, indica el taller o el tema que t'interessa, a qui s'adreça i les dates aproximades.</span>
             <span class="form-field__error" id="missatge-error"></span>
           </div>
 
@@ -589,15 +762,28 @@
 
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
+  <!-- FOOTER:START -->
   <footer class="site-footer">
     <div class="container site-footer__inner">
-      <span class="site-brand__name">Griselda</span>
-      <p>Psicòloga infantil i juvenil · Núm. col·legiada: 31.786</p>
-      <!-- //TODO: afegir enllaços reals de contacte / xarxes socials -->
-      <p>&copy; <span id="currentYear"></span> Griselda. Tots els drets reservats.</p>
+      <div class="site-footer__brand">
+        <span class="site-brand__name">Griselda</span>
+        <p>Psicòloga infantil i juvenil a Girona · Núm. col·legiada: 31.786</p>
+      </div>
+      <nav class="footer-nav" aria-label="Enllaços del peu de pàgina">
+        <ul>
+          <li><a href="sobre-mi/">Sobre mi</a></li>
+          <li><a href="tallers.html">Tallers</a></li>
+          <li><a href="tallers/families/">Tallers per a famílies</a></li>
+          <li><a href="tallers/centres-educatius/">Tallers per a centres educatius</a></li>
+          <li><a href="tallers/afa-ampa/">Xerrades per a AFAs i AMPAs</a></li>
+          <li><a href="#contacte">Contacte</a></li>
+        </ul>
+      </nav>
+      <!-- //TODO: afegir els enllaços reals de contacte / xarxes socials quan estiguin confirmats -->
+      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.</p>
     </div>
   </footer>
+  <!-- FOOTER:END -->
 
   <script src="js/nav.js"></script>
   <script src="js/tallers.js"></script>

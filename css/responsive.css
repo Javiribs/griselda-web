@@ -104,6 +104,17 @@
     right: calc((var(--space-xl) + 48px) / -2);
   }
 
+  /* Pàgines de contingut: 2 columnes de targetes, passos i fitxes. */
+  .card-grid,
+  .taller-grid,
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cta-band {
+    padding: var(--space-xl);
+  }
+
   .collaborators__logo {
     width: 160px;
     height: 100px;
@@ -256,6 +267,40 @@
   .collaborators__logo--lg {
     width: 220px;
     height: 140px;
+  }
+
+  /* Pàgines de contingut: 3 columnes (4 per als passos de 4 elements). */
+  .card-grid,
+  .taller-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .steps--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xl);
+  }
+
+  /* CTA final: text a l'esquerra, botons a la dreta. */
+  .cta-band {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-xl);
+    padding: var(--space-xl) var(--space-xxl);
   }
 
   .site-footer__inner {

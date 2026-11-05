@@ -67,9 +67,15 @@
   const params = new URLSearchParams(window.location.search);
   const tallerName = params.get("taller");
 
+  const tallerInput = document.getElementById("taller");
+
   if (tallerName) {
     fields.missatge.input.value =
       'Hola! Estic interessat/da en el taller "' + tallerName + '". M\'agradaria rebre més informació.';
+
+    // El taller d'origen viatja també en un camp ocult, perquè la
+    // sol·licitud l'identifiqui encara que l'usuari reescrigui el missatge.
+    if (tallerInput) tallerInput.value = tallerName;
 
     // Neteja el paràmetre de la URL sense recarregar la pàgina
     const cleanUrl = window.location.pathname + window.location.hash;

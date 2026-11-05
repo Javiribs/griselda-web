@@ -1,72 +1,78 @@
 # Griselda — Web (psicòloga infantil i juvenil)
 
-Web en HTML/CSS/JS pur, sense frameworks ni eines de build. Contingut en
-català, extret del document original `griselda-web.docx`.
+Web estàtica en HTML/CSS/JS pur, sense frameworks. Contingut en català.
+Domini definitiu: **https://griseldapsicologa.com** (canonicals, Open Graph,
+JSON-LD i sitemap ja hi apunten).
 
-El lloc té tres nivells de pàgines:
+## Pàgines i intenció de cerca
 
-- **`index.html`** — la home, amb un resum de tot el que s'ofereix (qui és la
-  Griselda, la seva mirada, fitxes resum dels tallers en pestanyes Famílies /
-  Adolescents / Projectes i col·laboracions, a qui s'adreça i el formulari de
-  contacte).
-- **`tallers.html`** — el catàleg complet: hero, text introductori (extret del
-  document `WEB Griselda.pdf`) i un carrusel de fitxes per a cada grup
-  (Famílies / Adolescents / Projectes i col·laboracions), cadascuna enllaçant
-  a la seva pàgina pròpia.
-- **`tallers/*.html`** — una pàgina individual per taller (12 en total), amb
-  destinataris, durada i modalitat (amb icones/emoticones) i la descripció
-  completa. Cada URL pròpia permet indexar i posicionar cada taller per
-  separat (SEO), a diferència d'un simple ancoratge dins `tallers.html`.
+| URL | Intenció principal | Com es manté |
+| --- | --- | --- |
+| `/` (`index.html`) | psicòloga infantil i juvenil Girona | a mà (blocs SEO/capçalera/peu, generats) |
+| `/tallers.html` | tallers per a famílies i adolescents (catàleg) | a mà (blocs SEO/capçalera/peu, generats) |
+| `/sobre-mi/` | qui és la Griselda (perfil professional) | generada |
+| `/tallers/families/` | tallers per a famílies Girona | generada |
+| `/tallers/centres-educatius/` | tallers per a centres educatius Girona | generada |
+| `/tallers/afa-ampa/` | xerrades per a AFAs i AMPAs | generada |
+| `/tallers/<taller>.html` (7) | cerca concreta de cada taller | generades |
+| `/tallers/<connecta>.html` (5) | — (`noindex`, fora del sitemap: no són tallers propis) | generades |
+| `/404.html` | — (`noindex`) | generada |
+
+Les landings responen a "quins tallers puc organitzar per al meu centre o
+col·lectiu?"; les fitxes, a "en què consisteix aquest taller?". Les URL
+`.html` antigues es mantenen (no hi ha migració ni cal cap redirecció).
+
+## Generador de pàgines (`scripts/build-pages.js`)
+
+El contingut dels tallers viu en **un sol lloc**:
+`scripts/content/tallers.js`. Després de canviar-lo, executa:
+
+```bash
+node scripts/build-pages.js
+```
+
+L'script regenera les fitxes, les landings, Sobre mi, la 404 i
+`sitemap.xml`, i sincronitza a `index.html` i `tallers.html` els blocs
+entre marcadors (`SEO`, `HEADER`, `FOOTER`). **No editis a mà les pàgines
+generades** (porten un avís a la primera línia) ni el que hi ha dins
+d'aquells marcadors. Els carrusels d'`index.html` i `tallers.html` encara
+s'editen a mà: si s'afegeix un taller, cal afegir-hi també la seva targeta.
+
+Per afegir un taller nou: copia un objecte de `tallers` a
+`scripts/content/tallers.js`, omple'l (slug, textos, destinataris, durada,
+modalitat, FAQ, relacionats), posa la imatge a `images/tallers/` en WebP
+(900×600) i executa l'script (l'afegeix sol al sitemap i als blocs de
+relacionats). Només cal afegir a mà la seva targeta als carrusels de
+`index.html` i `tallers.html`.
+
+Dades pendents de confirmar: vegeu **`PENDENTS.md`**.
 
 ## Estructura del projecte
 
 ```text
 griselda-web/
-├── index.html
-├── tallers.html
+├── index.html, tallers.html      # pàgines editades a mà
+├── sobre-mi/index.html           # generada
 ├── tallers/
-│   ├── caixa-eines-adolescencia-mode-on.html
-│   ├── acompanyar-fills-adolescents.html
-│   ├── converses-addiccions.html
-│   ├── adolescencia-mode-on.html
-│   ├── educar-la-mirada.html
-│   ├── neurodiversitat-aula.html
-│   ├── resolucio-conflictes.html
-│   ├── tothom-mobil-menys-jo.html
-│   ├── tothom-mobil-menys-jo-online.html
-│   ├── parlem-pantalles.html
-│   ├── somriu-son-adolescents.html
-│   └── parlem-i-actua.html
-├── css/
-│   ├── fonts.css         # @font-face de les tipografies autoallotjades
-│   ├── reset.css        # normalització entre navegadors
-│   ├── variables.css     # sistema de disseny: paleta del far + tipografia
-│   ├── tokens.css        # espaiats, radis, ombres, transicions, layout
-│   ├── base.css          # estils generals d'elements HTML
-│   ├── layout.css        # estructura/grids, hero, capçalera superposada...
-│   ├── components.css    # botons, tabs, fitxes de taller, formulari
-│   └── responsive.css    # media queries (tablet i desktop)
-├── fonts/
-│   ├── fraunces/           # Fraunces-Regular.woff2, -SemiBold, -Italic
-│   ├── karla/               # Karla-Regular.woff2, -Medium
-│   └── archivo/              # Archivo-Medium.woff2
-├── js/
-│   ├── main.js            # inicialitzacions generals (any al footer, etc.)
-│   ├── nav.js              # menú hamburguesa, capçalera transparent/sòlida
-│   │                         del hero i scroll suau als ancoratges
-│   ├── tallers.js          # tabs Famílies / Adolescents / Projectes i
-│   │                         col·laboracions + carrusel de fitxes amb
-│   │                         fletxes (a index.html i tallers.html)
-│   └── form.js             # validació del formulari de contacte (frontend)
-├── images/
-│   ├── icons/               # logo, favicon, icones
-│   └── tallers/              # fotos (hero, retrat, categories de tallers...)
+│   ├── families/index.html       # landing (generada)
+│   ├── centres-educatius/index.html
+│   ├── afa-ampa/index.html
+│   └── *.html                    # fitxes de taller (generades)
+├── 404.html, sitemap.xml, robots.txt
+├── PENDENTS.md                   # dades a validar amb la Griselda
+├── scripts/
+│   ├── build-pages.js            # generador (plantilles + SEO + JSON-LD)
+│   ├── content/tallers.js        # contingut dels tallers
+│   └── update-collaborators.js   # logos de col·laboradors (home)
+├── css/  (fonts, reset, variables, tokens, base, layout, components, responsive)
+├── fonts/  js/  images/  (images/og/ = imatge per compartir a xarxes)
 └── README.md
 ```
 
-Cada pàgina de `tallers/*.html` és un nivell de carpeta per sota de
-`index.html`, així que totes les rutes relatives (`css/`, `js/`, `images/`,
-`fonts/`, `index.html`, `tallers.html`) hi porten el prefix `../`.
+Totes les rutes internes són relatives, de manera que la web funciona igual
+a GitHub Pages (dins `/griselda-web/`) i al domini definitiu. Cal servir-la
+amb un servidor local (les carpetes com `sobre-mi/` necessiten
+`index.html` per defecte).
 
 ## Sistema de disseny — metàfora del far
 
@@ -131,25 +137,12 @@ afegeix `--state-success` (reutilitza `--verd-molsa`) i `--state-error`
 (un vermell terrós, `#b3492f`) només per a la validació del formulari de
 contacte.
 
-## Com funcionen les fitxes de taller → "Contractar" / "Més informació"
+## Botons "Contractar" / "Sol·licita informació"
 
-Tant a `index.html` (secció `#tallers`) com a `tallers.html`, cada fitxa de
-taller (foto, resum breu) porta dos botons:
-
-- **Més informació** obre la pàgina pròpia del taller a `tallers/<slug>.html`
-  (p. ex. `tallers/parlem-i-actua.html`), amb els destinataris, la durada, la
-  modalitat i la descripció completa.
-- **Contractar** porta a `index.html?taller=Nom%20del%20taller#contacte`.
-  `js/form.js` llegeix el paràmetre `taller` de la URL en carregar la pàgina
-  i precarrega el camp de missatge del formulari amb el nom del taller, per
-  estalviar feina a qui contacta. Després neteja la URL amb
-  `history.replaceState` perquè quedi neta. Des de `tallers/<slug>.html`
-  aquest enllaç porta a `../index.html?taller=...#contacte`.
-
-Si s'afegeix, s'elimina o es renombra algun taller, cal actualitzar-lo a la
-vegada a quatre llocs: la fitxa resum a `index.html`, la fitxa resum a
-`tallers.html`, la seva pàgina pròpia a `tallers/<slug>.html`, i tots els
-enllaços `Més informació`/`Contractar` corresponents.
+Porten a `./?taller=Nom%20del%20taller#contacte` (o `../` des de les
+subcarpetes). `js/form.js` llegeix el paràmetre, precarrega el missatge,
+desa el nom al camp ocult `taller` (perquè la sol·licitud identifiqui el
+taller d'origen) i neteja la URL.
 
 ## Com obrir el projecte
 
@@ -172,70 +165,6 @@ python -m http.server 5500
 
 I obre `http://localhost:5500` al navegador.
 
-## Pendents (TODO)
+## Pendents
 
-### Imatges
-
-Falten totes les imatges reals. Marcades amb `//TODO` a `index.html`,
-`tallers.html` i dins `images/tallers/README.txt`:
-
-- [ ] Logo real del far (`images/icons/logo-far.svg`)
-- [ ] Favicon real (`images/icons/favicon.svg`)
-- [x] Foto hero a pantalla completa (`images/home/hero_far.jpg`). El far
-      surt al terç esquerre/superior de la foto, per això
-      `.hero__media img` fixa `object-position: 18% 25%` a `css/layout.css`:
-      mantén el far visible en el retall estret de mòbil. Si es canvia la
-      foto per una amb el far en una altra posició, cal reajustar aquest
-      valor.
-- [x] Foto de la Griselda per a la secció "Qui soc" (`images/home/perfil_gris.jpg`)
-- [ ] Fotos dels tallers: de moment totes les fitxes reutilitzen 2 imatges
-      genèriques per categoria (`categoria-families.jpg`, `categoria-alumnes.jpg`
-      — aquest darrer nom es manté encara que la categoria ara es digui
-      "Adolescents"). Es pot deixar així o anar-les substituint per una foto
-      pròpia de cada taller quan n'hi hagi disponibles (12 fitxes en total,
-      repartides entre `index.html` i `tallers.html`).
-
-### Contingut dels tallers
-
-El document original (`griselda-web.docx`) només tenia el **títol** de cada
-taller, sense cap descripció. Posteriorment la Griselda ha facilitat un
-document (`images/tallers/WEB Griselda.pdf`) amb el contingut ampliat de
-cada taller (destinataris, durada, modalitat i descripció) per a Famílies i
-Adolescents, i amb la llista dels tallers del programa Tallers Connecta
-(grup "Projectes i col·laboracions"). Els tres grups (Famílies / Adolescents
-/ Projectes i col·laboracions) es mostren com a pestanyes a `index.html#tallers`
-i com a seccions ancorades a `tallers.html`. Aquest document ja no inclou la
-categoria "Equips i professionals" ni 4 tallers que hi havia abans a
-"Alumnes" (dol en l'adolescència, benestar universitari, gestió emocional
-d'estrès/ansietat, salut digital en la infància) ni 2 que hi havia a
-"Famílies" (Pantalles i +pantalles!, Salut digital en la infància); s'han
-eliminat de la web en la reestructuració. Pendent:
-
-- [ ] Revisar amb la Griselda que aquesta eliminació és correcta (o si cal
-      recuperar algun d'aquests tallers en una altra categoria).
-- [ ] Revisar i, si cal, reescriure els resums/descripcions de cada taller
-      amb la Griselda abans de publicar.
-- [x] Destinataris/Durada/Modalitat porten icona (🎯 ⏱️ 📍) a les pàgines
-      individuals `tallers/*.html`, tal com suggeria el document original.
-- [ ] Revisar el text de "La meva mirada" — al document original hi havia
-      una nota "(revisar aquest text)" pendent de la Griselda.
-- [ ] Confirmar si cal afegir enllaços de xarxes socials / dades de contacte
-      addicionals al footer.
-
-### Formulari de contacte
-
-El formulari (`#contacte` a `index.html`) valida els camps al frontend
-(`js/form.js`) però **no envia res encara**. Cal decidir i connectar un
-servei d'enviament:
-
-- [ ] Backend propi (endpoint que rebi el POST i enviï l'email)
-- [ ] Servei extern tipus Formspree, EmailJS, Netlify Forms, etc.
-- [ ] Actualitzar `js/form.js` amb la crida real (`fetch`) un cop decidit
-
-### Altres
-
-- [ ] Revisar accessibilitat amb un lector de pantalla un cop afegides les
-      imatges definitives (alts ja redactats, a validar).
-- [ ] Comprovar SEO bàsic (meta description ja inclosa a `index.html` i
-      `tallers.html`; es pot ampliar amb Open Graph si es vol compartir a
-      xarxes).
+La llista actualitzada és a `PENDENTS.md`.

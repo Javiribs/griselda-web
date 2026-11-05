@@ -252,6 +252,34 @@
   margin-inline: auto;
 }
 
+/* Home: frase de marca (a sobre, petita, en cursiva) + h1 SEO + subtítol. */
+.hero__kicker {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  line-height: 1.4;
+  max-width: 34em;
+  margin-bottom: var(--space-sm);
+  color: color-mix(in srgb, var(--text-on-dark) 88%, transparent);
+}
+
+.hero__kicker::before {
+  content: "";
+  display: inline-block;
+  width: 2.2em;
+  height: 2px;
+  margin-right: 0.6em;
+  vertical-align: middle;
+  background-color: var(--llum-far);
+}
+
+.hero__content .hero__lead {
+  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
+  line-height: 1.5;
+  max-width: 32em;
+  color: var(--text-on-dark);
+}
+
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -610,37 +638,124 @@
   color: var(--blau-mar);
 }
 
-/* Banner de cada pàgina individual de taller (tallers/*.html): fons blau
-   fosc de marca, amb el text en blanc trencat (--text-on-dark) a sobre. */
-.page-taller .page-banner {
+/* Banner de les pàgines interiors (fitxes de taller, landings, Sobre mi):
+   fons blau fosc de marca, amb el text en blanc trencat (--text-on-dark).
+   Ordre: molla de pa → etiqueta → h1 → subtítol → (autoria). */
+.page-banner--dark {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background-color: var(--blau-nit);
+  padding-block: var(--space-lg) var(--space-xl);
 }
 
-.page-taller .page-banner h1,
-.page-taller .page-banner .back-link,
-.page-taller .page-banner .section-eyebrow,
-.page-taller .page-banner .taller-card__byline {
+/* Mateix halo càlid ("llum del far") que el panell de contacte. */
+.page-banner--dark::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -60%;
+  right: -10%;
+  width: min(60vw, 640px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--llum-far) 22%, transparent) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.page-banner--dark h1,
+.page-banner--dark .back-link,
+.page-banner--dark .taller-card__byline {
   color: var(--text-on-dark);
 }
 
-/* El títol de cada taller ha de cabre en una sola línia: contenidor més
-   ample (com --container-width, no com el de 70ch pensat per a text de
-   paràgraf) i una mida de lletra una mica més continguda que el --text-h1
-   estàndard. */
-.page-taller .page-banner__inner {
+.page-banner--dark .section-eyebrow {
+  color: var(--llum-far);
+}
+
+/* El títol ha de poder ocupar tota l'amplada útil (no els 70ch pensats per
+   a paràgrafs) i amb una mida una mica més continguda que el --text-h1. */
+.page-banner--dark .page-banner__inner {
   max-width: var(--container-width);
 }
 
-.page-taller .page-banner h1 {
-  font-size: clamp(1.75rem, 1.1rem + 2.5vw, 2.75rem);
+.page-banner--dark h1 {
+  font-size: clamp(1.9rem, 1.1rem + 2.8vw, 3rem);
   line-height: 1.15;
-  white-space: normal;
+  max-width: 24em;
+  margin-bottom: var(--space-sm);
 }
 
-/* Separació entre el títol (o el byline, si n'hi ha) i l'enllaç de tornada
-   + l'etiqueta de categoria, que quedaven massa enganxats. */
-.page-taller .page-banner .back-link {
-  margin-top: var(--space-md);
+.page-banner__lead {
+  max-width: 44rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+  line-height: 1.5;
+}
+
+.page-banner--dark .page-banner__lead {
+  color: color-mix(in srgb, var(--text-on-dark) 85%, transparent);
+}
+
+.page-banner--dark .taller-card__byline {
+  margin-top: var(--space-sm);
+  font-size: 0.95rem;
+  color: color-mix(in srgb, var(--text-on-dark) 75%, transparent);
+}
+
+/* --- Molla de pa (breadcrumbs) --- */
+.breadcrumbs {
+  margin-bottom: var(--space-md);
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35em;
+  font-family: var(--font-utility);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.breadcrumbs li:not(:last-child)::after {
+  content: "›";
+  margin-left: 0.35em;
+  opacity: 0.6;
+}
+
+.breadcrumbs a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
+
+.breadcrumbs a:hover {
+  text-decoration-color: currentColor;
+}
+
+.breadcrumbs [aria-current="page"] {
+  font-weight: 500;
+}
+
+/* Sobre fons fosc (banner blau i hero amb foto). */
+.page-banner--dark .breadcrumbs ol,
+.hero .breadcrumbs ol {
+  color: color-mix(in srgb, var(--text-on-dark) 78%, transparent);
+}
+
+.page-banner--dark .breadcrumbs [aria-current="page"],
+.hero .breadcrumbs [aria-current="page"] {
+  color: var(--text-on-dark);
+}
+
+.page-tallers .hero .breadcrumbs ol {
+  justify-content: center;
 }
 
 .tallers-intro {
@@ -863,4 +978,34 @@
 
 .site-footer p {
   color: color-mix(in srgb, var(--text-on-dark) 70%, transparent);
+}
+
+.site-footer__brand p {
+  margin-top: 0.3em;
+}
+
+/* Enllaços interns del peu (rastrejables i útils per a la navegació). */
+.footer-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.4em;
+  font-family: var(--font-utility);
+  font-size: 0.9rem;
+}
+
+.footer-nav a {
+  color: color-mix(in srgb, var(--text-on-dark) 85%, transparent);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
+
+.footer-nav a:hover {
+  color: var(--llum-far);
+  text-decoration-color: currentColor;
+}
+
+.site-footer__legal {
+  width: 100%;
+  font-size: 0.85rem;
 }

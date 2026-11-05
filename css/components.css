@@ -151,6 +151,10 @@
 
 /* --- Fitxa de taller (graella #tallers al home) --- */
 .taller-card {
+  /* Bloc contenidor dels textos .visually-hidden dels botons: sense això
+     quedaven posicionats respecte del carrusel (fora de la pista amb
+     scroll) i eixamplaven tota la pàgina. */
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-white);
@@ -605,4 +609,574 @@
   .collaborators__viewport {
     overflow-x: auto;
   }
+}
+
+/* ==========================================================================
+   PÀGINES DE CONTINGUT — fitxes de taller, landings i Sobre mi.
+   Blocs reutilitzables perquè els textos llargs quedin repartits en peces
+   curtes (targetes, llistes, desplegables) en lloc d'una sola columna.
+   ========================================================================== */
+
+/* Enllaç actiu del menú (la pàgina on som). */
+.site-nav__link[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--llum-far);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* --- Secció genèrica amb capçalera (eyebrow + h2 + intro) --- */
+.content-section {
+  padding-block: var(--space-xl);
+}
+
+.content-section--tint {
+  background-color: var(--bg-card);
+}
+
+.content-section--white {
+  background-color: var(--bg-white);
+}
+
+/* Dues seccions seguides amb el mateix fons: menys aire entre elles. */
+.content-section:not(.content-section--tint):not(.content-section--white) + .content-section:not(.content-section--tint):not(.content-section--white) {
+  padding-top: 0;
+}
+
+.section-head {
+  max-width: 46rem;
+  margin-bottom: var(--space-lg);
+}
+
+.section-head h2 {
+  margin-bottom: var(--space-sm);
+}
+
+.section-head p {
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Text corrent llegible (paràgrafs d'introducció). */
+.prose {
+  max-width: 46rem;
+}
+
+.prose p {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  margin-bottom: var(--space-sm);
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.prose--lead p:first-child {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+/* Enllaç de text amb fletxa ("Veure tots els tallers →"). */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-family: var(--font-utility);
+  font-weight: 500;
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--llum-far) 70%, transparent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.text-link::after {
+  content: "→";
+  transition: transform var(--transition-fast);
+}
+
+.text-link:hover::after {
+  transform: translateX(3px);
+}
+
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+/* --- Fitxa pràctica del taller: destinataris / durada / modalitat ---
+   Es mantenen les emoticones de WhatsApp que va triar la Griselda
+   (👥 ⏱ 📍), amb una etiqueta curta perquè la informació s'entengui sola. */
+.taller-facts {
+  display: grid;
+  gap: var(--space-sm);
+  background-color: var(--bg-white);
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 10%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md);
+  margin-block: var(--space-md);
+}
+
+.taller-facts > div {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  column-gap: var(--space-xs);
+  align-items: start;
+}
+
+.taller-facts__icon {
+  grid-row: span 2;
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.taller-facts dt {
+  font: var(--text-eyebrow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.3em;
+}
+
+.taller-facts dd {
+  color: var(--text-primary);
+}
+
+/* --- Llista de temes ("Què treballarem") --- */
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-sm);
+}
+
+.topic-grid li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75em;
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1em 1.2em;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+.topic-grid li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.65em;
+  height: 0.65em;
+  margin-top: 0.4em;
+  border-radius: 50%;
+  background-color: var(--llum-far);
+}
+
+.topic-grid li:nth-child(3n + 2)::before {
+  background-color: var(--blau-mar);
+}
+
+.topic-grid li:nth-child(3n + 3)::before {
+  background-color: var(--verd-molsa);
+}
+
+/* Variant en "píndoles" (temes de les landings). */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.chip-list li {
+  padding: 0.55em 1.1em;
+  border-radius: 999px;
+  background-color: var(--bg-white);
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 14%, transparent);
+  font-family: var(--font-utility);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+/* --- Targetes informatives (reutilitzen .audience-card) --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+/* Les targetes que no són enllaç no s'han d'aixecar en passar-hi per sobre. */
+.audience-card--static:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.audience-card ul {
+  display: grid;
+  gap: 0.45em;
+  margin-top: var(--space-xs);
+}
+
+.audience-card ul li {
+  position: relative;
+  padding-left: 1.1em;
+  color: var(--text-secondary);
+}
+
+.audience-card ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 50%;
+  background-color: var(--tone);
+}
+
+.audience-card__kicker {
+  font: var(--text-eyebrow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--tone) 55%, var(--blau-nit));
+}
+
+.audience-card__link {
+  margin-top: auto;
+  padding-top: var(--space-xs);
+}
+
+/* Targeta destacada (objectiu del taller): fons blau marí. */
+.audience-card--dark {
+  background-color: var(--blau-nit);
+  border-top-color: var(--llum-far);
+}
+
+.audience-card--dark .audience-card__title {
+  color: var(--text-on-dark);
+}
+
+.audience-card--dark .audience-card__text,
+.audience-card--dark p {
+  color: color-mix(in srgb, var(--text-on-dark) 85%, transparent);
+}
+
+.audience-card--dark .audience-card__icon {
+  background-color: var(--llum-far);
+  color: var(--blau-nit);
+}
+
+/* --- Passos numerats (manera de treballar / com organitzar un taller) --- */
+.steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  counter-reset: step;
+}
+
+.steps > li {
+  counter-increment: step;
+  position: relative;
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md);
+}
+
+.steps > li::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--llum-far);
+  margin-bottom: var(--space-xs);
+}
+
+.steps h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3em;
+}
+
+.steps p {
+  margin-bottom: 0;
+}
+
+/* --- Preguntes freqüents (desplegables natius, accessibles amb teclat) --- */
+.faq {
+  display: grid;
+  gap: var(--space-sm);
+  max-width: 52rem;
+}
+
+.faq details {
+  background-color: var(--bg-white);
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 10%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+}
+
+.faq details[open] {
+  box-shadow: var(--shadow-md);
+}
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 1.1em 1.3em;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Icona "+" que gira a "×" en obrir-se. */
+.faq summary::after {
+  content: "+";
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--llum-far) 22%, white);
+  font-family: var(--font-utility);
+  font-size: 1.2rem;
+  transition: transform var(--transition-fast);
+}
+
+.faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq summary:focus-visible {
+  outline: 3px solid var(--blau-mar);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
+}
+
+.faq__answer {
+  padding: 0 1.3em 1.2em;
+}
+
+.faq__answer p {
+  line-height: 1.7;
+}
+
+/* --- Franja de crida a l'acció (final de pàgina) --- */
+.cta-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: var(--space-md);
+  align-items: center;
+  background-color: var(--blau-nit);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.cta-band::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -50%;
+  right: -15%;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--llum-far) 30%, transparent) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.cta-band h2 {
+  color: var(--text-on-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.cta-band p {
+  color: color-mix(in srgb, var(--text-on-dark) 85%, transparent);
+  font-size: 1.08rem;
+  line-height: 1.6;
+  max-width: 38rem;
+}
+
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+/* --- Graella estàtica de fitxes de taller (relacionats, landings) --- */
+.taller-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+.taller-grid .taller-card {
+  height: 100%;
+}
+
+.taller-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 0.9em;
+  font: var(--text-small);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+/* --- Llistes compactes de tallers per etapa (centres educatius) --- */
+.stage-list {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.stage-list li a {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: var(--space-sm);
+  align-items: center;
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 0.75em;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.stage-list li a:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stage-list img {
+  width: 4.5rem;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.stage-list strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.stage-list span {
+  display: block;
+  font: var(--text-small);
+  color: var(--text-secondary);
+}
+
+.stage-col h2 {
+  font-size: 1.5rem;
+}
+
+/* --- Nota de col·laboració (tallers fets amb altres professionals) --- */
+.collab-note {
+  max-width: 52rem;
+  background-color: var(--bg-white);
+  border-left: 4px solid var(--verd-molsa);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md);
+}
+
+.collab-note h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.4em;
+}
+
+/* --- Graella de logos estàtica (Sobre mi) --- */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: var(--space-sm);
+}
+
+.logo-grid li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 2;
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 0.9em;
+}
+
+.logo-grid img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* --- Pàgina 404 --- */
+.not-found {
+  padding-block: var(--space-xxl);
+  text-align: center;
+}
+
+.not-found .section-head {
+  margin-inline: auto;
+}
+
+.not-found .link-row {
+  justify-content: center;
+}
+
+/* Dues columnes de text (1 en mòbil/tablet, 2 a partir de portàtil). */
+.cols-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+/* Pregunta de les FAQ: és un h3 (bona jerarquia per a cercadors i lectors
+   de pantalla) però hereta l'aspecte del <summary>. */
+.faq__q {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+/* Variant de 4 targetes per fila a partir de portàtil (responsive.css). */
+.card-grid--4 {
+  grid-template-columns: 1fr;
+}
+
+/* Text d'ajuda sota un camp del formulari. */
+.form-field__help {
+  font: var(--text-small);
+  color: var(--text-secondary);
 }

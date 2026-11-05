@@ -1,0 +1,7 @@
+# robots.txt — griseldapsicologa.com
+# Tot el lloc és rastrejable. Les pàgines que no s'han d'indexar (Tallers
+# Connecta i 404) porten <meta name="robots" content="noindex, follow">.
+User-agent: *
+Allow: /
+
+Sitemap: https://griseldapsicologa.com/sitemap.xml
