@@ -9,10 +9,16 @@
   --space-sm: 1rem;
   --space-md: 1.5rem;
   --space-lg: 2.5rem;
-  --space-xl: 4rem;
-  --space-xxl: 6rem;
+  /* xl i xxl s'escalen per nivell de pantalla a responsive.css
+     (mòbil → tablet → portàtil → escriptori). */
+  --space-xl: 3rem;
+  --space-xxl: 4rem;
 
-  /* --- Layout --- */
+  /* --- Layout ---
+     --container-width = amplada màxima del CONTINGUT (sense padding).
+     --container-padding = marge lateral, compartit per .container i per la
+     capçalera perquè logo, títols i seccions comencin a la mateixa x.
+     Tots dos s'ajusten per nivell de pantalla a responsive.css. */
   --container-width: 1140px;
   --container-padding: 1.25rem;
   --header-height: 92px;

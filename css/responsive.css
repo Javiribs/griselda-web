@@ -1,22 +1,68 @@
 /* ==========================================================================
-   RESPONSIVE — mobile-first: aquí van las media queries para tablet/desktop
+   RESPONSIVE — mobile-first. 4 nivells de pantalla:
+
+     1. Mòbil       <  768px   (estils base de layout.css / components.css)
+     2. Tablet/iPad  768–1023px
+     3. Portàtil    1024–1439px
+     4. Escriptori  >= 1440px
+
+   Cada nivell només redefineix el que canvia respecte de l'anterior. Els
+   tokens d'espaiat (--space-xl, --space-xxl) i de layout
+   (--container-width, --container-padding) s'ajusten aquí per nivell, i la
+   resta d'estils els hereten automàticament.
    ========================================================================== */
 
-/* --- Tablet (>= 768px) --- */
-@media (min-width: 768px) {
-  .split--reverse .split__inner {
-    flex-direction: row-reverse;
+/* --- 1. Mòbil (< 768px): retocs que només apliquen aquí --- */
+@media (max-width: 767px) {
+  /* Al mòbil el carrusel es fa lliscar amb el dit: les fletxes quedarien
+     fora del requadre (no hi ha marge lateral per a elles). */
+  .tallers-carousel__arrow {
+    display: none;
   }
 
-  .split__inner {
-    display: flex;
-    flex-direction: row;
-    gap: var(--space-xl);
-    align-items: center;
+  /* Una fitxa per vista, a tot l'ample (es llisca per veure la següent). */
+  .tallers-carousel__track .taller-card {
+    flex-basis: 100%;
+    height: auto;
+  }
+
+  .contact-card__aside,
+  .contact-card__form {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .mirada__content {
+    padding: var(--space-xl) var(--space-md);
+  }
+}
+
+/* --- 2. Tablet / iPad (>= 768px) --- */
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 2rem;
+    --space-xl: 3.5rem;
+    --space-xxl: 5rem;
+  }
+
+  /* "Qui soc" i fitxes de taller: en tablet es manté apilat (imatge a
+     sobre, text a sota). En dues columnes la foto de 480px deixava el
+     text en una columna de menys de 200px. */
+  .split__image {
+    max-width: 520px;
   }
 
   .audience-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-card__aside,
+  .contact-card__form {
+    padding: var(--space-xl);
+  }
+
+  /* Nom i correu a la mateixa fila */
+  .form-row {
+    grid-template-columns: 1fr 1fr;
   }
 
   .mirada__card {
@@ -31,9 +77,11 @@
     font-size: 1.3rem;
   }
 
+  /* Fitxes del carrusel: 2 per vista, omplint tot l'ample disponible
+     (abans eren de 280px fixos i quedava un buit a la dreta). */
   .tallers-carousel__track .taller-card {
-    flex-basis: 280px;
-    height: 415px;
+    flex-basis: calc((100% - var(--space-md)) / 2);
+    height: auto;
   }
 
   .tallers-panel {
@@ -42,75 +90,53 @@
   }
 
   .tallers-carousel__arrow {
-    width: 64px;
-    height: 64px;
-    font-size: 2.1rem;
+    width: 48px;
+    height: 48px;
+    font-size: 1.8rem;
   }
 
+  /* Centrades dins el padding lateral del requadre (--space-xl). */
   .tallers-carousel__arrow--prev {
-    left: -4.75rem;
+    left: calc((var(--space-xl) + 48px) / -2);
   }
 
   .tallers-carousel__arrow--next {
-    right: -4.75rem;
+    right: calc((var(--space-xl) + 48px) / -2);
   }
 
   .collaborators__logo {
-    width: 220px;
-    height: 140px;
-    margin-inline: var(--space-xl);
+    width: 160px;
+    height: 100px;
+    margin-inline: var(--space-lg);
   }
 
   .collaborators__logo--lg {
-    width: 290px;
-    height: 185px;
+    width: 210px;
+    height: 135px;
+  }
+
+  /* A tallers.html els carrusels no són dins del requadre amb padding de
+     la home: les fletxes es superposen lleugerament a la vora de les
+     fitxes en lloc de sortir del contenidor (i de la pantalla). */
+  .taller-category .tallers-carousel__arrow--prev {
+    left: -1rem;
+  }
+
+  .taller-category .tallers-carousel__arrow--next {
+    right: -1rem;
   }
 }
 
-/* --- Desktop (>= 1024px) --- */
+/* --- 3. Portàtil (>= 1024px) --- */
 @media (min-width: 1024px) {
-  /* Contenidor més ample: en pantalles grans deixa menys marge lateral
-     buit i el contingut aprofita més l'amplada de la finestra. */
   :root {
-    --container-width: 1320px;
+    --container-padding: 3rem;
+    --container-width: 1344px; /* 1440 - 2×3rem: el contingut omple tot l'ample, alineat amb el logo */
+    --space-xl: 4rem;
+    --space-xxl: 5rem;
   }
 
-  .mirada__card {
-    min-height: 34rem;
-  }
-
-  .split__content p {
-    font-size: 1.15rem;
-    line-height: 1.7;
-  }
-
-  /* A partir d'aquí ja hi ha prou amplada perquè la frase hi càpiga en una
-     sola línia (en mòbil és físicament impossible sense una lletra
-     il·legible, així que allà es manté el salt de línia natural). */
-  .page-tallers .hero__content {
-    max-width: none;
-  }
-
-  .page-tallers .hero__content p {
-    font-size: 1.5rem;
-    max-width: none;
-    white-space: nowrap;
-  }
-
-  .mirada__content {
-    padding: var(--space-xxl) var(--space-xxl);
-  }
-
-  .mirada__content p {
-    font-size: 1.4rem;
-  }
-
-  .hero__content {
-    /* Prou ample perquè el titular (font-size fixat a 4.25rem des dels
-       ~880px) hi càpiga en 2 línies en lloc de 3. */
-    max-width: 72rem;
-  }
-
+  /* Navegació horitzontal (deixa de ser calaix mòbil) */
   .nav-toggle {
     display: none;
   }
@@ -132,13 +158,156 @@
     gap: var(--space-lg);
   }
 
+  /* Hero: titular una mica més contingut que a escriptori (les pantalles
+     de portàtil solen ser baixes, ~650-800px útils) i menys aire a sota
+     perquè el bloc no xoqui amb la capçalera. */
+  .hero__content {
+    padding-bottom: clamp(var(--space-xl), 24vh, 14rem);
+  }
+
+  .hero__content h1 {
+    font-size: clamp(2.75rem, 1rem + 3.4vw, 3.75rem);
+  }
+
+  .page-tallers .hero__content p {
+    font-size: 1.4rem;
+    max-width: none;
+  }
+
+  /* "Qui soc" / fitxa de taller: dues columnes, la imatge ocupa ~40%. */
+  .split__inner {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .split--reverse .split__inner {
+    flex-direction: row-reverse;
+  }
+
+  .split__image {
+    flex: 0 0 40%;
+    max-width: 480px;
+  }
+
+  .split__content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  /* A qui m'adreço: 3 targetes per fila (2 files de 3). */
   .audience-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  /* Contacte: panell blau a l'esquerra, formulari a la dreta. */
+  .contact-card {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+
+  .contact-card__aside,
+  .contact-card__form {
+    padding: var(--space-xl) var(--space-xl);
+  }
+
+  .mirada__card {
+    min-height: 32rem;
+  }
+
+  .mirada__content {
+    padding: var(--space-xl) var(--space-xxl);
+  }
+
+  .mirada__content p {
+    font-size: 1.3rem;
+  }
+
+  /* 3 fitxes per vista, omplint l'ample del requadre. */
   .tallers-carousel__track .taller-card {
-    flex-basis: 300px;
-    height: 430px;
+    flex-basis: calc((100% - 2 * var(--space-md)) / 3);
+  }
+
+  .tallers-panel {
+    padding: var(--space-lg) var(--space-xl) var(--space-xl);
+    --tallers-panel-fade: 260px;
+  }
+
+  .tallers-carousel__arrow {
+    width: 52px;
+    height: 52px;
+    font-size: 2rem;
+  }
+
+  .tallers-carousel__arrow--prev {
+    left: calc((var(--space-xl) + 52px) / -2);
+  }
+
+  .tallers-carousel__arrow--next {
+    right: calc((var(--space-xl) + 52px) / -2);
+  }
+
+  .collaborators__logo {
+    width: 170px;
+    height: 108px;
+    margin-inline: var(--space-xl);
+  }
+
+  .collaborators__logo--lg {
+    width: 220px;
+    height: 140px;
+  }
+
+  .site-footer__inner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* --- 4. Escriptori (>= 1440px) --- */
+@media (min-width: 1440px) {
+  :root {
+    --container-padding: 3.5rem;
+    --container-width: 1320px;
+    --space-xl: 4rem;
+    --space-xxl: 6rem;
+  }
+
+  .hero__content {
+    padding-bottom: clamp(var(--space-xl), 34vh, 21rem);
+  }
+
+  .hero__content h1 {
+    font-size: 4.25rem;
+  }
+
+  /* A partir d'aquí la frase del hero de tallers.html hi cap en una sola
+     línia. */
+  .page-tallers .hero__content p {
+    font-size: 1.5rem;
+    white-space: nowrap;
+  }
+
+  .split__image {
+    flex-basis: 480px;
+  }
+
+  .split__content p {
+    font-size: 1.15rem;
+  }
+
+  .mirada__card {
+    min-height: 34rem;
+  }
+
+  .mirada__content {
+    padding: var(--space-xxl);
+  }
+
+  .mirada__content p {
+    font-size: 1.4rem;
   }
 
   .tallers-panel {
@@ -147,26 +316,31 @@
   }
 
   .tallers-carousel__arrow {
-    width: 68px;
-    height: 68px;
+    width: 64px;
+    height: 64px;
     font-size: 2.3rem;
   }
 
   .tallers-carousel__arrow--prev {
-    left: -5.25rem;
+    left: calc((var(--space-xxl) + 64px) / -2);
   }
 
   .tallers-carousel__arrow--next {
-    right: -5.25rem;
+    right: calc((var(--space-xxl) + 64px) / -2);
+  }
+
+  .contact-card__aside,
+  .contact-card__form {
+    padding: var(--space-xxl) var(--space-xl);
   }
 
   .collaborators__logo {
-    width: 250px;
-    height: 160px;
+    width: 180px;
+    height: 115px;
   }
 
   .collaborators__logo--lg {
-    width: 320px;
-    height: 205px;
+    width: 240px;
+    height: 152px;
   }
 }

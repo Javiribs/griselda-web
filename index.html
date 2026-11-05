@@ -383,51 +383,68 @@
     </section>
 
     <!-- ===================== A QUI M'ADREÇO ===================== -->
-    <section id="a-qui-madreco">
-      <div class="container">
-        <span class="section-eyebrow">Destinataris</span>
-        <h2>A qui m'adreço?</h2>
+    <section id="a-qui-madreco" class="audience">
+      <div class="container audience__layout">
+        <div class="audience__intro">
+          <span class="section-eyebrow">Destinataris</span>
+          <h2>A qui m'adreço?</h2>
+          <!-- //TODO: text d'introducció provisional; cal que la Griselda el revisi. -->
+          <p>
+            Cada proposta s'adapta a la realitat de qui la demana: el grup, l'edat, el
+            context i els objectius. Treballo amb centres, famílies, institucions i
+            equips que volen cuidar el benestar emocional de les persones.
+          </p>
+          <a class="btn btn-primary" href="#contacte">Parlem del teu projecte</a>
+        </div>
 
         <div class="audience-grid">
           <article class="audience-card">
-            <div class="audience-card__header">
-              <span class="audience-card__icon" aria-hidden="true">🏫</span>
-              <h3 class="audience-card__title">Centres educatius</h3>
-            </div>
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M10 21v-5h4v5M12 10.5v.01"/></svg>
+            </span>
+            <h3 class="audience-card__title">Centres educatius</h3>
             <p class="audience-card__text">Tallers i formacions adaptades a les necessitats de cada centre.</p>
           </article>
 
           <article class="audience-card">
-            <div class="audience-card__header">
-              <span class="audience-card__icon" aria-hidden="true">👨‍👩‍👧‍👦</span>
-              <h3 class="audience-card__title">AFAs / AMPAs</h3>
-            </div>
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 14.1c2.6.4 4.5 2.9 4.5 5.9"/></svg>
+            </span>
+            <h3 class="audience-card__title">AFAs / AMPAs</h3>
             <p class="audience-card__text">Espais de reflexió i aprenentatge per acompanyar la criança i l'adolescència.</p>
           </article>
 
           <article class="audience-card">
-            <div class="audience-card__header">
-              <span class="audience-card__icon" aria-hidden="true">🏛️</span>
-              <h3 class="audience-card__title">Administracions públiques</h3>
-            </div>
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 21h18M4 10h16M12 3l8 4.5H4L12 3zM6 10v8M10 10v8M14 10v8M18 10v8"/></svg>
+            </span>
+            <h3 class="audience-card__title">Administracions públiques</h3>
             <p class="audience-card__text">Programes i accions preventives adaptades a la realitat de cada municipi.</p>
           </article>
 
           <article class="audience-card">
-            <div class="audience-card__header">
-              <span class="audience-card__icon" aria-hidden="true">🤝</span>
-              <h3 class="audience-card__title">Entitats socials i comunitàries</h3>
-            </div>
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/></svg>
+            </span>
+            <h3 class="audience-card__title">Entitats socials i comunitàries</h3>
             <p class="audience-card__text">Tallers i formacions per promoure el benestar emocional de les persones i les comunitats.</p>
           </article>
 
           <article class="audience-card">
-            <div class="audience-card__header">
-              <span class="audience-card__icon" aria-hidden="true">👥</span>
-              <h3 class="audience-card__title">Organitzacions i equips</h3>
-            </div>
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 13h18"/></svg>
+            </span>
+            <h3 class="audience-card__title">Organitzacions i equips</h3>
             <p class="audience-card__text">Acompanyament i formació per afavorir la comunicació, la inclusió i el benestar dins dels equips.</p>
           </article>
+
+          <a class="audience-card audience-card--cta" href="#contacte">
+            <span class="audience-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+            <span class="audience-card__title">No hi trobes el teu cas?</span>
+            <span class="audience-card__text">Explica'm el teu context i pensarem junts la proposta que millor hi encaixi.</span>
+          </a>
         </div>
       </div>
     </section>
@@ -473,29 +490,86 @@
     </section>
 
     <!-- ===================== CONTACTE ===================== -->
-    <section id="contacte">
+    <section id="contacte" class="contact">
       <div class="container">
-        <div class="contact-card contact-grid">
-        <div>
+        <div class="contact-card">
+        <div class="contact-card__aside">
           <span class="section-eyebrow">Parlem-ne</span>
           <h2>Contacte</h2>
-          <p class="section-intro">
+          <p>
             Si vols organitzar un taller, una formació o simplement vols fer-me arribar
             una consulta, escriu-me i et respondré el més aviat possible.
           </p>
+
+          <!-- //TODO: substituir el correu, el telèfon, la zona i el temps de
+               resposta per les dades reals de la Griselda (ara són marcadors). -->
+          <ul class="contact-details">
+            <li>
+              <span class="contact-details__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              </span>
+              <span>
+                <span class="contact-details__label">Correu</span>
+                <a href="mailto:correu@exemple.com">correu@exemple.com</a>
+              </span>
+            </li>
+            <li>
+              <span class="contact-details__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+              </span>
+              <span>
+                <span class="contact-details__label">Telèfon</span>
+                <a href="tel:+34600000000">600 000 000</a>
+              </span>
+            </li>
+            <li>
+              <span class="contact-details__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-6-5.4-6-11a6 6 0 0 1 12 0c0 5.6-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+              </span>
+              <span>
+                <span class="contact-details__label">Zona</span>
+                Girona i comarques
+              </span>
+            </li>
+            <li>
+              <span class="contact-details__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </span>
+              <span>
+                <span class="contact-details__label">Resposta</span>
+                En 24–48 hores
+              </span>
+            </li>
+          </ul>
         </div>
 
-        <form id="contactForm" class="contact-form" novalidate>
-          <div class="form-field">
-            <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" autocomplete="name" required minlength="2" aria-describedby="nom-error" />
-            <span class="form-field__error" id="nom-error"></span>
+        <form id="contactForm" class="contact-form contact-card__form" novalidate>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" autocomplete="name" required minlength="2" aria-describedby="nom-error" />
+              <span class="form-field__error" id="nom-error"></span>
+            </div>
+
+            <div class="form-field">
+              <label for="email">Correu electrònic</label>
+              <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="email-error" />
+              <span class="form-field__error" id="email-error"></span>
+            </div>
           </div>
 
           <div class="form-field">
-            <label for="email">Correu electrònic</label>
-            <input type="email" id="email" name="email" autocomplete="email" required aria-describedby="email-error" />
-            <span class="form-field__error" id="email-error"></span>
+            <label for="perfil">Ets… <span class="form-field__optional">(opcional)</span></label>
+            <select id="perfil" name="perfil">
+              <option value="">Selecciona una opció</option>
+              <option>Centre educatiu</option>
+              <option>AFA / AMPA</option>
+              <option>Administració pública</option>
+              <option>Entitat social o comunitària</option>
+              <option>Organització o equip</option>
+              <option>Família</option>
+              <option>Altres</option>
+            </select>
           </div>
 
           <div class="form-field">
@@ -505,7 +579,7 @@
           </div>
 
           <!-- //TODO: decidir servei d'enviament del formulari (backend, EmailJS, Formspree...) -->
-          <button type="submit" class="btn btn-primary">Envia el missatge</button>
+          <button type="submit" class="btn btn-primary contact-form__submit">Envia el missatge</button>
 
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>

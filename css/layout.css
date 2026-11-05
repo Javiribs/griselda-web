@@ -5,7 +5,7 @@
 
 .container {
   width: 100%;
-  max-width: var(--container-width);
+  max-width: calc(var(--container-width) + 2 * var(--container-padding));
   margin-inline: auto;
   padding-inline: var(--container-padding);
 }
@@ -72,11 +72,11 @@
   justify-content: space-between;
   min-height: var(--header-height);
   /* Sense .container: el logo i el nav queden ancorats a les cantonades
-     reals de la pantalla, no del contenidor centrat de 1140px. El padding
-     escala amb el viewport perquè en pantalles amples no quedin enganxats
-     al mateix caire (una mica més d'aire que --container-padding). */
+     reals de la pantalla, no del contenidor centrat. Fa servir el mateix
+     --container-padding que .container: en mòbil, tablet i portàtil (on el
+     contenidor ocupa tota l'amplada) logo i contingut queden alineats. */
   width: 100%;
-  padding-inline: clamp(1.5rem, 4vw, 3.5rem);
+  padding-inline: var(--container-padding);
 }
 
 .site-brand {
@@ -213,7 +213,13 @@
      align-items: flex-end): augmentar el padding inferior és el que el
      "puja" visualment, allunyant-lo del peu de la imatge. */
   padding-block: calc(var(--header-height) + var(--space-lg)) clamp(var(--space-xl), 38vh, 21rem);
-  max-width: 46rem;
+}
+
+/* El bloc del hero fa l'amplada del .container (el títol queda alineat
+   amb la resta de seccions); el que es limita és el titular, en "em"
+   perquè escali amb la seva pròpia mida de lletra. */
+.hero__content h1 {
+  max-width: 17em;
 }
 
 .hero__content h1,
@@ -233,8 +239,11 @@
    centren tant el bloc com el text, i el subtítol puja de mida perquè
    faci de contrapès visual al títol. */
 .page-tallers .hero__content {
-  margin-inline: auto;
   text-align: center;
+}
+
+.page-tallers .hero__content h1 {
+  margin-inline: auto;
 }
 
 .page-tallers .hero__content p {
@@ -274,6 +283,15 @@
   flex-direction: column;
   gap: var(--space-lg);
   align-items: center;
+}
+
+/* Mòbil i tablet: apilat (imatge a sobre, text a sota). A partir de
+   portàtil passa a dues columnes (responsive.css). */
+.split__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
 }
 
 .split__image {
@@ -469,6 +487,27 @@
   transition: background-color var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast);
 }
 
+/* La fletxa no és el caràcter de text (‹ ›) de l'HTML: els glifs de la
+   font no queden mai centrats òpticament dins el cercle (i eren massa
+   prims). S'amaga el text i es dibuixa un chevron SVG amb mask, que pren
+   el color del botó (currentColor) i escala amb la mida del cercle. */
+.tallers-carousel__arrow > span {
+  display: none;
+}
+
+.tallers-carousel__arrow::before {
+  content: "";
+  width: 44%;
+  height: 44%;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 5l7 7-7 7'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.tallers-carousel__arrow--prev::before {
+  transform: scaleX(-1);
+}
+
 .tallers-carousel__arrow:hover {
   background-color: var(--blau-mar);
   color: var(--text-on-dark);
@@ -524,7 +563,7 @@
   position: relative;
   z-index: 0;
   border-radius: var(--radius-lg);
-  padding: var(--space-sm) var(--space-lg) var(--space-lg);
+  padding: var(--space-sm) var(--space-md) var(--space-lg);
   --tallers-panel-fade: 160px;
 }
 
@@ -707,44 +746,101 @@
   margin-bottom: var(--space-sm);
 }
 
-/* --- A qui m'adreço --- */
-#a-qui-madreco {
-  padding-top: var(--space-lg);
-  padding-bottom: var(--space-xl);
+/* --- A qui m'adreço ---
+   Per files: intro (títol + text + botó) a dalt, i a sota la graella de 6
+   targetes (5 destinataris + 1 CTA) en 3 columnes a partir de portàtil
+   (2 files de 3), 2 columnes en tablet i 1 en mòbil (responsive.css). */
+.audience {
+  padding-block: var(--space-xl) var(--space-lg);
 }
 
-/* Espai entre "Destinataris" i "Xarxa de confiança". */
-#collaboradors {
-  padding-top: var(--space-xl);
+.audience__layout {
+  display: grid;
+  gap: var(--space-lg);
 }
 
-/* Contenidor més estret que el --container-width ample (1320px) de la
-   resta del lloc: la graella de targetes, sense cap text llarg que en
-   limiti l'amplada per si sola, quedava massa oberta i desentonava amb la
-   resta de seccions. El max-width va a la graella (no al .container, que
-   amb margin-inline:auto l'hauria centrada amb un marge esquerre diferent
-   del de la resta de seccions en lloc de quedar alineada amb elles). */
+.audience__intro {
+  max-width: 48rem;
+}
+
+.audience__intro p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+}
+
 .audience-grid {
-  max-width: 1140px;
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-md);
 }
 
-/* --- Contacte --- */
-.contact-card {
-  max-width: 680px;
-  margin-inline: auto;
-  background-color: var(--bg-card);
-  border: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
+/* Espai entre "Destinataris" i "Xarxa de confiança", i menys aire sota
+   el carrusel de logos (abans hi quedava un buit molt gran). */
+#collaboradors {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-lg);
 }
 
-.contact-grid {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
+/* --- Contacte ---
+   Targeta partida en dos: panell blau marí amb el text i les dades de
+   contacte + formulari sobre blanc. Apilat en mòbil/tablet; costat a costat
+   a partir de portàtil (responsive.css). */
+#contacte {
+  padding-top: var(--space-xl);
+}
+
+.contact-card {
+  display: grid;
+  background-color: var(--bg-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.contact-card__aside {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--blau-nit);
+  padding: var(--space-xl) var(--space-lg);
+}
+
+/* "Llum del far": halo càlid difuminat a la cantonada superior. */
+.contact-card__aside::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -30%;
+  right: -35%;
+  width: 90%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--llum-far) 35%, transparent) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.contact-card__aside h2,
+.contact-card__aside p {
+  color: var(--text-on-dark);
+}
+
+.contact-card__aside .section-eyebrow {
+  color: var(--llum-far);
+}
+
+.contact-card__aside > p {
+  color: color-mix(in srgb, var(--text-on-dark) 85%, transparent);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.contact-card__form {
+  padding: var(--space-xl) var(--space-lg);
 }
 
 /* --- Footer --- */

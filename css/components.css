@@ -21,13 +21,26 @@
   transform: translateY(-2px);
 }
 
+/* Taronja suavitzat (barrejat amb blanc) i amb un degradat lleuger de
+   dalt a baix, en lloc del --llum-far pla i saturat. El text continua
+   fosc (--text-primary) per mantenir el contrast. */
 .btn-primary {
-  background-color: var(--llum-far);
+  background-color: color-mix(in srgb, var(--llum-far) 65%, white);
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--llum-far) 50%, white),
+    color-mix(in srgb, var(--llum-far) 75%, white)
+  );
   color: var(--text-primary);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--llum-far) 25%, transparent);
 }
 
 .btn-primary:hover {
-  background-color: color-mix(in srgb, var(--llum-far) 85%, var(--blau-nit) 15%);
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--llum-far) 65%, white),
+    color-mix(in srgb, var(--llum-far) 90%, white)
+  );
 }
 
 .btn-outline {
@@ -110,10 +123,10 @@
   color: var(--text-primary);
 }
 
-/* Pestanya seleccionada = "encesa" amb la llum del far */
+/* Pestanya seleccionada: blau marí de marca amb text clar. */
 .tabs__btn[aria-selected="true"] {
-  background-color: var(--llum-far);
-  color: var(--text-primary);
+  background-color: var(--blau-nit);
+  color: var(--text-on-dark);
 }
 
 .tabs__panel {
@@ -274,46 +287,170 @@
   gap: var(--space-xs);
 }
 
-/* --- Tarjetas (A qui m'adreço) --- */
+/* --- Tarjetas (A qui m'adreço) ---
+   Fons blanc sobre la franja tintada de la secció, línia de color a dalt i
+   icona de línia dins un cercle suau. El color (--tone) va alternant entre
+   els tres accents de marca, un per targeta. */
 .audience-card {
+  --tone: var(--llum-far);
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.3em;
-  background-color: var(--bg-card);
-  border: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  gap: var(--space-xs);
+  background-color: var(--bg-white);
   border-radius: var(--radius-md);
-  padding: var(--space-lg);
+  border-top: 4px solid var(--tone);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md) var(--space-md) var(--space-lg);
   height: 100%;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.audience-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+.audience-card:nth-child(3n + 2) {
+  --tone: var(--blau-mar);
 }
 
-.audience-card__header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
+.audience-card:nth-child(3n + 3) {
+  --tone: var(--verd-molsa);
+}
+
+.audience-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .audience-card__icon {
-  font-size: 1.75rem;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  margin-bottom: var(--space-xs);
+  background-color: color-mix(in srgb, var(--tone) 18%, white);
+  color: color-mix(in srgb, var(--tone) 55%, var(--blau-nit));
+}
+
+.audience-card__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .audience-card__title {
+  display: block;
+  font: var(--text-h3);
+  color: var(--text-primary);
   margin-bottom: 0;
 }
 
 .audience-card__text {
+  display: block;
   color: var(--text-secondary);
   margin-bottom: 0;
 }
 
+/* Sisena targeta: crida a l'acció en blau marí (enllaç a #contacte). */
+.audience-card--cta {
+  --tone: var(--llum-far);
+  background-color: var(--blau-nit);
+  border-top-color: var(--llum-far);
+}
+
+.audience-card--cta .audience-card__title {
+  color: var(--text-on-dark);
+}
+
+.audience-card--cta .audience-card__text {
+  color: color-mix(in srgb, var(--text-on-dark) 80%, transparent);
+}
+
+.audience-card--cta .audience-card__icon {
+  background-color: var(--llum-far);
+  color: var(--blau-nit);
+  transition: transform var(--transition-fast);
+}
+
+.audience-card--cta:hover .audience-card__icon {
+  transform: translateX(4px);
+}
+
+/* --- Dades de contacte (panell blau del formulari) --- */
+.contact-details {
+  display: grid;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.contact-details li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--text-on-dark);
+}
+
+.contact-details__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--text-on-dark) 10%, transparent);
+  color: var(--llum-far);
+}
+
+.contact-details__icon svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-details__label {
+  display: block;
+  font: var(--text-eyebrow);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--text-on-dark) 65%, transparent);
+  margin-bottom: 0.3em;
+}
+
+.contact-details a {
+  color: var(--text-on-dark);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--llum-far) 60%, transparent);
+  text-underline-offset: 3px;
+}
+
+.contact-details a:hover {
+  color: var(--llum-far);
+}
+
 /* --- Formulario de contacte --- */
+.form-row {
+  display: grid;
+  column-gap: var(--space-md);
+}
+
+.form-field__optional {
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.contact-form__submit {
+  padding: 1em 2.4em;
+  font-size: 1rem;
+}
 .form-field {
   display: flex;
   flex-direction: column;
@@ -328,12 +465,32 @@
 }
 
 .form-field input,
-.form-field textarea {
+.form-field textarea,
+.form-field select {
   padding: 0.8em 1em;
-  border: 1px solid color-mix(in srgb, var(--blau-nit) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--blau-nit) 14%, transparent);
   border-radius: var(--radius-sm);
-  background-color: var(--bg-card);
+  background-color: var(--bg-base);
   color: var(--text-primary);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus {
+  border-color: var(--blau-mar);
+  background-color: var(--bg-white);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blau-mar) 20%, transparent);
+}
+
+.form-field select {
+  appearance: none;
+  padding-right: 2.75em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23102D4A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em center;
+  background-size: 1.1em;
+  cursor: pointer;
 }
 
 .form-field textarea {
@@ -375,7 +532,7 @@
 
 /* --- Entitats i institucions col·laboradores (carrusel de logos) --- */
 .collaborators .container {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 /* Només l'eyebrow + h2 (el carrusel de logos és un altre contenidor, a
@@ -413,8 +570,8 @@
 }
 
 .collaborators__logo {
-  width: 190px;
-  height: 120px;
+  width: 150px;
+  height: 96px;
   margin-inline: var(--space-lg);
   object-fit: contain;
   transition: transform var(--transition-fast);
@@ -427,8 +584,8 @@
 /* La UdG té molt de marge blanc dins la pròpia imatge: amb la mateixa
    caixa que la resta es veu molt més petita, així que li donem més mida. */
 .collaborators__logo--lg {
-  width: 250px;
-  height: 160px;
+  width: 200px;
+  height: 128px;
 }
 
 @keyframes collaborators-scroll {
