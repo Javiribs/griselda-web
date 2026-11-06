@@ -39,6 +39,18 @@ const OG_IMAGE = 'images/og/griselda-og.jpg';
 // Data de l'última revisió de contingut (per al sitemap).
 const LASTMOD = '2026-11-05';
 
+// Versió dels fitxers CSS/JS (hash del seu contingut): s'afegeix com a ?v=...
+// a cada enllaç perquè els navegadors i la CDN de GitHub Pages descarreguin
+// sempre la versió nova després de cada canvi (sense haver de fer Ctrl+F5).
+const ASSET_VERSION = (() => {
+  const h = require('crypto').createHash('md5');
+  for (const dir of ['css', 'js']) {
+    for (const file of fs.readdirSync(path.join(ROOT, dir)).sort()) h.update(fs.readFileSync(path.join(ROOT, dir, file)));
+  }
+  return h.digest('hex').slice(0, 8);
+})();
+const asset = (link, p) => link(p) + '?v=' + ASSET_VERSION;
+
 const PERSON_ID = `${SITE_URL}/#griselda`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 
@@ -210,14 +222,9 @@ ${seoBlock(page)}
   <link rel="icon" href="${link('images/icons/favicon.svg')}" type="image/svg+xml" />
   <meta name="theme-color" content="#102D4A" />
 
-  <link rel="stylesheet" href="${link('css/fonts.css')}" />
-  <link rel="stylesheet" href="${link('css/reset.css')}" />
-  <link rel="stylesheet" href="${link('css/variables.css')}" />
-  <link rel="stylesheet" href="${link('css/tokens.css')}" />
-  <link rel="stylesheet" href="${link('css/base.css')}" />
-  <link rel="stylesheet" href="${link('css/layout.css')}" />
-  <link rel="stylesheet" href="${link('css/components.css')}" />
-  <link rel="stylesheet" href="${link('css/responsive.css')}" />
+${['fonts', 'reset', 'variables', 'tokens', 'base', 'layout', 'components', 'responsive']
+  .map((n) => `  <link rel="stylesheet" href="${asset(link, 'css/' + n + '.css')}" />`)
+  .join('\n')}
 </head>`;
 }
 
@@ -313,7 +320,7 @@ function bannerHtml({ crumbs, eyebrow, h1, lead, byline }, link) {
 function layout(page, body) {
   const link = linker(page.path, { absolute: page.absolute });
   const scripts = ['js/nav.js', ...(page.scripts || []), 'js/main.js']
-    .map((s) => `  <script src="${link(s)}" defer></script>`)
+    .map((s) => `  <script src="${asset(link, s)}" defer></script>`)
     .join('\n');
   return `<!DOCTYPE html>
 <!-- Pàgina generada per scripts/build-pages.js: NO l'editis a mà. -->
@@ -1499,6 +1506,10 @@ function syncHandWritten(file, page) {
   const full = path.join(ROOT, file);
   const link = linker(page.path);
   let html = fs.readFileSync(full, 'utf8');
+  html = html.replace(
+    /(href|src)="((?:\.\.\/)*(?:css|js)\/[\w-]+\.(?:css|js))(?:\?v=\w+)?"/g,
+    (m, attr, p) => `${attr}="${p}?v=${ASSET_VERSION}"`
+  );
   html = replaceBlock(html, 'SEO', seoBlock(page), file);
   html = replaceBlock(html, 'HEADER', headerHtml(page, link), file);
   html = replaceBlock(html, 'FOOTER', footerHtml(page, link), file);

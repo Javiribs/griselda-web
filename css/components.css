@@ -1234,8 +1234,18 @@
 .footer-legal-links {
   display: inline-flex;
   flex-wrap: wrap;
-  gap: 0.3em 1.1em;
-  margin-left: 1.1em;
+  align-items: center;
+  gap: 0.4em 0;
+  margin-left: 2em;
+}
+
+/* Separador "·" entre enllaços, amb aire a banda i banda. */
+.footer-legal-links a + a::before {
+  content: "·";
+  display: inline-block;
+  margin-inline: 0.9em;
+  color: color-mix(in srgb, var(--text-on-dark) 45%, transparent);
+  text-decoration: none;
 }
 
 .site-footer .footer-legal-links a {
