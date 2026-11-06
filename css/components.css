@@ -547,7 +547,7 @@
    que amb margin-inline:auto els hauria centrat enlloc de deixar-los
    alineats a l'esquerra com la resta de títols de secció). */
 .collaborators .container h2 {
-  max-width: 700px;
+  max-width: none;
 }
 
 .collaborators__viewport {
@@ -644,7 +644,7 @@
 }
 
 .section-head {
-  max-width: 46rem;
+  max-width: none;
   margin-bottom: var(--space-lg);
 }
 
@@ -664,7 +664,7 @@
 
 /* Text corrent llegible (paràgrafs d'introducció). */
 .prose {
-  max-width: 46rem;
+  max-width: none;
 }
 
 .prose p {
@@ -692,10 +692,11 @@
   font-family: var(--font-utility);
   font-weight: 500;
   color: var(--text-primary);
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--llum-far) 70%, transparent);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  color: var(--blau-mar);
 }
 
 .text-link::after {
@@ -917,7 +918,7 @@
 .faq {
   display: grid;
   gap: var(--space-sm);
-  max-width: 52rem;
+  max-width: none;
 }
 
 .faq details {
@@ -1025,7 +1026,7 @@
   color: color-mix(in srgb, var(--text-on-dark) 85%, transparent);
   font-size: 1.08rem;
   line-height: 1.6;
-  max-width: 38rem;
+  max-width: none;
 }
 
 .cta-band__actions {
@@ -1103,7 +1104,7 @@
 
 /* --- Nota de col·laboració (tallers fets amb altres professionals) --- */
 .collab-note {
-  max-width: 52rem;
+  max-width: none;
   background-color: var(--bg-white);
   border-left: 4px solid var(--verd-molsa);
   border-radius: var(--radius-md);

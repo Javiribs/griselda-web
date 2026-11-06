@@ -219,7 +219,7 @@
    amb la resta de seccions); el que es limita és el titular, en "em"
    perquè escali amb la seva pròpia mida de lletra. */
 .hero__content h1 {
-  max-width: 17em;
+  max-width: none;
 }
 
 .hero__content h1,
@@ -248,7 +248,7 @@
 
 .page-tallers .hero__content p {
   font-size: 1.3rem;
-  max-width: 40ch;
+  max-width: none;
   margin-inline: auto;
 }
 
@@ -258,7 +258,7 @@
   font-style: italic;
   font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
   line-height: 1.4;
-  max-width: 34em;
+  max-width: none;
   margin-bottom: var(--space-sm);
   color: color-mix(in srgb, var(--text-on-dark) 88%, transparent);
 }
@@ -276,7 +276,7 @@
 .hero__content .hero__lead {
   font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
   line-height: 1.5;
-  max-width: 32em;
+  max-width: none;
   color: var(--text-on-dark);
 }
 
@@ -621,7 +621,8 @@
 }
 
 .page-banner__inner {
-  max-width: 70ch;
+  /* Mateix ample (i mateix marge esquerre) que la resta de contenidors. */
+  max-width: calc(var(--container-width) + 2 * var(--container-padding));
 }
 
 .back-link {
@@ -679,19 +680,15 @@
 
 /* El títol ha de poder ocupar tota l'amplada útil (no els 70ch pensats per
    a paràgrafs) i amb una mida una mica més continguda que el --text-h1. */
-.page-banner--dark .page-banner__inner {
-  max-width: var(--container-width);
-}
-
 .page-banner--dark h1 {
   font-size: clamp(1.9rem, 1.1rem + 2.8vw, 3rem);
   line-height: 1.15;
-  max-width: 24em;
+  max-width: none;
   margin-bottom: var(--space-sm);
 }
 
 .page-banner__lead {
-  max-width: 44rem;
+  max-width: none;
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
   line-height: 1.5;
@@ -836,7 +833,7 @@
    treballar" més amunt, en comptes de la columna estreta per defecte de
    .section-intro (pensada per a textos d'una sola línia com #contacte). */
 .taller-category .section-intro {
-  max-width: 900px;
+  max-width: none;
 }
 
 /* Les tres categories comparteixen el mateix fons (--bg-base, com la resta
@@ -875,7 +872,7 @@
 }
 
 .audience__intro {
-  max-width: 48rem;
+  max-width: none;
 }
 
 .audience__intro p {
