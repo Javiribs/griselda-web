@@ -321,7 +321,9 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    /* Els enllaços del peu queden a la mateixa línia (mateixa base del text)
+       que "Psicòloga infantil i juvenil a Girona · Núm. col·legiada". */
+    align-items: last baseline;
   }
 }
 
