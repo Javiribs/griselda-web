@@ -751,6 +751,24 @@
             <span class="form-field__error" id="missatge-error"></span>
           </div>
 
+          <!-- Consentiment i primera capa d'informació (RGPD, art. 13). -->
+          <div class="form-field form-field--check">
+            <label for="privacitat">
+              <input type="checkbox" id="privacitat" name="privacitat" required aria-describedby="privacitat-error" />
+              <span>He llegit i accepto la <a href="politica-privacitat/">política de privacitat</a>.</span>
+            </label>
+            <span class="form-field__error" id="privacitat-error"></span>
+          </div>
+
+          <p class="form-legal">
+            <strong>Informació bàsica sobre protecció de dades.</strong>
+            Responsable: Griselda, psicòloga. Finalitat: respondre la teva consulta o sol·licitud
+            de taller. Legitimació: el teu consentiment. Destinataris: no se cedeixen dades a
+            tercers, llevat d'obligació legal. Drets: accedir, rectificar i suprimir les dades,
+            entre d'altres, tal com s'explica a la <a href="politica-privacitat/">política de
+            privacitat</a>. Si us plau, no incloguis dades de salut al missatge.
+          </p>
+
           <!-- //TODO: decidir servei d'enviament del formulari (backend, EmailJS, Formspree...) -->
           <button type="submit" class="btn btn-primary contact-form__submit">Envia el missatge</button>
 
@@ -780,7 +798,7 @@
         </ul>
       </nav>
       <!-- //TODO: afegir els enllaços reals de contacte / xarxes socials quan estiguin confirmats -->
-      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.</p>
+      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.<span class="footer-legal-links"><a href="avis-legal/">Avís legal</a><a href="politica-privacitat/">Política de privacitat</a><a href="politica-galetes/">Política de galetes</a></span></p>
     </div>
   </footer>
   <!-- FOOTER:END -->

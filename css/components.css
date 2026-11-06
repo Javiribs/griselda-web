@@ -1147,3 +1147,105 @@
 .page-landing .content-section + .content-section {
   padding-top: 0;
 }
+
+/* --- Formulari: casella de consentiment i informació bàsica RGPD --- */
+.form-field--check label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.form-field--check input {
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.15em;
+  padding: 0;
+  accent-color: var(--blau-nit);
+  cursor: pointer;
+}
+
+.form-field--check a,
+.form-legal a {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.form-legal {
+  font: var(--text-small);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.form-legal strong {
+  font-size: inherit;
+}
+
+/* --- Pàgines legals (avís legal, privacitat, galetes) --- */
+.legal-content h2 {
+  font-size: 1.35rem;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-xs);
+}
+
+.legal-content h2:first-child {
+  margin-top: 0;
+}
+
+.legal-content ul {
+  display: grid;
+  gap: 0.4em;
+  margin-bottom: var(--space-sm);
+  padding-left: 1.2em;
+  list-style: disc;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.legal-content a {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-updated {
+  font: var(--text-small);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+/* Dada pendent de confirmar: es veu clarament per no publicar-la per error. */
+.legal-pending {
+  background-color: color-mix(in srgb, var(--llum-far) 30%, white);
+  color: var(--text-primary);
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+/* Peu: enllaços legals. */
+.footer-legal-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3em 1.1em;
+  margin-left: 1.1em;
+}
+
+.site-footer .footer-legal-links a {
+  color: color-mix(in srgb, var(--text-on-dark) 75%, transparent);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
+
+.site-footer .footer-legal-links a:hover {
+  color: var(--llum-far);
+  text-decoration-color: currentColor;
+}

@@ -87,3 +87,23 @@ proposades o dades que encara no tenim.
       domini definitiu, no dins la subcarpeta de GitHub Pages.
 - [ ] **Política de privacitat / avís legal** abans d'activar l'enviament
       del formulari (RGPD).
+
+## 6. Pàgines legals (avís legal, privacitat, galetes)
+
+Generades per `scripts/build-pages.js` (`legalPages()`). Les dades pendents
+surten ressaltades en taronja a la web: **no es pot publicar al domini
+definitiu fins que estiguin omplertes** (constant `TITULAR` de l'script).
+
+- [ ] Nom i cognoms de la titular.
+- [ ] NIF.
+- [ ] Adreça professional (pot ser la del despatx o una adreça professional;
+      la LSSI exigeix un domicili on es pugui adreçar la persona usuària).
+- [ ] Correu electrònic de contacte (també per exercir els drets RGPD).
+- [ ] Titulació exacta i universitat que l'ha expedit.
+- [ ] Col·legi professional (confirmar si és el COPC) per al núm. 31.786.
+- [ ] Servei d'enviament del formulari (quan es triï, afegir-lo com a
+      encarregat del tractament i revisar si fa transferències fora de l'UE).
+- [ ] Revisió dels textos per part d'un professional o del servei jurídic del
+      col·legi abans de publicar.
+- [ ] Si mai s'hi afegeix analítica (Google Analytics, etc.) o vídeos/mapes
+      incrustats, caldrà bàner de galetes i actualitzar la política.

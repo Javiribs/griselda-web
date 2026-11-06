@@ -39,11 +39,20 @@
         return "";
       },
     },
+    // Consentiment RGPD: casella obligatòria (no pot venir marcada per defecte).
+    privacitat: {
+      input: document.getElementById("privacitat"),
+      error: document.getElementById("privacitat-error"),
+      validate: function (checked) {
+        return checked ? "" : "Cal acceptar la política de privacitat per enviar el missatge.";
+      },
+    },
   };
 
   function validateField(field) {
     field.input.dataset.touched = "true";
-    const errorMessage = field.validate(field.input.value);
+    const value = field.input.type === "checkbox" ? field.input.checked : field.input.value;
+    const errorMessage = field.validate(value);
     field.error.textContent = errorMessage;
     field.input.setAttribute("aria-invalid", errorMessage ? "true" : "false");
     return !errorMessage;

@@ -282,7 +282,7 @@ function footerHtml(page, link) {
         </ul>
       </nav>
       <!-- //TODO: afegir els enllaços reals de contacte / xarxes socials quan estiguin confirmats -->
-      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.</p>
+      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.<span class="footer-legal-links"><a href="${link('avis-legal/')}">Avís legal</a><a href="${link('politica-privacitat/')}">Política de privacitat</a><a href="${link('politica-galetes/')}">Política de galetes</a></span></p>
     </div>
   </footer>`;
 }
@@ -1214,6 +1214,216 @@ ${bannerHtml(
 // 5. Pàgina 404
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// 4b. Pàgines legals: avís legal (LSSI-CE, art. 10), política de privacitat
+//     (RGPD i LOPDGDD) i política de galetes.
+//
+//     Les dades marcades amb pending() surten ressaltades en taronja a la web
+//     perquè no es publiquin per error: substitueix-les per la dada real
+//     (text normal, sense pending()) quan la Griselda les confirmi.
+//     Vegeu PENDENTS.md. Aquests textos són una base: convé que els revisi
+//     un professional (o el servei jurídic del col·legi) abans de publicar.
+// ---------------------------------------------------------------------------
+
+const pending = (t) => `<span class="legal-pending">[${esc(t)}]</span>`;
+
+const TITULAR = {
+  name: pending('Nom i cognoms'),
+  nif: pending('NIF'),
+  address: pending('Adreça professional'),
+  email: pending('Correu electrònic de contacte'),
+  degree: pending("Titulació (p. ex. Grau en Psicologia) i universitat que l'ha expedit"),
+  college: pending('Col·legi professional (p. ex. Col·legi Oficial de la Psicologia de Catalunya)'),
+  collegeNumber: '31.786',
+  formService: pending("Servei d'enviament del formulari"),
+};
+
+const LEGAL_UPDATED = '6 de novembre de 2026';
+
+function legalPage({ slug, name, title, description, lead, sections }) {
+  const pagePath = slug + '/';
+  const crumbs = [
+    { name: 'Inici', path: '' },
+    { name, path: pagePath },
+  ];
+  const page = {
+    path: pagePath,
+    title,
+    description,
+    bodyClass: 'page-landing',
+    // Pàgines necessàries però sense valor de cerca: fora de l'índex i del sitemap.
+    noindex: true,
+  };
+  const body = (link) => `
+${bannerHtml({ crumbs, eyebrow: 'Informació legal', h1: name, lead }, link)}
+
+    <section class="content-section">
+      <div class="container">
+        <div class="prose legal-content">
+          <p class="legal-updated">Última actualització: ${LEGAL_UPDATED}</p>
+${sections(link)
+  .map(
+    ([h, html]) => `          <h2>${esc(h)}</h2>
+          ${html}`
+  )
+  .join('\n')}
+        </div>
+      </div>
+    </section>
+`;
+  writeFile(pagePath + 'index.html', layout(page, body));
+}
+
+function legalPages() {
+  const T = TITULAR;
+
+  legalPage({
+    slug: 'avis-legal',
+    name: 'Avís legal',
+    title: 'Avís legal | Griselda',
+    description: 'Avís legal del web griseldapsicologa.com: dades de la titular, condicions d’ús i propietat intel·lectual.',
+    lead: 'Dades de la titular del web i condicions d’ús.',
+    sections: (link) => [
+      [
+        '1. Dades identificatives',
+        `<p>En compliment de l'article 10 de la Llei 34/2002, de serveis de la societat de la informació i de comerç electrònic (LSSI-CE), s'informa de les dades de la titular d'aquest lloc web:</p>
+          <ul>
+            <li>Titular: ${T.name}</li>
+            <li>NIF: ${T.nif}</li>
+            <li>Domicili professional: ${T.address}</li>
+            <li>Correu electrònic: ${T.email}</li>
+            <li>Lloc web: griseldapsicologa.com</li>
+          </ul>`,
+      ],
+      [
+        '2. Dades de l’exercici professional',
+        `<p>La psicologia és una professió regulada. D'acord amb la normativa aplicable, s'informa de:</p>
+          <ul>
+            <li>Professió: psicòloga.</li>
+            <li>Titulació: ${T.degree}, obtinguda a l'Estat espanyol.</li>
+            <li>Col·legi professional: ${T.college}.</li>
+            <li>Número de col·legiada: ${esc(T.collegeNumber)}.</li>
+            <li>Normes professionals aplicables: el codi deontològic de la professió i la normativa del col·legi professional al qual pertany.</li>
+          </ul>`,
+      ],
+      [
+        '3. Objecte del web',
+        `<p>Aquest web ofereix informació sobre els tallers, les formacions i els projectes de la titular adreçats a famílies, alumnat, centres educatius, AFAs i AMPAs, administracions i entitats, i permet contactar-hi per sol·licitar-ne informació.</p>
+          <p>Els continguts tenen una finalitat informativa i divulgativa. No constitueixen una valoració, un diagnòstic ni un tractament psicològic, ni substitueixen l'atenció d'un professional en cada cas concret.</p>`,
+      ],
+      [
+        '4. Condicions d’ús',
+        `<p>L'accés al web és lliure i gratuït. La persona usuària es compromet a fer-ne un ús correcte, d'acord amb la llei, la bona fe i aquest avís legal, i a no utilitzar-lo per a activitats il·lícites o que puguin perjudicar drets de tercers o el funcionament del lloc.</p>`,
+      ],
+      [
+        '5. Propietat intel·lectual i industrial',
+        `<p>Els textos, el disseny i els elements gràfics propis d'aquest web pertanyen a la titular o s'utilitzen amb autorització. No se'n permet la reproducció, distribució o transformació amb finalitats comercials sense autorització prèvia.</p>
+          <p>Els logotips de les entitats i institucions col·laboradores, i els continguts del programa Tallers Connecta, són propietat dels seus titulars respectius i s'hi mostren només a títol informatiu.</p>`,
+      ],
+      [
+        '6. Enllaços a altres webs',
+        `<p>El web pot incloure enllaços a llocs de tercers (per exemple, el web del programa Tallers Connecta). La titular no es fa responsable del contingut ni de les polítiques d'aquests llocs, que es regeixen per les seves pròpies condicions.</p>`,
+      ],
+      [
+        '7. Responsabilitat',
+        `<p>La titular procura que la informació del web sigui correcta i estigui actualitzada, però no pot garantir l'absència d'errors ni la disponibilitat ininterrompuda del lloc. Les condicions concretes de cada taller (dates, format, durada i, si escau, preu) es concreten en cada proposta.</p>`,
+      ],
+      [
+        '8. Protecció de dades i galetes',
+        `<p>El tractament de les dades personals es regeix per la <a href="${link('politica-privacitat/')}">política de privacitat</a>. Informació sobre l'ús de galetes: <a href="${link('politica-galetes/')}">política de galetes</a>.</p>`,
+      ],
+      [
+        '9. Legislació aplicable',
+        `<p>Aquest avís legal es regeix per la legislació espanyola. Per a qualsevol controvèrsia, les parts se sotmeten als jutjats i tribunals que corresponguin d'acord amb la normativa aplicable; si la persona usuària té la condició de consumidora, els del seu domicili.</p>`,
+      ],
+    ],
+  });
+
+  legalPage({
+    slug: 'politica-privacitat',
+    name: 'Política de privacitat',
+    title: 'Política de privacitat | Griselda',
+    description: 'Com es tracten les dades personals que es faciliten a través del formulari de contacte de griseldapsicologa.com.',
+    lead: 'Com es tracten les dades que facilites a través d’aquest web.',
+    sections: (link) => [
+      [
+        '1. Responsable del tractament',
+        `<ul>
+            <li>Responsable: ${T.name}</li>
+            <li>NIF: ${T.nif}</li>
+            <li>Adreça: ${T.address}</li>
+            <li>Correu electrònic: ${T.email}</li>
+          </ul>`,
+      ],
+      [
+        '2. Quines dades es tracten',
+        `<p>Només les que facilites voluntàriament al formulari de contacte o per correu electrònic: nom, adreça electrònica, el tipus d'entitat o perfil (opcional), el contingut del missatge i, si escau, el taller pel qual demanes informació.</p>
+          <p>El formulari no està pensat per rebre dades de salut ni altres categories especials de dades. Et demanem que no les incloguis al missatge.</p>`,
+      ],
+      [
+        '3. Finalitat',
+        `<p>Les dades s'utilitzen per respondre la teva consulta, enviar-te informació o una proposta sobre els tallers i formacions que sol·licitis i, si s'arriba a un acord, organitzar-ne la realització. No s'utilitzen per enviar publicitat ni per elaborar perfils.</p>`,
+      ],
+      [
+        '4. Base legal',
+        `<ul>
+            <li>El teu consentiment, que dones en marcar la casella i enviar el formulari (art. 6.1.a del RGPD). El pots retirar en qualsevol moment.</li>
+            <li>L'aplicació de mesures precontractuals a petició teva, quan demanes una proposta de taller o formació (art. 6.1.b del RGPD).</li>
+          </ul>`,
+      ],
+      [
+        '5. Termini de conservació',
+        `<p>Les dades es conserven el temps necessari per atendre la consulta. Si s'estableix una relació professional, es conservaran mentre duri i, després, durant els terminis exigits per la normativa aplicable. Si no és així, se suprimiran quan ja no siguin necessàries.</p>`,
+      ],
+      [
+        '6. Destinataris',
+        `<p>Les dades no es cedeixen a tercers, llevat d'obligació legal. Per al funcionament del web hi intervenen proveïdors que actuen com a encarregats del tractament:</p>
+          <ul>
+            <li>Allotjament web: GitHub Pages (GitHub, Inc.).</li>
+            <li>Enviament del formulari: ${T.formService}.</li>
+          </ul>
+          <p>Alguns d'aquests proveïdors poden tractar dades fora de l'Espai Econòmic Europeu. En aquest cas, la transferència es fa amb les garanties que preveu el RGPD (per exemple, decisions d'adequació o clàusules contractuals tipus de la Comissió Europea).</p>`,
+      ],
+      [
+        '7. Els teus drets',
+        `<p>Pots exercir els drets d'accés, rectificació, supressió, oposició, limitació del tractament i portabilitat, i retirar el consentiment, escrivint a ${T.email} i indicant quin dret vols exercir.</p>
+          <p>Si consideres que el tractament no s'ajusta a la normativa, pots presentar una reclamació davant l'Agència Espanyola de Protecció de Dades (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>`,
+      ],
+      [
+        '8. Menors d’edat',
+        `<p>El formulari de contacte està adreçat a persones adultes (famílies, centres, entitats i administracions). Les persones menors de 14 anys no poden facilitar-hi dades sense el consentiment de les seves mares, pares o tutors legals.</p>`,
+      ],
+      [
+        '9. Seguretat i canvis',
+        `<p>S'apliquen mesures tècniques i organitzatives adequades per protegir les dades. Aquesta política es pot actualitzar per adaptar-la a canvis normatius o del web; la data de l'última actualització apareix a l'inici de la pàgina.</p>`,
+      ],
+    ],
+  });
+
+  legalPage({
+    slug: 'politica-galetes',
+    name: 'Política de galetes',
+    title: 'Política de galetes | Griselda',
+    description: 'Informació sobre l’ús de galetes (cookies) al web griseldapsicologa.com.',
+    lead: 'Aquest web no utilitza galetes.',
+    sections: (link) => [
+      [
+        'Quines galetes utilitza aquest web?',
+        `<p>Cap. Aquest web no instal·la galetes (cookies) pròpies ni de tercers: no utilitza eines d'analítica, de publicitat ni de xarxes socials, i les tipografies es carreguen des del mateix servidor, sense serveis externs.</p>
+          <p>Per això no es mostra cap avís ni bàner de galetes.</p>`,
+      ],
+      [
+        'Enllaços a altres webs',
+        `<p>Si accedeixes a webs de tercers a través dels enllaços d'aquest lloc (per exemple, el del programa Tallers Connecta), aquests poden utilitzar les seves pròpies galetes, que es regeixen per les seves polítiques.</p>`,
+      ],
+      [
+        'Canvis',
+        `<p>Si en el futur s'incorporen galetes no necessàries (per exemple, d'analítica), s'actualitzarà aquesta política i es demanarà el teu consentiment abans d'instal·lar-les. Per a més informació sobre les teves dades, consulta la <a href="${link('politica-privacitat/')}">política de privacitat</a>.</p>`,
+      ],
+    ],
+  });
+}
+
 function notFound() {
   const page = {
     path: '404.html',
@@ -1340,6 +1550,7 @@ landingFamilies();
 landingCentres();
 landingAfa();
 sobreMi();
+legalPages();
 notFound();
 syncHandWritten('index.html', HOME_PAGE);
 syncHandWritten('tallers.html', TALLERS_PAGE);
