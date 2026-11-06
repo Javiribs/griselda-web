@@ -349,7 +349,7 @@ function bannerHtml({ crumbs, eyebrow, h1, lead, byline }, link) {
 
 function layout(page, body) {
   const link = linker(page.path, { absolute: page.absolute });
-  const scripts = ['js/nav.js', ...(page.scripts || []), 'js/main.js']
+  const scripts = ['js/nav.js', ...(page.scripts || []), 'js/reveal.js', 'js/main.js']
     .map((s) => `  <script src="${asset(link, s)}" defer></script>`)
     .join('\n');
   return `<!DOCTYPE html>
@@ -439,13 +439,57 @@ function ctaBand({ title, text, actions }, link) {
         </div>`;
 }
 
-function factsHtml(t) {
+/**
+ * Fitxa pràctica: una targeta per dada. Cada targeta té un valor destacat
+ * (curt) i un detall a sota, perquè totes quedin igual de completes encara
+ * que les dades originals tinguin llargades molt diferents.
+ */
+function factsHtml(t, link) {
+  const online = /en línia/.test(t.facts.modality);
+  // "2 sessions de 2 hores (adaptables a 90 minuts). Sessió 1: … · Sessió 2: …"
+  const sessionsNote = t.facts.duration.split('). ')[1] || '';
+  const items = [
+    {
+      icon: '👥',
+      label: 'Destinataris',
+      value: t.group === 'families' ? 'Famílies' : 'Alumnat',
+      detail: t.facts.audience,
+    },
+    {
+      icon: '⏱️',
+      label: 'Durada',
+      value: t.durationShort,
+      detail: 'Adaptable a 90 minuts.' + (sessionsNote ? ' ' + sessionsNote : ''),
+    },
+    {
+      icon: '📍',
+      label: 'Modalitat',
+      value: t.facts.modality.replace(/\.$/, ''),
+      detail: online ? 'Al vostre centre o espai, o per videoconferència.' : 'Al vostre centre o espai.',
+    },
+    {
+      icon: '👤',
+      label: 'Imparteix',
+      value: 'Griselda Pozo Domingo',
+      detail:
+        'Psicòloga infantil i juvenil · Núm. col·legiada 31.786' +
+        (t.byline ? '. ' + t.byline + '.' : '.'),
+    },
+    {
+      icon: '✉️',
+      label: 'Com sol·licitar-lo',
+      value: 'Formulari de contacte',
+      detail: "Indica el centre o l'entitat, el grup i les dates aproximades.",
+      cta: `<a class="text-link taller-fact__link" href="${contactHref(link, t.formName)}">Sol·licita informació</a>`,
+    },
+  ];
   return `<dl class="taller-facts">
-              <div><span class="taller-facts__icon" aria-hidden="true">👥</span><dt>Destinataris</dt><dd>${esc(t.facts.audience)}</dd></div>
-              <div><span class="taller-facts__icon" aria-hidden="true">⏱️</span><dt>Durada</dt><dd>${esc(t.facts.duration)}</dd></div>
-              <div><span class="taller-facts__icon" aria-hidden="true">📍</span><dt>Modalitat</dt><dd>${esc(t.facts.modality)}</dd></div>
-              <div><span class="taller-facts__icon" aria-hidden="true">👤</span><dt>Imparteix</dt><dd>Griselda Pozo Domingo, psicòloga infantil i juvenil${t.byline ? ', ' + esc(t.byline.charAt(0).toLowerCase() + t.byline.slice(1)) : ''}.</dd></div>
-              <div><span class="taller-facts__icon" aria-hidden="true">✉️</span><dt>Com sol·licitar-lo</dt><dd>Des del formulari de contacte, indicant el centre o l'entitat, el grup i les dates aproximades.</dd></div>
+${items
+  .map(
+    (i) =>
+      `              <div class="taller-fact"><dt><span class="taller-facts__icon" aria-hidden="true">${i.icon}</span>${i.label}</dt><dd><strong class="taller-fact__value">${esc(i.value)}</strong><span class="taller-fact__detail">${esc(i.detail)}</span>${i.cta || ''}</dd></div>`
+  )
+  .join('\n')}
             </dl>`;
 }
 
@@ -545,7 +589,7 @@ ${bannerHtml({ crumbs, eyebrow: t.eyebrow, h1: t.name, lead: t.subtitle, byline:
           </div>
         </div>
         <div class="taller-intro__facts">
-          ${factsHtml(t)}
+          ${factsHtml(t, link)}
         </div>
       </div>
     </section>

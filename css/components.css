@@ -730,19 +730,6 @@
   margin-block: var(--space-md);
 }
 
-.taller-facts > div {
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  column-gap: var(--space-xs);
-  align-items: start;
-}
-
-.taller-facts__icon {
-  grid-row: span 2;
-  font-size: 1.3rem;
-  line-height: 1.4;
-}
-
 .taller-facts dt {
   font: var(--text-eyebrow);
   letter-spacing: 0.08em;
@@ -1402,7 +1389,186 @@
   margin-block: 0;
 }
 
-/* Cada dada comença a dalt (no centrada) quan la franja s'estira. */
-.taller-facts > div {
-  align-content: start;
+/* --- Fitxa pràctica en targetes (substitueix la caixa blanca única) ---
+   Cada dada és una targeta tancada, amb el mateix llenguatge visual que la
+   resta del web: línia de color a dalt, icona dins un cercle suau, etiqueta
+   en petit i el valor a sota. Totes fan la mateixa alçada dins la fila. */
+.taller-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-sm);
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.taller-fact {
+  --tone: var(--llum-far);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45em;
+  background-color: var(--bg-white);
+  border-radius: var(--radius-md);
+  border-top: 4px solid var(--tone);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-md);
+}
+
+.taller-fact:nth-child(5n + 2) {
+  --tone: var(--blau-mar);
+}
+
+.taller-fact:nth-child(5n + 3) {
+  --tone: var(--verd-molsa);
+}
+
+.taller-fact:nth-child(5n + 4) {
+  --tone: var(--blau-mar);
+}
+
+.taller-fact:nth-child(5n + 5) {
+  --tone: var(--verd-molsa);
+}
+
+.taller-fact dt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: 0;
+}
+
+.taller-fact .taller-facts__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--tone) 18%, white);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.taller-fact dd {
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+}
+
+/* Fitxa pràctica: valor destacat + detail (i, a l'última, enllaç al peu). */
+.taller-fact dd {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.35em;
+}
+
+.taller-fact__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.taller-fact__detail {
+  font: var(--text-small);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.taller-fact__link {
+  margin-top: auto;
+  padding-top: var(--space-sm);
+  font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   ANIMACIONS — aparició suau dels blocs (js/reveal.js) i entrada del hero
+   i dels banners en carregar la pàgina. Només s'anima opacitat i posició
+   (no hi ha salts de maquetació) i tot queda desactivat amb
+   "prefers-reduced-motion: reduce".
+   ========================================================================== */
+
+.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Entrada del hero (home i tallers.html) i del banner de les pàgines
+   interiors: els elements pugen escalonats en carregar. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero__content > *,
+.page-banner--dark .page-banner__inner > * {
+  animation: rise-in 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.hero__content > :nth-child(2),
+.page-banner--dark .page-banner__inner > :nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.hero__content > :nth-child(3),
+.page-banner--dark .page-banner__inner > :nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.hero__content > :nth-child(4),
+.page-banner--dark .page-banner__inner > :nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.hero__content > :nth-child(n + 5),
+.page-banner--dark .page-banner__inner > :nth-child(n + 5) {
+  animation-delay: 0.32s;
+}
+
+/* Foto del hero: un zoom molt lleu cap enrere en carregar. */
+@keyframes hero-settle {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.hero__media img {
+  animation: hero-settle 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero__content > *,
+  .page-banner--dark .page-banner__inner > *,
+  .hero__media img {
+    animation: none;
+  }
 }

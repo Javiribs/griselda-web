@@ -47,6 +47,23 @@
   .footer-legal-links a + a::before {
     content: none;
   }
+
+  /* Fitxa pràctica més compacta: icona al costat de l'etiqueta. */
+  .taller-fact {
+    padding: var(--space-sm) var(--space-md) var(--space-md);
+  }
+
+  .taller-fact dt {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75em;
+  }
+
+  .taller-fact .taller-facts__icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.05rem;
+  }
 }
 
 /* --- 2. Tablet / iPad (>= 768px) --- */
@@ -115,6 +132,15 @@
 
   .tallers-carousel__arrow--next {
     right: calc((var(--space-xl) + 48px) / -2);
+  }
+
+  /* Fitxa pràctica: 2 targetes per fila; Destinataris ocupa tota la fila. */
+  .taller-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .taller-fact:first-child {
+    grid-column: 1 / -1;
   }
 
   /* Pàgines de contingut: 2 columnes de targetes, passos i fitxes. */
@@ -379,10 +405,13 @@
   }
 
   .taller-intro__facts .taller-facts {
-    /* Destinataris i "Com sol·licitar-lo" són els textos més llargs. */
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.25fr) minmax(0, 0.85fr) minmax(0, 1.2fr) minmax(0, 1.5fr);
-    column-gap: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
+    /* Una targeta per dada, totes a la mateixa fila i a la mateixa alçada. */
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-md);
+  }
+
+  .taller-intro__facts .taller-fact:first-child {
+    grid-column: auto;
   }
 
   .card-grid--4,
