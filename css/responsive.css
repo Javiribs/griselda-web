@@ -48,6 +48,27 @@
     content: none;
   }
 
+  /* Selector de públic: més espai per al text entre icona i fletxa. */
+  .audience-option {
+    padding: var(--space-sm) var(--space-sm) var(--space-sm) var(--space-md);
+    gap: 0.75rem;
+  }
+
+  .audience-option__icon {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .audience-option__icon svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .audience-option__arrow {
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+
   /* Fitxa pràctica més compacta: icona al costat de l'etiqueta. */
   .taller-fact {
     padding: var(--space-sm) var(--space-md) var(--space-md);
@@ -390,6 +411,16 @@
 
   .card-grid--2 {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Selector de públic: les tres opcions en una fila. */
+  .audience-picker {
+    padding: var(--space-xl);
+  }
+
+  .audience-picker__options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-md);
   }
 
   /* Fitxa de taller: imatge i text a dalt (centrats verticalment) i la

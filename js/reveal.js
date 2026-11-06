@@ -26,6 +26,8 @@
     ".tallers-panel",
     ".tallers-intro__body",
     ".tallers-intro__highlight",
+    ".audience-picker__title",
+    ".audience-picker__text",
     ".taller-category .section-intro",
     ".taller-category h2",
     ".taller-category .tallers-carousel",
@@ -52,6 +54,7 @@
     ".faq",
     ".taller-facts",
     ".logo-grid",
+    ".audience-picker__options",
   ];
 
   const STEP = 0.08; // segons entre elements d'un mateix grup
