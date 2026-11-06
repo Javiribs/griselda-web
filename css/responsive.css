@@ -366,6 +366,25 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Fitxa de taller: imatge i text a dalt (centrats verticalment) i la
+     fitxa pràctica a sota, a tot l'ample, en una franja horitzontal. */
+  .taller-intro {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas:
+      "media text"
+      "facts facts";
+    align-items: center;
+    column-gap: var(--space-xl);
+    row-gap: var(--space-lg);
+  }
+
+  .taller-intro__facts .taller-facts {
+    /* Destinataris i "Com sol·licitar-lo" són els textos més llargs. */
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.25fr) minmax(0, 0.85fr) minmax(0, 1.2fr) minmax(0, 1.5fr);
+    column-gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+  }
+
   .card-grid--4,
   .taller-grid--4 {
     grid-template-columns: repeat(4, 1fr);

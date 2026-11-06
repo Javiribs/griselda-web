@@ -1354,3 +1354,55 @@
   font-size: 1.15rem;
   margin-top: var(--space-lg);
 }
+
+/* --- Fitxa de taller: bloc inicial (imatge + fitxa pràctica | text) ---
+   Mòbil/tablet: imatge → text i botons → fitxa pràctica.
+   Portàtil i escriptori (responsive.css): columna esquerra amb la imatge i
+   la fitxa pràctica a sota; columna dreta amb el títol, el text i els
+   botons. Totes dues columnes comencen a la mateixa alçada. */
+.taller-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "media"
+    "text"
+    "facts";
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.taller-intro__media {
+  grid-area: media;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--bg-white);
+  box-shadow: var(--shadow-sm);
+}
+
+.taller-intro__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.taller-intro__text {
+  grid-area: text;
+}
+
+.taller-intro__text .prose {
+  margin-bottom: var(--space-md);
+}
+
+.taller-intro__facts {
+  grid-area: facts;
+}
+
+.taller-intro__facts .taller-facts {
+  margin-block: 0;
+}
+
+/* Cada dada comença a dalt (no centrada) quan la franja s'estira. */
+.taller-facts > div {
+  align-content: start;
+}

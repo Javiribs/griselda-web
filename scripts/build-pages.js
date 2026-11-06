@@ -530,22 +530,22 @@ function tallerPage(t) {
 ${bannerHtml({ crumbs, eyebrow: t.eyebrow, h1: t.name, lead: t.subtitle, byline: t.byline }, link)}
 
     <section class="content-section" id="taller-detail">
-      <div class="container split">
-        <div class="split__inner">
-          <div class="split__image">
-            <img src="${link('images/tallers/' + t.image)}" alt="${esc(t.imageAlt)}" width="900" height="600" fetchpriority="high" />
+      <div class="container taller-intro">
+        <div class="taller-intro__media">
+          <img src="${link('images/tallers/' + t.image)}" alt="${esc(t.imageAlt)}" width="900" height="600" fetchpriority="high" />
+        </div>
+        <div class="taller-intro__text">
+          <h2>${esc(t.introTitle)}</h2>
+          <div class="prose">
+            ${t.intro.map((p) => `<p>${esc(p)}</p>`).join('\n            ')}
           </div>
-          <div class="split__content">
-            <h2>${esc(t.introTitle)}</h2>
-            <div class="prose">
-              ${t.intro.map((p) => `<p>${esc(p)}</p>`).join('\n              ')}
-            </div>
-            ${factsHtml(t)}
-            <div class="taller-page__actions">
-              <a class="btn btn-primary" href="${contactHref(link, t.formName)}">Sol·licita informació</a>
-              <a class="btn btn-outline" href="${link(landing.path)}">${esc(landing.name)}</a>
-            </div>
+          <div class="taller-page__actions">
+            <a class="btn btn-primary" href="${contactHref(link, t.formName)}">Sol·licita informació</a>
+            <a class="btn btn-outline" href="${link(landing.path)}">${esc(landing.name)}</a>
           </div>
+        </div>
+        <div class="taller-intro__facts">
+          ${factsHtml(t)}
         </div>
       </div>
     </section>
