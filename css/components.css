@@ -1055,53 +1055,6 @@
   margin-bottom: var(--space-sm);
 }
 
-/* --- Llistes compactes de tallers per etapa (centres educatius) --- */
-.stage-list {
-  display: grid;
-  gap: var(--space-sm);
-}
-
-.stage-list li a {
-  display: grid;
-  grid-template-columns: 4.5rem 1fr;
-  gap: var(--space-sm);
-  align-items: center;
-  background-color: var(--bg-white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  padding: 0.75em;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.stage-list li a:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.stage-list img {
-  width: 4.5rem;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-}
-
-.stage-list strong {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.stage-list span {
-  display: block;
-  font: var(--text-small);
-  color: var(--text-secondary);
-}
-
-.stage-col h2 {
-  font-size: 1.5rem;
-}
-
 /* --- Nota de col·laboració (tallers fets amb altres professionals) --- */
 .collab-note {
   max-width: none;
@@ -1180,4 +1133,17 @@
 .form-field__help {
   font: var(--text-small);
   color: var(--text-secondary);
+}
+
+/* Landings (Famílies, Centres educatius, AFAs) i Sobre mi: totes les seccions
+   comparteixen el fons general de la pàgina, sense franges de color. Com que
+   ja no hi ha canvi de fons que les separi, s'elimina el padding superior de
+   la secció següent perquè no s'acumuli el doble d'espai entre blocs. */
+.page-landing .content-section--tint,
+.page-landing .content-section--white {
+  background-color: transparent;
+}
+
+.page-landing .content-section + .content-section {
+  padding-top: 0;
 }

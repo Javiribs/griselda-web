@@ -411,14 +411,14 @@ function factsHtml(t) {
 }
 
 /** Fitxa resum d'un taller per a graelles (relacionats, landings). */
-function tallerCard(t, link, headingTag = 'h3') {
+function tallerCard(t, link, headingTag = 'h3', audience = t.audienceShort) {
   return `<article class="taller-card">
             <div class="taller-card__image">
               <img src="${link('images/tallers/' + t.image)}" alt="" width="900" height="600" loading="lazy" decoding="async" />
             </div>
             <div class="taller-card__body">
               <${headingTag} class="taller-card__title">${esc(t.name)}</${headingTag}>
-              <p class="taller-card__meta"><span>👥 ${esc(t.audienceShort)}</span><span>⏱️ ${esc(t.durationShort)}</span></p>
+              <p class="taller-card__meta"><span>👥 ${esc(audience)}</span><span>⏱️ ${esc(t.durationShort)}</span></p>
               <p class="taller-card__summary">${esc(t.cardSummary)}</p>
               <div class="taller-card__actions">
                 <a class="btn btn-outline btn-sm" href="${link('tallers/' + t.slug + '.html')}">Més informació<span class="visually-hidden">: ${esc(t.name)}</span></a>
@@ -783,13 +783,7 @@ function landingCentres() {
     bodyClass: 'page-landing',
     ld: [breadcrumbLd(crumbs)],
   };
-  const stageItem = (t, course) => `<li><a href="${link_('tallers/' + t.slug + '.html')}">
-              <img src="${link_('images/tallers/' + t.image)}" alt="" width="900" height="600" loading="lazy" decoding="async" />
-              <span><strong>${esc(t.name)}</strong><span>${esc(course)} · ${esc(t.durationShort)}</span></span>
-            </a></li>`;
-  let link_;
   const body = (link) => {
-    link_ = link;
     return `
 ${bannerHtml(
   {
@@ -827,23 +821,24 @@ ${bannerHtml(
     </section>
 
     <section class="content-section">
-      <div class="container cols-2">
-        <div class="stage-col">
-          <h2>Tallers per a primària</h2>
-          <ul class="stage-list">
-            ${stageItem(BY_SLUG['adolescencia-mode-on'], '6è de primària')}
-            ${stageItem(BY_SLUG['educar-la-mirada'], '6è de primària')}
-            ${stageItem(BY_SLUG['neurodiversitat-aula'], 'Primària, adaptat al curs')}
-          </ul>
+      <div class="container">
+        ${sectionHead({ eyebrow: 'Primària', title: 'Tallers per a primària' })}
+        <div class="taller-grid taller-grid--4">
+          ${tallerCard(BY_SLUG['adolescencia-mode-on'], link, 'h3', '6è de primària')}
+          ${tallerCard(BY_SLUG['educar-la-mirada'], link, 'h3', '6è de primària')}
+          ${tallerCard(BY_SLUG['neurodiversitat-aula'], link, 'h3', 'Primària, adaptat al curs')}
         </div>
-        <div class="stage-col">
-          <h2>Tallers per a secundària</h2>
-          <ul class="stage-list">
-            ${stageItem(BY_SLUG['adolescencia-mode-on'], "1r d'ESO")}
-            ${stageItem(BY_SLUG['educar-la-mirada'], "1r d'ESO")}
-            ${stageItem(BY_SLUG['neurodiversitat-aula'], 'Secundària, adaptat al curs')}
-            ${stageItem(BY_SLUG['resolucio-conflictes'], "3r i 4t d'ESO")}
-          </ul>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        ${sectionHead({ eyebrow: 'Secundària', title: 'Tallers per a secundària' })}
+        <div class="taller-grid taller-grid--4">
+          ${tallerCard(BY_SLUG['adolescencia-mode-on'], link, 'h3', "1r d'ESO")}
+          ${tallerCard(BY_SLUG['educar-la-mirada'], link, 'h3', "1r d'ESO")}
+          ${tallerCard(BY_SLUG['neurodiversitat-aula'], link, 'h3', 'Secundària, adaptat al curs')}
+          ${tallerCard(BY_SLUG['resolucio-conflictes'], link, 'h3', "3r i 4t d'ESO")}
         </div>
       </div>
     </section>

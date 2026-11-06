@@ -279,7 +279,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .card-grid--4 {
+  .card-grid--4,
+  .taller-grid--4 {
     grid-template-columns: repeat(4, 1fr);
   }
 
