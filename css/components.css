@@ -1713,3 +1713,26 @@
 .audience-option:focus-visible .audience-option__arrow {
   transform: translateX(4px);
 }
+
+/* "Qui soc" (home): a mòbil i tauleta, títol → foto → text. El contenidor
+   del text "s'obre" (display: contents) perquè el títol i el text siguin
+   germans de la foto i se'n pugui canviar l'ordre. A l'ordinador, igual que
+   abans: foto a l'esquerra, títol i text a la dreta. */
+@media (max-width: 1023px) {
+  .split--head-first .split__content {
+    display: contents;
+  }
+
+  .split--head-first .split__head {
+    order: -1;
+    width: 100%;
+  }
+
+  .split--head-first .split__head h2 {
+    margin-bottom: 0;
+  }
+
+  .split--head-first .split__body {
+    width: 100%;
+  }
+}

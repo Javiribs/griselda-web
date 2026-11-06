@@ -31,6 +31,9 @@
       // l'amplada real del contenidor pare, no de l'amplada ja retallada
       // en un càlcul anterior.
       carousel.style.maxWidth = "";
+      // A mòbil no es retalla: les fitxes fan el 82 % de l'ample i ha de
+      // quedar visible un tros de la següent (indica que es pot lliscar).
+      if (window.matchMedia("(max-width: 767px)").matches) return;
       const gap = parseFloat(window.getComputedStyle(track).columnGap || "0") || 0;
       const cardWidth = card.getBoundingClientRect().width;
       const step = cardWidth + gap;

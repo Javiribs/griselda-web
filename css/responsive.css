@@ -14,15 +14,88 @@
 
 /* --- 1. Mòbil (< 768px): retocs que només apliquen aquí --- */
 @media (max-width: 767px) {
+  /* --- Hero (home i tallers.html) a mòbil ---
+     El bloc de textos es centra verticalment dins del hero (una mica per
+     sobre del centre, compensant la capçalera), sigui quina sigui l'alçada
+     del mòbil, i els elements tenen més aire entre ells perquè ocupin el
+     hero de manera equilibrada. Títol més contingut (2-3 línies) i textos
+     alineats a l'esquerra. A tauleta i ordinador no canvia res. */
+  .hero {
+    align-items: center;
+  }
+
+  .hero__content {
+    padding-top: calc(var(--header-height) + var(--space-md));
+    padding-bottom: 7rem;
+  }
+
+  .hero__content h1 {
+    font-size: clamp(2rem, 1.35rem + 3vw, 2.4rem);
+    line-height: 1.12;
+    margin-bottom: var(--space-md);
+  }
+
+  /* Frase de marca: el guionet taronja passa a una línia pròpia, a sobre. */
+  .hero__kicker {
+    font-size: 0.98rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__kicker::before {
+    display: block;
+    margin: 0 0 0.9em;
+  }
+
+  .hero__content .hero__lead {
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  .hero__actions {
+    margin-top: var(--space-xl);
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 auto;
+    padding-inline: 1.2em;
+    white-space: nowrap;
+  }
+
+  /* tallers.html: a mòbil, alineat a l'esquerra com la resta. */
+  .page-tallers .hero__content {
+    text-align: left;
+  }
+
+  .page-tallers .hero__content p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-inline: 0;
+  }
+
+  .page-tallers .hero .breadcrumbs {
+    margin-bottom: var(--space-lg);
+  }
+
+  .page-tallers .hero .breadcrumbs ol {
+    justify-content: flex-start;
+  }
+
+  /* Home: la secció "Filosofia" (Educar també és cuidar) no es mostra a
+     mòbil, per escurçar la pàgina. A tauleta i ordinador sí. */
+  .page-home #la-meva-mirada {
+    display: none;
+  }
+
   /* Al mòbil el carrusel es fa lliscar amb el dit: les fletxes quedarien
      fora del requadre (no hi ha marge lateral per a elles). */
   .tallers-carousel__arrow {
     display: none;
   }
 
-  /* Una fitxa per vista, a tot l'ample (es llisca per veure la següent). */
+  /* Fitxes al 82 % de l'ample: es veu un tros de la següent a la dreta i
+     s'entén que el carrusel es pot lliscar. */
   .tallers-carousel__track .taller-card {
-    flex-basis: 100%;
+    flex-basis: 82%;
     height: auto;
   }
 
@@ -162,6 +235,12 @@
 
   .taller-fact:first-child {
     grid-column: 1 / -1;
+  }
+
+  /* Hero a tauleta: bloc ancorat a la part baixa, no a mitja pantalla
+     (portàtil i escriptori tenen el seu propi valor més avall). */
+  .hero__content {
+    padding-bottom: var(--space-xxl);
   }
 
   /* Pàgines de contingut: 2 columnes de targetes, passos i fitxes. */
