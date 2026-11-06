@@ -4,4 +4,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://griseldapsicologa.com/sitemap.xml
+Sitemap: https://www.griseldapsicologa.com/sitemap.xml

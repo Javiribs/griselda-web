@@ -7,7 +7,7 @@
   <!-- SEO:START -->
   <title>Com acompanyar els fills adolescents | Taller per a famílies</title>
   <meta name="description" content="Programa de dues sessions per a famílies sobre comunicació, límits, autoestima i acompanyament durant l'adolescència." />
-  <link rel="canonical" href="https://griseldapsicologa.com/tallers/acompanyar-fills-adolescents.html" />
+  <link rel="canonical" href="https://www.griseldapsicologa.com/tallers/acompanyar-fills-adolescents.html" />
 
   <!-- Open Graph / xarxes socials -->
   <meta property="og:type" content="website" />
@@ -15,8 +15,8 @@
   <meta property="og:site_name" content="Griselda · Psicòloga infantil i juvenil" />
   <meta property="og:title" content="Com acompanyar els fills adolescents | Taller per a famílies" />
   <meta property="og:description" content="Programa de dues sessions per a famílies sobre comunicació, límits, autoestima i acompanyament durant l'adolescència." />
-  <meta property="og:url" content="https://griseldapsicologa.com/tallers/acompanyar-fills-adolescents.html" />
-  <meta property="og:image" content="https://griseldapsicologa.com/images/og/griselda-og.jpg" />
+  <meta property="og:url" content="https://www.griseldapsicologa.com/tallers/acompanyar-fills-adolescents.html" />
+  <meta property="og:image" content="https://www.griseldapsicologa.com/images/og/griselda-og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Far a la costa a la posta de sol, imatge de marca de la Griselda" />
@@ -33,19 +33,19 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Inici",
-          "item": "https://griseldapsicologa.com/"
+          "item": "https://www.griseldapsicologa.com/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Tallers",
-          "item": "https://griseldapsicologa.com/tallers.html"
+          "item": "https://www.griseldapsicologa.com/tallers.html"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": "Com acompanyar els fills i filles adolescents?",
-          "item": "https://griseldapsicologa.com/tallers/acompanyar-fills-adolescents.html"
+          "item": "https://www.griseldapsicologa.com/tallers/acompanyar-fills-adolescents.html"
         }
       ]
     }
@@ -63,14 +63,14 @@
   <link rel="icon" href="../images/icons/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#102D4A" />
 
-  <link rel="stylesheet" href="../css/fonts.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/reset.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/variables.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/tokens.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/base.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/layout.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/components.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/responsive.css?v=6813c8dd" />
+  <link rel="stylesheet" href="../css/fonts.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/reset.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/variables.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/tokens.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/base.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/layout.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/components.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/responsive.css?v=f8610d78" />
 </head>
 <body class="page-taller">
 
@@ -97,10 +97,22 @@
       <nav class="site-nav" id="siteNav" aria-label="Navegació principal">
         <ul class="site-nav__list">
           <li><a class="site-nav__link" href="../sobre-mi/">Sobre mi</a></li>
-          <li><a class="site-nav__link" href="../tallers.html">Tallers</a></li>
-          <li><a class="site-nav__link" href="../tallers/families/">Famílies</a></li>
-          <li><a class="site-nav__link" href="../tallers/centres-educatius/">Centres educatius</a></li>
-          <li><a class="site-nav__link" href="../#contacte">Contacte</a></li>
+          <li class="site-nav__item site-nav__item--has-sub is-current-section">
+            <div class="site-nav__parent">
+              <a class="site-nav__link" href="../tallers.html">Tallers</a>
+              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="submenu-tallers">
+                <span class="visually-hidden">Mostra els tipus de tallers</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+            </div>
+            <ul class="submenu" id="submenu-tallers">
+              <li><a class="submenu__link" href="../tallers.html">Tots els tallers</a></li>
+              <li><a class="submenu__link" href="../tallers/families/">Tallers per a famílies</a></li>
+              <li><a class="submenu__link" href="../tallers/centres-educatius/">Tallers per a centres educatius</a></li>
+              <li><a class="submenu__link" href="../tallers/afa-ampa/">Xerrades per a AFAs i AMPAs</a></li>
+            </ul>
+          </li>
+          <li class="site-nav__item--cta"><a class="btn btn-primary btn-sm site-nav__cta" href="../#contacte">Contacte</a></li>
         </ul>
       </nav>
     </div>
@@ -136,6 +148,8 @@
               <div><span class="taller-facts__icon" aria-hidden="true">👥</span><dt>Destinataris</dt><dd>Famílies amb fills i filles preadolescents i adolescents, AMPAs, AFAs, centres educatius, ajuntaments i entitats.</dd></div>
               <div><span class="taller-facts__icon" aria-hidden="true">⏱️</span><dt>Durada</dt><dd>2 sessions de 2 hores (adaptables a 90 minuts). Sessió 1: Entendre · Sessió 2: Acompanyar.</dd></div>
               <div><span class="taller-facts__icon" aria-hidden="true">📍</span><dt>Modalitat</dt><dd>Presencial.</dd></div>
+              <div><span class="taller-facts__icon" aria-hidden="true">👤</span><dt>Imparteix</dt><dd>Griselda Pozo Domingo, psicòloga infantil i juvenil.</dd></div>
+              <div><span class="taller-facts__icon" aria-hidden="true">✉️</span><dt>Com sol·licitar-lo</dt><dd>Des del formulari de contacte, indicant el centre o l'entitat, el grup i les dates aproximades.</dd></div>
             </dl>
             <div class="taller-page__actions">
               <a class="btn btn-primary" href="../?taller=Com%20acompanyar%20els%20fills%20i%20filles%20adolescents%3F#contacte">Sol·licita informació</a>
@@ -301,12 +315,12 @@
         </ul>
       </nav>
       <!-- //TODO: afegir els enllaços reals de contacte / xarxes socials quan estiguin confirmats -->
-      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.<span class="footer-legal-links"><a href="../avis-legal/">Avís legal</a><a href="../politica-privacitat/">Política de privacitat</a><a href="../politica-galetes/">Política de galetes</a></span></p>
+      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda Pozo Domingo. Tots els drets reservats.<span class="footer-legal-links"><a href="../avis-legal/">Avís legal</a><a href="../politica-privacitat/">Política de privacitat</a><a href="../politica-galetes/">Política de galetes</a></span></p>
     </div>
   </footer>
   <!-- FOOTER:END -->
 
-  <script src="../js/nav.js?v=6813c8dd" defer></script>
-  <script src="../js/main.js?v=6813c8dd" defer></script>
+  <script src="../js/nav.js?v=f8610d78" defer></script>
+  <script src="../js/main.js?v=f8610d78" defer></script>
 </body>
 </html>

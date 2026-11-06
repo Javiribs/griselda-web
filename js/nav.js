@@ -33,9 +33,46 @@
 
   navToggle.addEventListener("click", toggleNav);
 
-  // Tanca el menú en clicar un enllaç (útil en mòbil)
-  siteNav.querySelectorAll(".site-nav__link").forEach(function (link) {
+  // Tanca el menú en clicar un enllaç (útil en mòbil), també els del submenú
+  siteNav.querySelectorAll("a").forEach(function (link) {
     link.addEventListener("click", closeNav);
+  });
+
+  // --- Desplegable "Tallers" (patró disclosure) ---
+  // A portàtil/escriptori el botó de la fletxa obre i tanca el submenú
+  // (ratolí, tacte i teclat). Al calaix mòbil el submenú ja es veu sencer i
+  // el botó està amagat per CSS. L'enllaç "Tallers" sempre porta al catàleg.
+  siteNav.querySelectorAll(".site-nav__item--has-sub").forEach(function (item) {
+    const toggle = item.querySelector(".submenu-toggle");
+    if (!toggle) return;
+
+    function setOpen(open) {
+      item.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    }
+
+    toggle.addEventListener("click", function (event) {
+      event.stopPropagation();
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    // Escape tanca el submenú i torna el focus al botó.
+    item.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && item.classList.contains("is-open")) {
+        event.stopPropagation();
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // Es tanca quan el focus surt del bloc (Tab fora) o es clica fora.
+    item.addEventListener("focusout", function (event) {
+      if (!item.contains(event.relatedTarget)) setOpen(false);
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!item.contains(event.target)) setOpen(false);
+    });
   });
 
   // Tanca el menú amb la tecla Escape

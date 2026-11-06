@@ -508,7 +508,7 @@ const tallers = [
 ];
 
 /**
- * Projectes i col·laboracions: tallers del programa Tallers Connecta
+ * Projectes i col·laboracions: tallers del programa Connecta i Actua
  * (Fundació Salut i Comunitat), on la Griselda hi col·labora com a
  * formadora. No són tallers propis: les seves pàgines internes es mantenen
  * (no es trenquen URLs) però amb `noindex` i fora del sitemap, i la font
@@ -521,7 +521,7 @@ const connecta = [
     image: 'tothom-mobil.svg',
     url: 'https://connectaiactua.cat/taller/tothom-te-un-movil-menys-jo/',
     summary:
-      'Taller del programa Tallers Connecta de la Fundació Salut i Comunitat, per acompanyar les famílies en la decisió sobre el primer mòbil i la pressió social que hi ha al voltant.',
+      'Taller del programa Connecta i Actua, gestionat per la Fundació Salut i Comunitat, per acompanyar les famílies en la decisió sobre el primer mòbil i la pressió social que hi ha al voltant.',
   },
   {
     slug: 'tothom-mobil-menys-jo-online',
@@ -529,7 +529,7 @@ const connecta = [
     image: 'tothom-mobil.svg',
     url: 'https://connectaiactua.cat/taller/tothom-te-un-movil-menys-jo/',
     summary:
-      'Versió en línia del taller "Tothom té mòbil menys jo", dins el programa Tallers Connecta de la Fundació Salut i Comunitat, per facilitar-hi l’accés a famílies que no poden assistir-hi presencialment.',
+      'Versió en línia del taller "Tothom té mòbil menys jo", dins el programa Connecta i Actua, gestionat per la Fundació Salut i Comunitat, per facilitar-hi l’accés a famílies que no poden assistir-hi presencialment.',
   },
   {
     slug: 'parlem-pantalles',
@@ -537,7 +537,7 @@ const connecta = [
     image: 'parlem-pantalles.svg',
     url: 'https://connectaiactua.cat/taller/parlem-de-pantalles/',
     summary:
-      "Taller del programa Tallers Connecta que obre un espai de diàleg entre famílies sobre l'ús de les pantalles i com abordar-ne els reptes conjuntament.",
+      "Taller del programa Connecta i Actua que obre un espai de diàleg entre famílies sobre l'ús de les pantalles i com abordar-ne els reptes conjuntament.",
   },
   {
     slug: 'somriu-son-adolescents',
@@ -545,7 +545,7 @@ const connecta = [
     image: 'somriu.svg',
     url: 'https://connectaiactua.cat/taller/somriu-son-adolescents/',
     summary:
-      "Taller del programa Tallers Connecta que convida les famílies a mirar l'adolescència des d'una perspectiva positiva i comprensiva, reduint la conflictivitat quotidiana.",
+      "Taller del programa Connecta i Actua que convida les famílies a mirar l'adolescència des d'una perspectiva positiva i comprensiva, reduint la conflictivitat quotidiana.",
   },
   {
     slug: 'parlem-i-actua',
@@ -553,7 +553,7 @@ const connecta = [
     image: 'parlem-actua.svg',
     url: 'https://connectaiactua.cat/taller/parlem-i-actua/',
     summary:
-      'Darrer taller del cicle Tallers Connecta, orientat a consolidar els aprenentatges dels tallers anteriors i traduir-los en accions concretes dins la família.',
+      'Darrer taller del cicle de Connecta i Actua, orientat a consolidar els aprenentatges dels tallers anteriors i traduir-los en accions concretes dins la família.',
   },
 ];
 

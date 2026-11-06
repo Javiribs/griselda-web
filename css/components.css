@@ -1259,3 +1259,98 @@
   color: var(--llum-far);
   text-decoration-color: currentColor;
 }
+
+/* --- Menú: desplegable de "Tallers" i botó "Contacte" ---
+   Mòbil/tablet (calaix): el submenú es mostra sempre obert, sagnat sota
+   "Tallers" (sense botó). Portàtil i escriptori (responsive.css): desplegable
+   que s'obre amb el ratolí, amb el botó de la fletxa (clic/tacte) i amb el
+   teclat. Patró "disclosure": enllaços reals + botó amb aria-expanded. */
+.site-nav__parent {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.submenu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  color: var(--text-primary);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.submenu-toggle svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--transition-fast);
+}
+
+.submenu-toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  display: grid;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+  padding-left: var(--space-md);
+  border-left: 2px solid color-mix(in srgb, var(--llum-far) 60%, transparent);
+}
+
+.submenu__link {
+  font-family: var(--font-utility);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.submenu__link:hover {
+  color: var(--blau-mar);
+}
+
+.submenu__link[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--llum-far);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+/* "Tallers" marcat quan som a qualsevol pàgina de tallers. */
+.site-nav__item--has-sub.is-current-section > .site-nav__parent > .site-nav__link {
+  text-decoration: underline;
+  text-decoration-color: var(--llum-far);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* Contacte: crida a l'acció (botó), visible sempre. */
+.site-nav__cta {
+  font-size: 0.95rem;
+}
+
+/* Capçalera transparent sobre el hero: la fletxa en clar fins a fer scroll. */
+:is(.page-home, .page-tallers) .site-header:not(.is-solid) .submenu-toggle {
+  color: var(--text-on-dark);
+}
+
+/* Sobre mi: lloc de treball a les targetes d'experiència i títol dels àmbits. */
+.audience-card__place {
+  font-family: var(--font-utility);
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 0;
+}
+
+.ambits-title {
+  font-size: 1.15rem;
+  margin-top: var(--space-lg);
+}

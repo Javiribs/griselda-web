@@ -8,7 +8,7 @@
   <!-- SEO:START -->
   <title>Psicòloga infantil i juvenil a Girona | Griselda</title>
   <meta name="description" content="Griselda, psicòloga infantil i juvenil a Girona. Tallers i formacions per a famílies, adolescents, centres educatius i entitats." />
-  <link rel="canonical" href="https://griseldapsicologa.com/" />
+  <link rel="canonical" href="https://www.griseldapsicologa.com/" />
 
   <!-- Open Graph / xarxes socials -->
   <meta property="og:type" content="website" />
@@ -16,8 +16,8 @@
   <meta property="og:site_name" content="Griselda · Psicòloga infantil i juvenil" />
   <meta property="og:title" content="Griselda, psicòloga infantil i juvenil a Girona" />
   <meta property="og:description" content="Griselda, psicòloga infantil i juvenil a Girona. Tallers i formacions per a famílies, adolescents, centres educatius i entitats." />
-  <meta property="og:url" content="https://griseldapsicologa.com/" />
-  <meta property="og:image" content="https://griseldapsicologa.com/images/og/griselda-og.jpg" />
+  <meta property="og:url" content="https://www.griseldapsicologa.com/" />
+  <meta property="og:image" content="https://www.griseldapsicologa.com/images/og/griselda-og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Far a la costa a la posta de sol, imatge de marca de la Griselda" />
@@ -29,22 +29,46 @@
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://griseldapsicologa.com/#website",
-      "url": "https://griseldapsicologa.com/",
+      "@id": "https://www.griseldapsicologa.com/#website",
+      "url": "https://www.griseldapsicologa.com/",
       "name": "Griselda · Psicòloga infantil i juvenil",
       "inLanguage": "ca",
       "publisher": {
-        "@id": "https://griseldapsicologa.com/#griselda"
+        "@id": "https://www.griseldapsicologa.com/#griselda"
       }
     },
     {
       "@type": "Person",
-      "@id": "https://griseldapsicologa.com/#griselda",
-      "name": "Griselda",
+      "@id": "https://www.griseldapsicologa.com/#griselda",
+      "name": "Griselda Pozo Domingo",
+      "alternateName": "Griselda",
+      "givenName": "Griselda",
+      "familyName": "Pozo Domingo",
       "jobTitle": "Psicòloga infantil i juvenil",
       "description": "Psicòloga infantil i juvenil, docent i formadora a Girona. Dissenya i imparteix tallers i formacions sobre benestar emocional per a famílies, adolescents, centres educatius i entitats.",
-      "url": "https://griseldapsicologa.com/sobre-mi/",
-      "image": "https://griseldapsicologa.com/images/home/perfil_gris.webp",
+      "url": "https://www.griseldapsicologa.com/sobre-mi/",
+      "image": "https://www.griseldapsicologa.com/images/home/perfil_gris.webp",
+      "sameAs": [
+        "https://www.linkedin.com/in/griselda-pozo-domingo-a87738163/"
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Universitat Abat Oliba CEU"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Universitat Oberta de Catalunya"
+        },
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidad Internacional de Valencia"
+        }
+      ],
+      "worksFor": {
+        "@type": "EducationalOrganization",
+        "name": "FEDAC Salt"
+      },
       "identifier": {
         "@type": "PropertyValue",
         "name": "Número de col·legiada",
@@ -86,14 +110,14 @@
   <link rel="icon" href="images/icons/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#102D4A" />
 
-  <link rel="stylesheet" href="css/fonts.css?v=6813c8dd" />
-  <link rel="stylesheet" href="css/reset.css?v=6813c8dd" />
-  <link rel="stylesheet" href="css/variables.css?v=6813c8dd" />
-  <link rel="stylesheet" href="css/tokens.css?v=6813c8dd" />
-  <link rel="stylesheet" href="css/base.css?v=6813c8dd" />
-  <link rel="stylesheet" href="css/layout.css?v=6813c8dd" />
-  <link rel="stylesheet" href="css/components.css?v=6813c8dd" />
-  <link rel="stylesheet" href="css/responsive.css?v=6813c8dd" />
+  <link rel="stylesheet" href="css/fonts.css?v=f8610d78" />
+  <link rel="stylesheet" href="css/reset.css?v=f8610d78" />
+  <link rel="stylesheet" href="css/variables.css?v=f8610d78" />
+  <link rel="stylesheet" href="css/tokens.css?v=f8610d78" />
+  <link rel="stylesheet" href="css/base.css?v=f8610d78" />
+  <link rel="stylesheet" href="css/layout.css?v=f8610d78" />
+  <link rel="stylesheet" href="css/components.css?v=f8610d78" />
+  <link rel="stylesheet" href="css/responsive.css?v=f8610d78" />
 </head>
 <body class="page-home">
 
@@ -120,10 +144,22 @@
       <nav class="site-nav" id="siteNav" aria-label="Navegació principal">
         <ul class="site-nav__list">
           <li><a class="site-nav__link" href="sobre-mi/">Sobre mi</a></li>
-          <li><a class="site-nav__link" href="tallers.html">Tallers</a></li>
-          <li><a class="site-nav__link" href="tallers/families/">Famílies</a></li>
-          <li><a class="site-nav__link" href="tallers/centres-educatius/">Centres educatius</a></li>
-          <li><a class="site-nav__link" href="#contacte">Contacte</a></li>
+          <li class="site-nav__item site-nav__item--has-sub">
+            <div class="site-nav__parent">
+              <a class="site-nav__link" href="tallers.html">Tallers</a>
+              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="submenu-tallers">
+                <span class="visually-hidden">Mostra els tipus de tallers</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+            </div>
+            <ul class="submenu" id="submenu-tallers">
+              <li><a class="submenu__link" href="tallers.html">Tots els tallers</a></li>
+              <li><a class="submenu__link" href="tallers/families/">Tallers per a famílies</a></li>
+              <li><a class="submenu__link" href="tallers/centres-educatius/">Tallers per a centres educatius</a></li>
+              <li><a class="submenu__link" href="tallers/afa-ampa/">Xerrades per a AFAs i AMPAs</a></li>
+            </ul>
+          </li>
+          <li class="site-nav__item--cta"><a class="btn btn-primary btn-sm site-nav__cta" href="#contacte">Contacte</a></li>
         </ul>
       </nav>
     </div>
@@ -415,7 +451,7 @@
           </div>
 
           <!-- ---- Panell: Projectes i col·laboracions ---- -->
-          <!-- No són tallers propis: són el programa Tallers Connecta de la
+          <!-- No són tallers propis: són el programa Connecta i Actua de la
                Fundació Salut i Comunitat, en què la Griselda hi col·labora com
                a formadora. Els enllaços porten al web oficial del programa. -->
           <div class="tabs__panel" id="panel-projectes" role="tabpanel" aria-labelledby="tab-projectes" hidden>
@@ -762,7 +798,7 @@
 
           <p class="form-legal">
             <strong>Informació bàsica sobre protecció de dades.</strong>
-            Responsable: Griselda, psicòloga. Finalitat: respondre la teva consulta o sol·licitud
+            Responsable: Griselda Pozo Domingo. Finalitat: respondre la teva consulta o sol·licitud
             de taller. Legitimació: el teu consentiment. Destinataris: no se cedeixen dades a
             tercers, llevat d'obligació legal. Drets: accedir, rectificar i suprimir les dades,
             entre d'altres, tal com s'explica a la <a href="politica-privacitat/">política de
@@ -798,14 +834,14 @@
         </ul>
       </nav>
       <!-- //TODO: afegir els enllaços reals de contacte / xarxes socials quan estiguin confirmats -->
-      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.<span class="footer-legal-links"><a href="avis-legal/">Avís legal</a><a href="politica-privacitat/">Política de privacitat</a><a href="politica-galetes/">Política de galetes</a></span></p>
+      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda Pozo Domingo. Tots els drets reservats.<span class="footer-legal-links"><a href="avis-legal/">Avís legal</a><a href="politica-privacitat/">Política de privacitat</a><a href="politica-galetes/">Política de galetes</a></span></p>
     </div>
   </footer>
   <!-- FOOTER:END -->
 
-  <script src="js/nav.js?v=6813c8dd"></script>
-  <script src="js/tallers.js?v=6813c8dd"></script>
-  <script src="js/form.js?v=6813c8dd"></script>
-  <script src="js/main.js?v=6813c8dd"></script>
+  <script src="js/nav.js?v=f8610d78"></script>
+  <script src="js/tallers.js?v=f8610d78"></script>
+  <script src="js/form.js?v=f8610d78"></script>
+  <script src="js/main.js?v=f8610d78"></script>
 </body>
 </html>

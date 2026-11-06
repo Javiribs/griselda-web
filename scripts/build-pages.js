@@ -10,7 +10,7 @@
  * Què fa:
  *  1. Genera de zero (NO les editis a mà, es sobreescriuen):
  *       - tallers/<taller>.html            (7 fitxes de tallers propis)
- *       - tallers/<projecte>.html          (5 pàgines Tallers Connecta, noindex)
+ *       - tallers/<projecte>.html          (5 pàgines Connecta i Actua, noindex)
  *       - tallers/families/index.html      (landing famílies)
  *       - tallers/centres-educatius/index.html
  *       - tallers/afa-ampa/index.html
@@ -33,7 +33,7 @@ const path = require('path');
 const { tallers, connecta } = require('./content/tallers');
 
 const ROOT = path.resolve(__dirname, '..');
-const SITE_URL = 'https://griseldapsicologa.com';
+const SITE_URL = 'https://www.griseldapsicologa.com';
 const SITE_NAME = 'Griselda · Psicòloga infantil i juvenil';
 const OG_IMAGE = 'images/og/griselda-og.jpg';
 // Data de l'última revisió de contingut (per al sitemap).
@@ -114,12 +114,25 @@ function writeFile(relPath, content) {
 const PERSON = {
   '@type': 'Person',
   '@id': PERSON_ID,
-  name: 'Griselda',
+  // Nom professional complet; "Griselda" és la marca visible del web.
+  name: 'Griselda Pozo Domingo',
+  alternateName: 'Griselda',
+  givenName: 'Griselda',
+  familyName: 'Pozo Domingo',
   jobTitle: 'Psicòloga infantil i juvenil',
   description:
     'Psicòloga infantil i juvenil, docent i formadora a Girona. Dissenya i imparteix tallers i formacions sobre benestar emocional per a famílies, adolescents, centres educatius i entitats.',
   url: abs('sobre-mi/'),
   image: abs('images/home/perfil_gris.webp'),
+  sameAs: ['https://www.linkedin.com/in/griselda-pozo-domingo-a87738163/'],
+  // Formació (font: LinkedIn, facilitada per la Griselda).
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'Universitat Abat Oliba CEU' },
+    { '@type': 'CollegeOrUniversity', name: 'Universitat Oberta de Catalunya' },
+    { '@type': 'CollegeOrUniversity', name: 'Universidad Internacional de Valencia' },
+  ],
+  // Només la relació laboral actual confirmada (des de novembre de 2024).
+  worksFor: { '@type': 'EducationalOrganization', name: 'FEDAC Salt' },
   identifier: {
     '@type': 'PropertyValue',
     name: 'Número de col·legiada',
@@ -228,21 +241,38 @@ ${['fonts', 'reset', 'variables', 'tokens', 'base', 'layout', 'components', 'res
 </head>`;
 }
 
-// Menú principal. `match` indica quines pàgines marquen l'enllaç com a actiu.
-const NAV = [
-  { label: 'Sobre mi', to: 'sobre-mi/' },
-  { label: 'Tallers', to: 'tallers.html' },
-  { label: 'Famílies', to: 'tallers/families/' },
-  { label: 'Centres educatius', to: 'tallers/centres-educatius/' },
-  { label: 'Contacte', contact: true },
+// Menú principal: Sobre mi · Tallers (amb desplegable) · Contacte (CTA).
+// Les fitxes individuals NO hi surten: s'hi arriba des del catàleg, les
+// landings i els blocs de tallers relacionats.
+const TALLERS_SUBMENU = [
+  { label: 'Tots els tallers', to: 'tallers.html' },
+  { label: 'Tallers per a famílies', to: 'tallers/families/' },
+  { label: 'Tallers per a centres educatius', to: 'tallers/centres-educatius/' },
+  { label: 'Xerrades per a AFAs i AMPAs', to: 'tallers/afa-ampa/' },
 ];
 
 function headerHtml(page, link) {
-  const items = NAV.map((item) => {
-    const href = item.contact ? (page.path === '' ? '#contacte' : contactHref(link)) : link(item.to);
-    const current = !item.contact && item.to === page.path ? ' aria-current="page"' : '';
-    return `          <li><a class="site-nav__link" href="${href}"${current}>${esc(item.label)}</a></li>`;
-  }).join('\n');
+  const current = (to) => (to === page.path ? ' aria-current="page"' : '');
+  // "Tallers" queda marcat com a secció activa a qualsevol pàgina de tallers.
+  const inTallers = page.path === 'tallers.html' || page.path.startsWith('tallers/');
+  const contact = page.path === '' ? '#contacte' : contactHref(link);
+  const sub = TALLERS_SUBMENU.map(
+    (s) => `              <li><a class="submenu__link" href="${link(s.to)}"${current(s.to)}>${esc(s.label)}</a></li>`
+  ).join('\n');
+  const items = `          <li><a class="site-nav__link" href="${link('sobre-mi/')}"${current('sobre-mi/')}>Sobre mi</a></li>
+          <li class="site-nav__item site-nav__item--has-sub${inTallers ? ' is-current-section' : ''}">
+            <div class="site-nav__parent">
+              <a class="site-nav__link" href="${link('tallers.html')}"${current('tallers.html')}>Tallers</a>
+              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="submenu-tallers">
+                <span class="visually-hidden">Mostra els tipus de tallers</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+            </div>
+            <ul class="submenu" id="submenu-tallers">
+${sub}
+            </ul>
+          </li>
+          <li class="site-nav__item--cta"><a class="btn btn-primary btn-sm site-nav__cta" href="${contact}">Contacte</a></li>`;
   const brandHref = page.path === '' ? '#home' : link('');
   return `  <header class="site-header">
     <div class="site-header__inner">
@@ -289,7 +319,7 @@ function footerHtml(page, link) {
         </ul>
       </nav>
       <!-- //TODO: afegir els enllaços reals de contacte / xarxes socials quan estiguin confirmats -->
-      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.<span class="footer-legal-links"><a href="${link('avis-legal/')}">Avís legal</a><a href="${link('politica-privacitat/')}">Política de privacitat</a><a href="${link('politica-galetes/')}">Política de galetes</a></span></p>
+      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda Pozo Domingo. Tots els drets reservats.<span class="footer-legal-links"><a href="${link('avis-legal/')}">Avís legal</a><a href="${link('politica-privacitat/')}">Política de privacitat</a><a href="${link('politica-galetes/')}">Política de galetes</a></span></p>
     </div>
   </footer>`;
 }
@@ -414,6 +444,8 @@ function factsHtml(t) {
               <div><span class="taller-facts__icon" aria-hidden="true">👥</span><dt>Destinataris</dt><dd>${esc(t.facts.audience)}</dd></div>
               <div><span class="taller-facts__icon" aria-hidden="true">⏱️</span><dt>Durada</dt><dd>${esc(t.facts.duration)}</dd></div>
               <div><span class="taller-facts__icon" aria-hidden="true">📍</span><dt>Modalitat</dt><dd>${esc(t.facts.modality)}</dd></div>
+              <div><span class="taller-facts__icon" aria-hidden="true">👤</span><dt>Imparteix</dt><dd>Griselda Pozo Domingo, psicòloga infantil i juvenil${t.byline ? ', ' + esc(t.byline.charAt(0).toLowerCase() + t.byline.slice(1)) : ''}.</dd></div>
+              <div><span class="taller-facts__icon" aria-hidden="true">✉️</span><dt>Com sol·licitar-lo</dt><dd>Des del formulari de contacte, indicant el centre o l'entitat, el grup i les dates aproximades.</dd></div>
             </dl>`;
 }
 
@@ -588,7 +620,7 @@ ${
 }
 
 // ---------------------------------------------------------------------------
-// 2. Pàgines del programa Tallers Connecta (noindex)
+// 2. Pàgines del programa Connecta i Actua (noindex)
 // ---------------------------------------------------------------------------
 
 function connectaPage(c) {
@@ -600,7 +632,7 @@ function connectaPage(c) {
   ];
   const page = {
     path: pagePath,
-    title: `${c.name} · Tallers Connecta | Griselda`,
+    title: `${c.name} · Connecta i Actua | Griselda`,
     description: c.summary,
     bodyClass: 'page-taller',
     noindex: true,
@@ -610,9 +642,9 @@ function connectaPage(c) {
 ${bannerHtml(
   {
     crumbs,
-    eyebrow: 'Projectes i col·laboracions · Tallers Connecta',
+    eyebrow: 'Projectes i col·laboracions · Connecta i Actua',
     h1: c.name,
-    lead: 'Taller del programa Tallers Connecta de la Fundació Salut i Comunitat, en què col·laboro com a formadora.',
+    lead: 'Taller del programa Connecta i Actua, gestionat per la Fundació Salut i Comunitat, en què col·laboro com a formadora.',
   },
   link
 )}
@@ -624,13 +656,13 @@ ${bannerHtml(
             <img class="is-photo-contain" src="${link('images/tallers/' + c.image)}" alt="" width="158" height="150" />
           </div>
           <div class="split__content">
-            <p class="taller-page__program">Programa Tallers Connecta — Fundació Salut i Comunitat</p>
+            <p class="taller-page__program">Programa Connecta i Actua — Fundació Salut i Comunitat</p>
             <div class="prose">
               <p>${esc(c.summary)}</p>
               <p>No és un taller propi: el programa, els continguts i la manera de sol·licitar-lo depenen de la Fundació Salut i Comunitat. Al web oficial hi trobaràs tota la informació.</p>
             </div>
             <div class="taller-page__actions">
-              <a class="btn btn-primary" href="${c.url}" target="_blank" rel="noopener">Més informació a Tallers Connecta<span class="visually-hidden"> (s'obre en una pestanya nova)</span></a>
+              <a class="btn btn-primary" href="${c.url}" target="_blank" rel="noopener">Més informació a Connecta i Actua<span class="visually-hidden"> (s'obre en una pestanya nova)</span></a>
               <a class="btn btn-outline" href="${link('tallers.html')}#categoria-projectes">Tornar als tallers</a>
             </div>
           </div>
@@ -1058,6 +1090,61 @@ const COLLABORATORS = [
   ['udg.webp', 'Universitat de Girona', 1080, 1080],
 ];
 
+// Formació acadèmica (font: perfil de LinkedIn, facilitada per la Griselda).
+// Noms traduïts al català per coherència amb el web; vegeu PENDENTS.md per
+// confirmar-ne la denominació oficial.
+const FORMACIO = [
+  { title: 'Grau en Psicologia', center: 'Universitat Abat Oliba CEU', years: '2011–2018', icon: 'heart' },
+  { title: 'Màster en Psicologia Infantil i Juvenil', center: 'Universitat Oberta de Catalunya', years: '2019–2021', icon: 'users' },
+  { title: 'Màster en Professorat', center: 'Universidad Internacional de Valencia', years: '2021–2022', icon: 'school' },
+];
+
+// Experiència professional rellevant per als tallers (no s'hi inclouen
+// feines d'altres àmbits, com comerç o recursos humans).
+const EXPERIENCIA = [
+  {
+    when: 'Des de novembre de 2024',
+    title: 'Professora d’atenció a la diversitat',
+    place: 'FEDAC Salt',
+    text: 'Atenció a l’alumnat de secundària, adaptació d’activitats, avaluació, orientació i coordinació amb els equips educatius.',
+    icon: 'school',
+  },
+  {
+    when: 'Des de desembre de 2023',
+    title: 'Psicòloga',
+    place: 'Exercici autònom',
+    text: 'Acompanyament psicològic i psicoeducatiu a joves universitaris de la Universitat de Girona. Disseny i impartició de tallers en centres i espais per a joves i adults.',
+    icon: 'heart',
+  },
+  {
+    when: 'De juny a desembre de 2023',
+    title: 'Atenció i orientació a joves',
+    place: 'Centre Jove de Salut Integral, Girona',
+    text: 'Atenció, orientació i acompanyament psicoeducatiu i emocional a joves d’entre 13 i 26 anys, en coordinació amb altres recursos de la ciutat.',
+    icon: 'chat',
+  },
+  {
+    when: '2021–2023',
+    title: 'Docència i suport educatiu',
+    place: 'La Salle Catalunya',
+    text: 'Docència, suport educatiu, atenció a la diversitat, orientació i acompanyament de l’alumnat.',
+    icon: 'book',
+  },
+];
+
+const AMBITS = [
+  'Psicologia infantil i juvenil',
+  'Adolescència',
+  'Atenció a la diversitat',
+  'Orientació educativa',
+  'Acompanyament emocional',
+  'Tallers i formació',
+  "Prevenció d'addiccions",
+  'Neurodiversitat',
+  'Relacions i convivència',
+  'Famílies i centres educatius',
+];
+
 function sobreMi() {
   const pagePath = 'sobre-mi/';
   const crumbs = [
@@ -1066,9 +1153,9 @@ function sobreMi() {
   ];
   const page = {
     path: pagePath,
-    title: 'Sobre Griselda | Psicòloga infantil i juvenil a Girona',
+    title: 'Griselda Pozo Domingo | Psicòloga infantil i juvenil a Girona',
     description:
-      'Coneix la Griselda, psicòloga infantil i juvenil, docent i formadora. Psicologia, educació i benestar emocional a Girona.',
+      'Coneix Griselda Pozo Domingo, psicòloga infantil i juvenil a Girona. Experiència en educació, adolescents, orientació i tallers per a famílies.',
     bodyClass: 'page-landing',
     preloadImage: 'images/home/perfil_gris.webp',
     ld: [
@@ -1076,7 +1163,7 @@ function sobreMi() {
         '@type': 'ProfilePage',
         '@id': abs(pagePath),
         url: abs(pagePath),
-        name: 'Sobre Griselda',
+        name: 'Griselda Pozo Domingo | Psicòloga infantil i juvenil a Girona',
         inLanguage: 'ca',
         mainEntity: { '@id': PERSON_ID },
       },
@@ -1084,13 +1171,14 @@ function sobreMi() {
       breadcrumbLd(crumbs),
     ],
   };
+
   const body = (link) => `
 ${bannerHtml(
   {
     crumbs,
     eyebrow: 'Sobre mi',
-    h1: 'Soc la Griselda, psicòloga infantil i juvenil',
-    lead: 'Psicòloga infantil i juvenil · Docent · Formadora',
+    h1: 'Soc la Griselda Pozo Domingo, psicòloga infantil i juvenil',
+    lead: 'Psicòloga infantil i juvenil · Docent · Formadora · Girona',
   },
   link
 )}
@@ -1099,85 +1187,105 @@ ${bannerHtml(
       <div class="container split">
         <div class="split__inner">
           <div class="split__image">
-            <img src="${link('images/home/perfil_gris.webp')}" alt="Retrat de la Griselda, psicòloga infantil i juvenil" width="900" height="1200" fetchpriority="high" />
+            <img src="${link('images/home/perfil_gris.webp')}" alt="Retrat de Griselda Pozo Domingo, psicòloga infantil i juvenil" width="900" height="1200" fetchpriority="high" />
           </div>
           <div class="split__content">
-            <h2>Qui soc</h2>
+            <span class="section-eyebrow">Qui soc</span>
+            <h2>Psicologia i educació</h2>
             <div class="prose prose--lead">
-              <p>Soc psicòloga infantil i juvenil, docent i formadora. La meva trajectòria professional combina la psicologia, l'educació i el treball amb infants, adolescents i famílies.</p>
-              <p>Actualment compagino l'acompanyament psicològic a la Universitat de Girona amb la docència i l'orientació a secundària. També dissenyo i imparteixo tallers i formacions relacionats amb el desenvolupament, les relacions i el benestar emocional.</p>
-              <p>Entenc la psicologia i l'educació com dues disciplines que es complementen. Comprendre les persones, les seves necessitats i el seu context és essencial per construir espais d'aprenentatge i acompanyament respectuosos.</p>
+              <p>Soc la Griselda Pozo Domingo, psicòloga infantil i juvenil, docent i formadora. La meva trajectòria professional combina la psicologia, l'educació i l'acompanyament d'infants, adolescents i famílies.</p>
+              <p>He treballat a l'aula, en l'orientació educativa i en l'acompanyament emocional de joves: com a docent i en atenció a la diversitat a secundària, en un servei de salut integral per a joves de Girona i acompanyant estudiants de la Universitat de Girona.</p>
+              <p>Aquesta mirada transversal m'ha permès connectar allò que sabem sobre el desenvolupament psicològic amb les situacions reals que viuen els infants, els adolescents i les persones que els acompanyen. D'aquí neixen els tallers i les formacions que dissenyo i imparteixo.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="content-section content-section--tint">
+    <section class="content-section" id="trajectoria">
       <div class="container">
-        ${sectionHead({ eyebrow: 'Trajectòria', title: 'La meva trajectòria' })}
+        ${sectionHead({
+          eyebrow: 'Experiència',
+          title: 'La meva trajectòria professional',
+          intro: 'Psicòloga col·legiada (núm. 31.786). La meva experiència combina l’escola, l’orientació i l’acompanyament emocional de joves.',
+        })}
+        <div class="card-grid card-grid--2">
+          ${EXPERIENCIA.map((e) =>
+            infoCard({ icon: e.icon, kicker: e.when, title: e.title, html: `\n            <p class="audience-card__place">${esc(e.place)}</p>\n            <p class="audience-card__text">${esc(e.text)}</p>` })
+          ).join('\n          ')}
+        </div>
+        <h3 class="ambits-title">Àmbits en què treballo</h3>
+        ${chips(AMBITS)}
+      </div>
+    </section>
+
+    <section class="content-section" id="formacio">
+      <div class="container">
+        ${sectionHead({ eyebrow: 'Formació', title: 'Formació acadèmica' })}
         <div class="card-grid">
-          ${infoCard({ icon: 'heart', title: 'Psicòloga infantil i juvenil', text: 'Col·legiada número 31.786. Treballo amb infants, adolescents i les seves famílies des d’una mirada preventiva i educativa.' })}
-          ${infoCard({ icon: 'school', title: 'Universitat i secundària', text: "Compagino l'acompanyament psicològic a la Universitat de Girona amb la docència i l'orientació a secundària." })}
-          ${infoCard({ icon: 'users', title: 'Tallers i formacions', text: 'Dissenyo i imparteixo tallers i formacions per a famílies, alumnat, centres educatius, administracions i entitats.' })}
+          ${FORMACIO.map((f) =>
+            infoCard({ icon: f.icon, kicker: f.years, title: f.title, text: f.center })
+          ).join('\n          ')}
         </div>
       </div>
     </section>
 
-    <section id="la-meva-mirada" class="mirada content-section">
+    <section id="manera-de-treballar" class="mirada content-section">
       <div class="container">
         <div class="mirada__card">
           <div class="mirada__media">
             <img src="${link('images/home/filo1.webp')}" alt="Passarel·la de fusta que avança cap a l'horitzó" width="1600" height="739" loading="lazy" decoding="async" />
           </div>
           <div class="mirada__content">
-            <span class="section-eyebrow">Psicologia i educació</span>
-            <h2>Educar també és cuidar.</h2>
-            <p>Entenc l'educació com una de les eines més potents per promoure el benestar emocional.</p>
-            <p>Quan famílies, adolescents i professionals comparteixen un mateix llenguatge, és molt més fàcil generar canvis que perdurin en el temps.</p>
-            <p>Crec que el benestar emocional també s'educa i que els petits aprenentatges poden generar grans transformacions.</p>
+            <span class="section-eyebrow">Educar també és cuidar</span>
+            <h2>La meva manera de treballar</h2>
+            <p>Entenc la psicologia i l'educació com dues disciplines que es complementen. Quan famílies, adolescents i professionals comparteixen un mateix llenguatge, és molt més fàcil generar canvis que perdurin en el temps.</p>
+            <p>M'agrada crear experiències participatives que convidin a fer-se preguntes, compartir mirades i descobrir noves eines per cuidar-nos i relacionar-nos millor.</p>
+            <p>No crec en receptes universals: adapto cada taller a les necessitats del grup, perquè crec que el benestar emocional també s'educa.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="tallers-i-formacions">
+      <div class="container">
+        ${sectionHead({
+          eyebrow: 'Tallers i formacions',
+          title: 'Tallers i formacions',
+          intro: [
+            'Dissenyo i imparteixo tallers per a famílies, per a alumnat de primària i secundària i per a centres, AFAs, ajuntaments i entitats. Hi treballo l’adolescència, les habilitats parentals, l’ús de pantalles, la prevenció d’addiccions, la neurodiversitat, la sexualitat i la gestió de conflictes.',
+            'També formo part de l’equip de formadores del programa Connecta i Actua, de l’Agència de Salut Pública de Catalunya i gestionat per la Fundació Salut i Comunitat, amb tallers de prevenció per a famílies com «Tothom té un mòbil menys jo!».',
+          ],
+        })}
+        <div class="card-grid">
+          <a class="audience-card" href="${link(LANDINGS.families.path)}">
+            <span class="audience-card__icon" aria-hidden="true">${ICONS.users}</span>
+            <span class="audience-card__title">Per a famílies</span>
+            <span class="audience-card__text">Adolescència, comunicació, límits i prevenció d'addiccions.</span>
+          </a>
+          <a class="audience-card" href="${link(LANDINGS.centres.path)}">
+            <span class="audience-card__icon" aria-hidden="true">${ICONS.school}</span>
+            <span class="audience-card__title">Per a centres educatius</span>
+            <span class="audience-card__text">Tallers a l'aula per a primària i secundària.</span>
+          </a>
+          <a class="audience-card" href="${link(LANDINGS.afa.path)}">
+            <span class="audience-card__icon" aria-hidden="true">${ICONS.chat}</span>
+            <span class="audience-card__title">Per a AFAs i AMPAs</span>
+            <span class="audience-card__text">Xerrades i tallers per a les famílies de l'escola.</span>
+          </a>
+        </div>
+        <div class="link-row">
+          <a class="text-link" href="${link('tallers.html')}">Tots els tallers</a>
         </div>
       </div>
     </section>
 
     <section class="content-section">
-      <div class="container cols-2">
-        <div>
-          ${sectionHead({
-            eyebrow: 'Tallers i formacions',
-            title: 'Sobre què treballo',
-            intro: 'Dissenyo i imparteixo tallers i formacions sobre:',
-          })}
-          ${chips(['Adolescència', 'Habilitats parentals', 'Ús de pantalles', 'Addiccions', 'Neurodiversitat', 'Sexualitat', 'Gestió de conflictes'])}
-          <div class="link-row">
-            <a class="text-link" href="${link('tallers.html')}">Veure tots els tallers</a>
-            <a class="text-link" href="${link(LANDINGS.families.path)}">Per a famílies</a>
-            <a class="text-link" href="${link(LANDINGS.centres.path)}">Per a centres educatius</a>
-          </div>
-        </div>
-        <div>
-          ${sectionHead({
-            eyebrow: 'Manera de treballar',
-            title: 'La meva manera de treballar',
-            intro: [
-              "M'agrada crear experiències participatives que convidin a fer-se preguntes, compartir mirades i descobrir noves eines per cuidar-nos i relacionar-nos millor.",
-              'No crec en receptes universals ni en solucions màgiques. Per això adapto cada taller a les necessitats de cada grup, fent de la participació, el diàleg i la reflexió una part essencial de l’aprenentatge.',
-            ],
-          })}
-        </div>
-      </div>
-    </section>
-
-    <section class="content-section content-section--tint">
       <div class="container">
         ${sectionHead({
           eyebrow: 'Xarxa de confiança',
           title: 'Projectes i col·laboracions',
-          intro: [
-            'A més dels meus tallers, col·laboro com a formadora amb diferents entitats i institucions. Actualment imparteixo els Tallers Connecta de la Fundació Salut i Comunitat, un programa de prevenció i promoció de la salut adreçat a famílies i centres educatius.',
-            'Aquestes són algunes de les entitats i institucions amb què he col·laborat professionalment:',
-          ],
+          intro: 'Aquestes són algunes de les entitats i institucions amb què he col·laborat professionalment:',
         })}
         <ul class="logo-grid">
           ${COLLABORATORS.map(
@@ -1187,6 +1295,7 @@ ${bannerHtml(
         </ul>
         <div class="link-row">
           <a class="text-link" href="${link('tallers.html')}#categoria-projectes">Projectes i col·laboracions en educació i prevenció</a>
+          <a class="text-link" href="https://www.linkedin.com/in/griselda-pozo-domingo-a87738163/" target="_blank" rel="noopener me">Perfil a LinkedIn<span class="visually-hidden"> (s'obre en una pestanya nova)</span></a>
         </div>
       </div>
     </section>
@@ -1194,7 +1303,7 @@ ${bannerHtml(
     <section class="content-section">
       <div class="container">
         <div class="prose">
-          <h2>Fora de la feina</h2>
+          <h2>Més enllà de la professió</h2>
           <p>La natura és el meu refugi. Veure l'horitzó, caminar amb el meu husky i regalar-me espais amb la meva gent em permet reconnectar amb mi mateixa i continuar cultivant la curiositat i la sensibilitat que també donen sentit a la meva manera d'acompanyar els altres.</p>
         </div>
       </div>
@@ -1235,11 +1344,11 @@ ${bannerHtml(
 const pending = (t) => `<span class="legal-pending">[${esc(t)}]</span>`;
 
 const TITULAR = {
-  name: pending('Nom i cognoms'),
+  name: 'Griselda Pozo Domingo',
   nif: pending('NIF'),
   address: pending('Adreça professional'),
   email: pending('Correu electrònic de contacte'),
-  degree: pending("Titulació (p. ex. Grau en Psicologia) i universitat que l'ha expedit"),
+  degree: 'Grau en Psicologia per la Universitat Abat Oliba CEU',
   college: pending('Col·legi professional (p. ex. Col·legi Oficial de la Psicologia de Catalunya)'),
   collegeNumber: '31.786',
   formService: pending("Servei d'enviament del formulari"),
@@ -1325,11 +1434,11 @@ function legalPages() {
       [
         '5. Propietat intel·lectual i industrial',
         `<p>Els textos, el disseny i els elements gràfics propis d'aquest web pertanyen a la titular o s'utilitzen amb autorització. No se'n permet la reproducció, distribució o transformació amb finalitats comercials sense autorització prèvia.</p>
-          <p>Els logotips de les entitats i institucions col·laboradores, i els continguts del programa Tallers Connecta, són propietat dels seus titulars respectius i s'hi mostren només a títol informatiu.</p>`,
+          <p>Els logotips de les entitats i institucions col·laboradores, i els continguts del programa Connecta i Actua, són propietat dels seus titulars respectius i s'hi mostren només a títol informatiu.</p>`,
       ],
       [
         '6. Enllaços a altres webs',
-        `<p>El web pot incloure enllaços a llocs de tercers (per exemple, el web del programa Tallers Connecta). La titular no es fa responsable del contingut ni de les polítiques d'aquests llocs, que es regeixen per les seves pròpies condicions.</p>`,
+        `<p>El web pot incloure enllaços a llocs de tercers (per exemple, el web del programa Connecta i Actua). La titular no es fa responsable del contingut ni de les polítiques d'aquests llocs, que es regeixen per les seves pròpies condicions.</p>`,
       ],
       [
         '7. Responsabilitat',
@@ -1421,7 +1530,7 @@ function legalPages() {
       ],
       [
         'Enllaços a altres webs',
-        `<p>Si accedeixes a webs de tercers a través dels enllaços d'aquest lloc (per exemple, el del programa Tallers Connecta), aquests poden utilitzar les seves pròpies galetes, que es regeixen per les seves polítiques.</p>`,
+        `<p>Si accedeixes a webs de tercers a través dels enllaços d'aquest lloc (per exemple, el del programa Connecta i Actua), aquests poden utilitzar les seves pròpies galetes, que es regeixen per les seves polítiques.</p>`,
       ],
       [
         'Canvis',
@@ -1544,7 +1653,7 @@ function sitemap() {
     'sitemap.xml',
     `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Generat per scripts/build-pages.js. Només hi consten les pàgines
-     canòniques i indexables (no les de Tallers Connecta, amb noindex). -->
+     canòniques i indexables (no les de Connecta i Actua, amb noindex). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${body}
 </urlset>

@@ -15,8 +15,8 @@
   <meta property="og:site_name" content="Griselda · Psicòloga infantil i juvenil" />
   <meta property="og:title" content="Política de galetes | Griselda" />
   <meta property="og:description" content="Informació sobre l'ús de galetes (cookies) al web griseldapsicologa.com." />
-  <meta property="og:url" content="https://griseldapsicologa.com/politica-galetes/" />
-  <meta property="og:image" content="https://griseldapsicologa.com/images/og/griselda-og.jpg" />
+  <meta property="og:url" content="https://www.griseldapsicologa.com/politica-galetes/" />
+  <meta property="og:image" content="https://www.griseldapsicologa.com/images/og/griselda-og.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Far a la costa a la posta de sol, imatge de marca de la Griselda" />
@@ -31,14 +31,14 @@
   <link rel="icon" href="../images/icons/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#102D4A" />
 
-  <link rel="stylesheet" href="../css/fonts.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/reset.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/variables.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/tokens.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/base.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/layout.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/components.css?v=6813c8dd" />
-  <link rel="stylesheet" href="../css/responsive.css?v=6813c8dd" />
+  <link rel="stylesheet" href="../css/fonts.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/reset.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/variables.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/tokens.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/base.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/layout.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/components.css?v=f8610d78" />
+  <link rel="stylesheet" href="../css/responsive.css?v=f8610d78" />
 </head>
 <body class="page-landing">
 
@@ -65,10 +65,22 @@
       <nav class="site-nav" id="siteNav" aria-label="Navegació principal">
         <ul class="site-nav__list">
           <li><a class="site-nav__link" href="../sobre-mi/">Sobre mi</a></li>
-          <li><a class="site-nav__link" href="../tallers.html">Tallers</a></li>
-          <li><a class="site-nav__link" href="../tallers/families/">Famílies</a></li>
-          <li><a class="site-nav__link" href="../tallers/centres-educatius/">Centres educatius</a></li>
-          <li><a class="site-nav__link" href="../#contacte">Contacte</a></li>
+          <li class="site-nav__item site-nav__item--has-sub">
+            <div class="site-nav__parent">
+              <a class="site-nav__link" href="../tallers.html">Tallers</a>
+              <button class="submenu-toggle" type="button" aria-expanded="false" aria-controls="submenu-tallers">
+                <span class="visually-hidden">Mostra els tipus de tallers</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+            </div>
+            <ul class="submenu" id="submenu-tallers">
+              <li><a class="submenu__link" href="../tallers.html">Tots els tallers</a></li>
+              <li><a class="submenu__link" href="../tallers/families/">Tallers per a famílies</a></li>
+              <li><a class="submenu__link" href="../tallers/centres-educatius/">Tallers per a centres educatius</a></li>
+              <li><a class="submenu__link" href="../tallers/afa-ampa/">Xerrades per a AFAs i AMPAs</a></li>
+            </ul>
+          </li>
+          <li class="site-nav__item--cta"><a class="btn btn-primary btn-sm site-nav__cta" href="../#contacte">Contacte</a></li>
         </ul>
       </nav>
     </div>
@@ -95,7 +107,7 @@
           <p>Cap. Aquest web no instal·la galetes (cookies) pròpies ni de tercers: no utilitza eines d'analítica, de publicitat ni de xarxes socials, i les tipografies es carreguen des del mateix servidor, sense serveis externs.</p>
           <p>Per això no es mostra cap avís ni bàner de galetes.</p>
           <h2>Enllaços a altres webs</h2>
-          <p>Si accedeixes a webs de tercers a través dels enllaços d'aquest lloc (per exemple, el del programa Tallers Connecta), aquests poden utilitzar les seves pròpies galetes, que es regeixen per les seves polítiques.</p>
+          <p>Si accedeixes a webs de tercers a través dels enllaços d'aquest lloc (per exemple, el del programa Connecta i Actua), aquests poden utilitzar les seves pròpies galetes, que es regeixen per les seves polítiques.</p>
           <h2>Canvis</h2>
           <p>Si en el futur s'incorporen galetes no necessàries (per exemple, d'analítica), s'actualitzarà aquesta política i es demanarà el teu consentiment abans d'instal·lar-les. Per a més informació sobre les teves dades, consulta la <a href="../politica-privacitat/">política de privacitat</a>.</p>
         </div>
@@ -122,12 +134,12 @@
         </ul>
       </nav>
       <!-- //TODO: afegir els enllaços reals de contacte / xarxes socials quan estiguin confirmats -->
-      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda. Tots els drets reservats.<span class="footer-legal-links"><a href="../avis-legal/">Avís legal</a><a href="../politica-privacitat/">Política de privacitat</a><a href="../politica-galetes/">Política de galetes</a></span></p>
+      <p class="site-footer__legal">&copy; <span id="currentYear">2026</span> Griselda Pozo Domingo. Tots els drets reservats.<span class="footer-legal-links"><a href="../avis-legal/">Avís legal</a><a href="../politica-privacitat/">Política de privacitat</a><a href="../politica-galetes/">Política de galetes</a></span></p>
     </div>
   </footer>
   <!-- FOOTER:END -->
 
-  <script src="../js/nav.js?v=6813c8dd" defer></script>
-  <script src="../js/main.js?v=6813c8dd" defer></script>
+  <script src="../js/nav.js?v=f8610d78" defer></script>
+  <script src="../js/main.js?v=f8610d78" defer></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 # Griselda — Web (psicòloga infantil i juvenil)
 
 Web estàtica en HTML/CSS/JS pur, sense frameworks. Contingut en català.
-Domini definitiu: **https://griseldapsicologa.com** (canonicals, Open Graph,
+Domini definitiu: **https://www.griseldapsicologa.com** (canonicals, Open Graph,
 JSON-LD i sitemap ja hi apunten).
 
 ## Pàgines i intenció de cerca
@@ -45,7 +45,7 @@ modalitat, FAQ, relacionats), posa la imatge a `images/tallers/` en WebP
 relacionats). Només cal afegir a mà la seva targeta als carrusels de
 `index.html` i `tallers.html`.
 
-Dades pendents de confirmar: vegeu **`PENDENTS.md`**.
+Dades pendents de confirmar: vegeu **`PENDENTS.md`**. Publicació al domini definitiu: **`DESPLEGAMENT.md`**.
 
 ## Estructura del projecte
 
